@@ -9,14 +9,14 @@ if (strpos($_SERVER['HTTP_HOST'], 'ddev.local') !== false) {
     define('WP_HOME', 'https://wordpress-muster.ddev.local');
 }
 // local instance - without DDEV
-elseif (strpos($_SERVER['HTTP_HOST'], 'vue-test-wordpress.test') !== false) {
+elseif (strpos($_SERVER['HTTP_HOST'], 'diploma-thesis.test') !== false) {
 
     define('DB_NAME', 'ukf_diplomoka');
     define('DB_USER', 'root');
     define('DB_PASSWORD', '');
     define('DB_HOST', 'localhost');
     define('WP_DEBUG', true);
-    define('WP_HOME', 'http://vue-test-wordpress.test');
+    define('WP_HOME', 'http://diploma-thesis.test');
 }
 //// dwtest preview
 //elseif (strpos($_SERVER['HTTP_HOST'], 'dwtest.at') !== false) {

@@ -2,12 +2,24 @@
     constructor() {
         this.inProgress = true;
         this.winner = null; // O or X
-        this.currentTurn = Game.O; // O or X
+        this.currentTurn = this.generateRandomNumber();
         this.movesMade = 0;
         this.squares = new Array(9).fill().map(s => new Square() );
 
         this.winnersPlayerOne = 0;
         this.winnersPlayerTwo = 0;
+    }
+
+    generateRandomNumber() {
+        var number = Math.floor((Math.random() * 2) + 1);
+
+        if(number === 1) {
+            return Game.O;
+        }
+
+        else {
+            return Game.X;
+        }
     }
 
     makeMove(i) {
@@ -30,7 +42,7 @@
 
         this.inProgress = true;
         this.winner = null; // O or X
-        this.currentTurn = Game.O; // O or X
+        this.currentTurn = this.generateRandomNumber();
         this.movesMade = 0;
         this.squares = new Array(9).fill().map(s => new Square() );
     }
