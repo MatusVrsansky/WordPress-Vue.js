@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="{{site.language}}">
+  <head>
+    <meta charset="{{site.charset}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+
+    {{wp_head}}
+  </head>
+
+  <body class="{{body_class}}">
+    <div id="">
+      <!--[if lt IE 9]>
+        <p class="unsupported-browser text-center">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>.</p>
+      <![endif]-->
+      <noscript>
+          <p class="text-center">For full functionality of this page it is necessary to enable JavaScript. Here are the <a href="http://www.enable-javascript.com" target="_blank"> instructions how to enable JavaScript in your web browser</a></p>
+      </noscript>
+
+      {% filter secureContentEmails %}
+        {% include 'partials/header.twig' %}
+
+        {% block content %}{% endblock %}
+
+
+        <div class="container">
+          <div id="game-view">
+            <div class="">
+              <p>Výhry hráč 1( 0 ): <% activeGame.winnersPlayerOne %> </p>
+              <p>Výhry hráč 2:( X ): <% activeGame.winnersPlayerTwo %> </p>
+            </div>
+            <div id="game-view-info">
+              <% infoMessage %>
+            </div>
+            <div id="game-view-squares">
+              <div
+                v-for="(square, i) in squares"
+                @click="activeGame.makeMove(i)"
+                v-bind:class="{ highlighted: square.isHighlighted }"
+                class="game-view-square">
+                <% square.value %>
+              </div>
+            </div>
+            <button @click.prevent="activeGame.resetValues()" style="display: block">Este raz</button>
+          </div>
+          <div id="winner-information" style="display: none">
+            <p>Gratulujeme, vyhrali ste nad súperom <strong>X</strong> v pomere <strong>5:3</strong></p>
+            <p>Mozete ist odpovedat na otazky</p>
+            <a href="/questions" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Primary link</a>
+          </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+        <script type="text/javascript">
+
+
+            let activeGame = new Game();
+
+            new Vue({
+                el: "#game-view",
+                data: activeGame,
+                delimiters: ['<%', '%>'],
+                computed: {
+                    infoMessage: function () {
+                        if(this.inProgress) {
+                            return 'Na rade je ' + this.currentTurn;
+                        }
+
+                        if(this.winner) {
+
+                            if(this.winner === 'O') {
+                                this.winnersPlayerOne++;
+
+                            }
+
+                            else {
+                                this.winnersPlayerTwo++;
+                            }
+
+                            return this.winner + ' vyhráva';
+                        }
+
+                        if(!this.winner && !this.inProgress) {
+                            return 'Nevyhráva nikto';
+                        }
+                    }
+                }
+            });
+        </script>
+
+
+        {% include 'partials/footer.twig' %}
+
+        <div class="cookie-infobox">
+          <div class="container">{{ getOption('theme_settings__cookie_info_box__text') }}</div>
+        </div>
+      {% endfilter %}
+
+    </div>
+    {{wp_footer}}
+    <script src="/wp-content/themes/template/resources/Public/Js/app.js"></script>
+  </body>
+</html>

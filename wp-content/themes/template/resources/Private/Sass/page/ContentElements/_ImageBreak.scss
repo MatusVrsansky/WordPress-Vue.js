@@ -1,0 +1,64 @@
+.ce-image-break {
+  align-items: center;
+  display: flex;
+  margin-bottom: $ce-margin-bottom-default;
+  min-height: rem(700);
+  position: relative;
+
+  @include media-breakpoint-down(md) {
+    background-color: $image-teaser-background;
+    min-height: rem(350);
+
+    &-image, &-content {
+      display: none;
+    }
+
+    .ce-image-break-content-responsive {
+      display: block;
+      padding: 1.6rem 1rem;
+    }
+  }
+
+  .ce-image-break-content-responsive {
+    display: none;
+    color: $black;
+  }
+
+  &--subpage {
+    padding: 9rem 0;
+
+    svg {
+      position: absolute;
+      bottom: 9rem;
+    }
+  }
+
+  h2 {
+    font-weight: 600;
+    line-height: rem(54);
+  }
+
+  &-content {
+    color: $white;
+  }
+
+  &-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(51,51,51,.4);
+    }
+  }
+}

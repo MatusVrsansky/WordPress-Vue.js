@@ -1,0 +1,20 @@
+<div class="fce-image-break" data-template="fce/image_break.twig">
+  <div class="container">
+    {% if fields.shrinked %}
+      <div class="col-xl-8 offset-xl-2">
+        <img class="img-fluid d-block mx-auto" src="{{TimberImage(fields.image)|resize(985)}}" alt="{{TimberImage(fields.image).alt}}">
+      </div>
+    {% else %}
+      <img class="img-fluid" src="{{TimberImage(fields.image)|resize(1182)}}" alt="{{TimberImage(fields.image).alt}}">
+    {% endif %}
+    {% if fields.title %}
+      <h1 class="text-dark">{{ fields.title }}</h1>
+    {% endif %}
+    {% if fields.text %}
+      <p>{{ fields.text }}</p>
+    {% endif %}
+    {% if fields.button_link %}
+      <a href="{{ fields.button_link }}">{{ fields.button_title ? fields.button_title : 'Default title' }}</a>
+    {% endif %}
+  </div>
+</div>

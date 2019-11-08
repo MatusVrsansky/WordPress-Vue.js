@@ -1,0 +1,24 @@
+{% if fields.title or fields.faq_categories %}
+  <div class="fce-faq" data-template="fce/faq.twig">
+    <div class="container mb-4">
+      {% if fields.title %}
+        <h2>{{fields.title}}</h2>
+      {% endif %}
+      {% if fields.faq_categories %}
+        {% for category in fields.faq_categories %}
+          <h3>Category: {{ category.name }}</h3>
+          {% set taxonomy_posts = function('getTaxonomyPosts', category.slug) %}
+          {% if taxonomy_posts.posts %}
+            <h4 class="text-success">Posts</h4>
+            {% for post in taxonomy_posts.posts %}
+            <p>{{ post.post_title }}</p>
+            <p>{{ post.text }}</p>
+          {% endfor %}
+          {% else %}
+            <h4 class="text-danger">No posts yet in this category!!!</h4>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

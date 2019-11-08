@@ -1,0 +1,33 @@
+.ce-downloads {
+  margin-bottom: $ce-margin-bottom-default;
+
+  &-item {
+    border-bottom: 1px solid $secondary;
+
+    &:first-child {
+      border-top: 1px solid $secondary;
+    }
+
+    &-content {
+      padding: 1rem;
+    }
+
+    &-desc {
+      font-size: $font-size-sm;
+    }
+
+    &-file-info {
+      font-size: $font-size-xs;
+    }
+
+    &-icon {
+      padding: 2rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  &-link {
+    align-items: center;
+    display: flex;
+  }
+}

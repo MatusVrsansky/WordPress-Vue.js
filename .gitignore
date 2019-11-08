@@ -1,0 +1,6 @@
+.idea
+!wp-content/uploads/index.php
+!wp-content/uploads/2019/09/dummy-neourban1.jpg
+wp-content/uploads/*
+.phploy
+/node_modules

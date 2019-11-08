@@ -1,0 +1,24 @@
+// Info-panel
+
+.info-panel {
+  background: $info-panel-bg;
+  bottom: 0;
+  color: $info-panel-color;
+  font-size: $info-panel-font-size;
+  left: 0;
+  padding: $info-panel-padding-y $info-panel-padding-x;
+  position: fixed;
+  right: 0;
+  z-index: $zindex-info-panel;
+  &--unsupported-browser {
+    display: block;
+    z-index: $zindex-unsupported-browser;
+  }
+  a {
+    color: inherit;
+    text-decoration: underline;
+    &:hover {
+      color: $info-panel-link-color-hover;
+    }
+  }
+}

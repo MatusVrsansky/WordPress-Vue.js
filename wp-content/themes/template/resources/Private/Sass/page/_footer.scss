@@ -1,0 +1,47 @@
+// =============================================================================
+// footer.scss - Footer styles
+// ========================================================================== */
+footer,
+.footer {
+ /* background: $footer-bg;
+  box-shadow: $footer-box-shadow;
+  margin-top: $footer-margin-top;
+  padding: $footer-padding-y $footer-padding-x;*/
+  margin-bottom: rem(125);
+  h2 {
+    line-height: rem(50); // due to different type of font
+  }
+
+  &-message {
+    margin-bottom: rem(200);
+
+    &-title {
+      margin-bottom: rem(50);
+    }
+  }
+
+  &-scroll-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: rem(71);
+
+    svg {
+      fill: #ff1d25;
+      transform: rotate(-90deg);
+      margin-right: rem(5);
+      width: rem(23);
+      height: rem(23);
+    }
+
+    span {
+        font-family: nimbus-sans, sans-serif;
+        font-style: normal;
+        font-size: rem(35);
+        font-weight: 400;
+        line-height: rem(47);
+        color: #ff1d25;
+    }
+  }
+}

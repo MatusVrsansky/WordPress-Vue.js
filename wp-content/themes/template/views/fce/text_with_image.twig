@@ -1,0 +1,27 @@
+<div class="fce-text-with-image" data-template="fce/text-with-image.twig">
+	<div class="container">
+		<div class="row">
+			{% if fields.image_position != 'right' %}
+				{% set addFirstClass = ' order-lg-2' %}
+				{% set addSecondClass = ' order-lg-1' %}
+			{% endif %}
+      {% if fields.image_position == 'right' %}
+        {% set addTextPaddingClass = ' text-left-padding' %}
+        {% else %}
+          {% set addTextPaddingClass = ' text-right-padding' %}
+      {% endif %}
+			<div class="col-lg-6{{addFirstClass}}">
+        <div class="fce-text-with-image-text {{addTextPaddingClass}}">
+          {{fields.text}}
+        </div>
+			</div>
+      <div class="col-lg-6{{addSecondClass}}">
+        <div class="fce-text-with-image-image">
+          {% if fields.image %}
+            <img class="img-fluid" src="{{TimberImage(fields.image)|resize(702,467)}}" alt="{{TimberImage(fields.image).alt}}" />
+          {% endif %}
+        </div>
+      </div>
+		</div>
+	</div>
+</div>

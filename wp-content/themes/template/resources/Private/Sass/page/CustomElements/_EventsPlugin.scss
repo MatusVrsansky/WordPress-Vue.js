@@ -1,0 +1,31 @@
+.events-plugin {
+
+  h2 {
+    font-weight: 600;
+    line-height: rem(54);
+  }
+  h4 {
+    color: $black;
+  }
+  &-teaser {
+    transition: background-color .3s ease, color .3s ease, border .3s;
+    position: relative;
+    height: 100%;
+
+    &-content {
+        padding: rem(36) rem(30) rem(28) rem(30);
+        border: 1px solid $gray-500;
+        border-bottom-style: none;
+
+        &-title {
+          color: $black;
+        }
+
+        &-svg {
+          width: 100%;
+          height: auto;
+          fill: $secondary;
+        }
+    }
+  }
+}

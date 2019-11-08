@@ -1,0 +1,92 @@
+{% if fields.tabs or fields.products %}
+  <div class="fce-infotabs" data-template="fce/infotabs.twig">
+    <div class="container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#left_tab">{{fields.tabs.left_tab.title}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#right_tab">{{fields.tabs.right_tab.title}}</a>
+          </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div id="left_tab" class="container tab-pane active"><br>
+            {{fields.tabs.left_tab.first_element}}
+            {{fields.tabs.left_tab.second_element}}
+            {{fields.tabs.left_tab.third_element}}
+
+            {% for product in fields.tabs.left_tab.products %}
+                <div class="col-sm-6 col-lg-4">
+                  {{ product.post_title }}
+                  <br>
+                  {{ product.interval }}
+                  <br>
+                  {% if product.type == "download" %}
+                    <p>{{ product.max_download_speed }} Max download speed</p>
+                  {% else %}
+                    <p>{{ product.max_upload_size }} Verfügbarer Cloud Speicherplatz</p>
+                  {% endif %}
+
+                  {% set price_list = function('getPostById', product.id) %}
+
+                  {% for price in price_list %}
+                    {% if price.new_price %}
+                      <del> € {{ price.old_price }}</del> {{ price.text }}
+                      <br>
+                      nur € {{ price.new_price }}
+                    {% else %}
+                      € {{ price.old_price }} {{ price.text }}
+                    {% endif %}
+                    <br>
+                  {% endfor %}
+                  <br>
+                </div>
+            {% endfor %}
+
+            {% if fields.tabs.left_tab.button_link %}
+              <a href="{{ fields.tabs.left_tab.button_link }}">{{ fields.tabs.left_tab.button_text }}</a>
+            {% endif %}
+          </div>
+          <div id="right_tab" class="container tab-pane fade"><br>
+            {{fields.tabs.right_tab.first_element}}
+            {{fields.tabs.right_tab.second_element}}
+            {{fields.tabs.right_tab.third_element}}
+
+            {% for product in fields.tabs.right_tab.products %}
+                <div class="col-sm-6 col-lg-4">
+                  {{ product.post_title }}
+                  <br>
+                  {{ product.interval }}
+                  <br>
+                  {% if product.type == "download" %}
+                    <p>{{ product.max_download_speed }} Max download speed</p>
+                  {% else %}
+                    <p>{{ product.max_upload_size }} Verfügbarer Cloud Speicherplatz</p>
+                  {% endif %}
+
+                  {% set price_list = function('getPostById', product.id) %}
+
+                  {% for price in price_list %}
+                    {% if price.new_price %}
+                      <del> € {{ price.old_price }}</del> {{ price.text }}
+                      <br>
+                      nur € {{ price.new_price }}
+                    {% else %}
+                      € {{ price.old_price }} {{ price.text }}
+                    {% endif %}
+                    <br>
+                  {% endfor %}
+                  <br>
+                </div>
+            {% endfor %}
+
+            {% if fields.tabs.right_tab.button_link %}
+              <a href="{{ fields.tabs.right_tab.button_link }}">{{ fields.tabs.right_tab.button_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+    </div>
+  </div>
+{% endif %}

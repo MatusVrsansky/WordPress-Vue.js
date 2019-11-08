@@ -1,0 +1,45 @@
+.promo-teaser {
+  align-items: center;
+  display: flex;
+  margin-bottom: rem(40);
+  min-height: rem(550);
+  position: relative;
+  $selector: &;
+  background: $white;
+
+
+
+  &-wrapper {
+    background-color: $teaser-image-wrapper-background;
+    padding: 3.75rem 0;
+    margin-bottom: rem(115);
+
+    @include media-breakpoint-down(md) {
+      //.container {
+      //    display: none;
+      //}
+    }
+
+    h2:first-of-type {
+      font-weight: 600;
+      line-height: rem(54);
+      padding-bottom: 7.2rem;
+    }
+
+    h3 {
+      line-height: rem(36);
+    }
+  }
+
+  &-content {
+  }
+
+  &-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+}

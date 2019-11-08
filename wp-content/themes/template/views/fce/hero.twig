@@ -1,0 +1,15 @@
+{% if fields.image or fields.title or fields.text or fields.button_link %}
+  <div class="fce-hero" style="background-image: url({{TimberImage(fields.image)|resize(1920)}}); padding: 50px" data-template="fce/hero.twig">
+    <div class="container">
+      {% if fields.title %}
+        <h1 class="text-dark">{{fields.title}}</h1>
+      {% endif %}
+      {% if fields.text %}
+        <p>{{fields.text}}</p>
+      {% endif %}
+      {% if fields.button_link %}
+        <a href="{{fields.button_link}}" class="btn btn-primary">{{fields.button_title}}</a>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

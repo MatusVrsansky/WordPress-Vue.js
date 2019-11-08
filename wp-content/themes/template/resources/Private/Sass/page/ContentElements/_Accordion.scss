@@ -1,0 +1,70 @@
+.ce-accordion {
+  margin-bottom: $ce-margin-bottom-default;
+
+  .el-collapse {
+    &-item {
+      border-bottom: 1px solid $secondary;
+
+      &:first-child {
+        border-top: 1px solid $secondary;
+      }
+
+      &__arrow {
+        &:before,
+        &:after {
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 1rem;
+          content: "";
+          height: 100%;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transition: $transition-base;
+          width: 3rem;
+        }
+
+        &:before {
+          background-image: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg class='icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M13.5,7.27a.49.49,0,0,1,.36.14.52.52,0,0,1,.14.36v1a.49.49,0,0,1-.14.36.45.45,0,0,1-.36.14H2.5a.45.45,0,0,1-.36-.14A.49.49,0,0,1,2,8.77v-1a.52.52,0,0,1,.14-.36.49.49,0,0,1,.36-.14Z' fill='#{$secondary}' /%3E%3Cpath d='M9,13.5a.48.48,0,0,1-.5.5h-1a.48.48,0,0,1-.5-.5V2.5A.48.48,0,0,1,7.5,2h1a.48.48,0,0,1,.5.5Z' fill='#{$secondary}' /%3E%3C/svg%3E"), "#", "%23");
+          opacity: 1;
+        }
+
+        &:after {
+          background-image: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctitle%3Eminus%3C/title%3E%3Cpath d='M2.5,9A.48.48,0,0,1,2,8.54v-1A.48.48,0,0,1,2.46,7h11a.48.48,0,0,1,.5.46v1a.48.48,0,0,1-.46.5H2.5Z' fill='#{$secondary}' /%3E%3C/svg%3E"), "#", "%23");
+          opacity: 0;
+        }
+
+        &.is-active {
+          transform: none;
+
+          &:before {
+            opacity: 0;
+          }
+
+          &:after {
+            opacity: 1;
+          }
+        }
+      }
+
+      &__content {
+        padding-top: 1rem;
+        padding-bottom: 3rem;
+      }
+
+      &__header {
+        background-color: $white;
+        cursor: pointer;
+        padding: 1rem .5rem;
+        position: relative;
+        transition: $transition-base;
+        @include hover-focus-active() {
+          background-color: $gray-500;
+        }
+      }
+    }
+  }
+  section {
+    margin-bottom: 0;
+  }
+}

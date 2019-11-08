@@ -1,0 +1,30 @@
+.image-break-two {
+  background-color: $image-break-two-background;
+
+  &-content {
+    padding: rem(60) 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &-image {
+      position: relative;
+      background-color: $white;
+      img {
+        width: 100%;
+      }
+
+      &-text {
+        position: absolute;
+        top: 20%;
+        left: 9%;
+
+        &-title {
+          padding-bottom: 8.525rem;
+          margin: 0;
+        }
+      }
+    }
+  }
+}

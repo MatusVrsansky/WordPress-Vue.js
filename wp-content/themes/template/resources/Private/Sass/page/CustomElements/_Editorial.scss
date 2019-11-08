@@ -1,0 +1,39 @@
+.editorial {
+  color: $white;
+  background-position: 50%;
+  height: 100%;
+  position: absolute;
+  background-repeat: no-repeat;
+  width: 100%;
+  background-size: 100% 100%;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  &-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &-text {
+      max-width: rem(680);
+      position: absolute;
+      top: 11%;
+    }
+
+    &-title {
+      margin-bottom: 3.1125rem;
+    }
+  }
+}

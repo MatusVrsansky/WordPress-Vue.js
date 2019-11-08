@@ -1,0 +1,31 @@
+{% if fields.title or fields.note or fields.extras %}
+  <div class="fce-extras" data-template="fce/extras.twig">
+    <div class="container">
+      {% if fields.title %}
+        <h2>{{fields.title}}</h2>
+      {% endif %}
+      {% if fields.extras %}
+        {% for extra in fields.extras %}
+          <div class="col-sm-6 col-lg-4">
+            {{ extra.post_title }}
+            <br>
+            {% if extra.fee == "monthly" %}
+              Monatlich
+            {% else %}
+              Einmalig
+            {% endif %}
+            {% if extra.is_free == "yes" %}
+              <del>{{ extra.price }}</del>
+              GRATIS
+            {% else %}
+              {{ extra.price }}
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% if fields.note %}
+        <p>{{ fields.note }}</p>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

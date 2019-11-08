@@ -1,0 +1,5 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  {{RenderFCE(post.get_field('flexible_content_elements'))}}
+{% endblock %}

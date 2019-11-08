@@ -1,0 +1,29 @@
+.ce-quote {
+  align-items: center;
+  display: flex;
+  margin-bottom: $ce-margin-bottom-default;
+  min-height: rem(450);
+  width: 100%;
+  position: relative;
+  background-color: $gray-800;
+
+  svg {
+      position: absolute;
+      bottom: 50%;
+    }
+
+  h2 {
+    font-size: rem(40);
+    font-weight: 600;
+    line-height: rem(52);
+  }
+
+  p {
+    font-size: rem(14);
+    line-height: rem(19);
+  }
+
+  &-content {
+    color: $white;
+  }
+}

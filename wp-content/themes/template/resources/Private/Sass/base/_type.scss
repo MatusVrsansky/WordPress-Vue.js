@@ -1,0 +1,109 @@
+// stylelint-disable declaration-no-important, selector-list-comma-newline-after
+
+//
+// Headings
+//
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-bottom: $headings-margin-bottom;
+  font-family: $headings-font-family;
+  font-style: normal;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
+  color: $headings-color;
+  a {
+    color: inherit;
+    &:hover {
+      color: $link-color;
+    }
+  }
+}
+
+h1, .h1 {
+  @include font-size($h1-font-size);
+  font-weight: $font-weight-semibold;
+  line-height: rem(83);
+  color: $white;
+}
+
+h2, .h2 {
+  @include font-size($h2-font-size);
+  font-weight: $font-weight-semibold;
+  line-height: rem(56);
+}
+
+h3, .h3 {
+  @include font-size($h3-font-size);
+  font-weight: $font-weight-normal;
+  line-height: rem(36);
+}
+
+h4, .h4 {
+  @include font-size($h4-font-size);
+  font-weight: 400;
+  line-height: rem(24);
+}
+
+h5, .h5 { @include font-size($h5-font-size); }
+h6, .h6 { @include font-size($h6-font-size); }
+
+p, .p {
+  font-size: rem(16);
+  font-weight: $font-weight-normal;
+  line-height: rem(24); // homepage
+
+  // subpage, Unite it with Homepage?
+  //font-size: rem(14);
+  //line-height: rem(26);
+
+  // somewhere was line-height 19, somewhere 21... etd
+}
+
+.lead {
+  @include font-size($lead-font-size);
+  font-weight: $lead-font-weight;
+}
+
+//
+// Horizontal rules
+//
+
+hr {
+  margin-top: $hr-margin-y;
+  margin-bottom: $hr-margin-y;
+  border: 0;
+  border-top: $hr-border-width solid $hr-border-color;
+}
+
+
+//
+// Emphasis
+//
+
+small,
+.small {
+  @include font-size($small-font-size);
+  font-weight: $font-weight-normal;
+}
+
+//
+// Lists
+//
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+// Inline turns list items into inline-block
+.list-inline {
+  @extend .list-unstyled;
+}
+.list-inline-item {
+  display: inline-block;
+
+  &:not(:last-child) {
+    margin-right: $list-inline-padding;
+  }
+}

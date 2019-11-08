@@ -1,0 +1,50 @@
+// Transitions
+//
+// All css transitions used by Vue and Element UI
+
+// Fade transitions
+// - Simulates jQuery's fadeIn() | fadeOut()
+.fade {
+  &-enter {
+    opacity: 0;
+  }
+
+  &-enter-active {
+    transition: opacity .5s;
+  }
+
+  &-leave-active {
+    transition: opacity .5s;
+  }
+
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+// Element UI transitions
+
+.el-fade-in-enter-active,
+.el-fade-in-leave-active {
+  transition: $transition-fade;
+}
+.el-fade-in-enter,
+.el-fade-in-leave-active {
+  opacity: 0;
+}
+
+.collapse-transition {
+  transition: $transition-collapse;
+}
+.horizontal-collapse-transition {
+  transition: $transition-horizontal-collapse;
+}
+
+.el-list-enter-active,
+.el-list-leave-active {
+  transition: $transition-list;
+}
+.el-list-enter, .el-list-leave-active {
+  opacity: 0;
+  transform: translateY(-30px);
+}

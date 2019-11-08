@@ -1,0 +1,15 @@
+.ce-text-with-image {
+  margin-bottom: $ce-margin-bottom-default;
+
+  p, figcaption {
+    font-size: rem(14);
+  }
+
+  p {
+    line-height: rem(24);
+  }
+
+  figcaption {
+    line-height: rem(28);
+  }
+}

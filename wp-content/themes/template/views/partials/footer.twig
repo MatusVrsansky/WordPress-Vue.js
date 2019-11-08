@@ -1,0 +1,45 @@
+{#<footer class="footer mt-auto">#}
+{#  <ul class="nav container">#}
+{#    {% if options_page_footer_logo %}#}
+{#      <img src="{{ options_page_footer_logo }}" width="30" height="30" class="d-inline-block align-top" alt="">#}
+{#    {% endif %}#}
+{#    {% for item in menu.sitemap.items %}#}
+{#      <li class="nav-item">#}
+{#        <a href="{{item.link}}" class="nav-link {{item.class}}">{{item}}</a>#}
+{#        {% if item.get_children %}#}
+{#          <ul class="">#}
+{#            {% for child in item.get_children %}#}
+{#              <li><a href="{{child.get_link}}">{{child.title}}</a></li>#}
+{#            {% endfor %}#}
+{#          </ul>#}
+{#        {% endif %}#}
+{#      </li>#}
+{#    {% endfor %}#}
+{#  </ul>#}
+{#  <br>#}
+{#  <ul class="nav container">#}
+{#    {% for item in menu.footer.items %}#}
+{#      <li class="nav-item">#}
+{#        <a href="{{item.link}}" class="nav-link {{item.class}}">{{item}}</a>#}
+{#        {% if item.get_children %}#}
+{#          <ul class="">#}
+{#            {% for child in item.get_children %}#}
+{#              <li><a href="{{child.get_link}}">{{child.title}}</a></li>#}
+{#            {% endfor %}#}
+{#          </ul>#}
+{#        {% endif %}#}
+{#      </li>#}
+{#    {% endfor %}#}
+{#  </ul>#}
+{#</footer>#}
+<!-- Footer -->
+<footer class="page-footer font-small bg-info fixed-bottom">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->

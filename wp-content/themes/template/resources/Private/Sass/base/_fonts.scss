@@ -1,0 +1,49 @@
+p {
+  font-size: rem(16);
+  font-weight: 400;
+  font-family: nimbus-sans, sans-serif;
+  line-height: rem(21);
+  font-style: normal;
+}
+
+//// where font-weight is 600
+//.p-regular {
+// // font-weight: 400;
+//  line-height: rem(21);
+//}
+
+h1, .h1 {
+  font-size: rem(62);
+  font-family: nimbus-sans, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  line-height: rem(80);
+  color: $white;
+}
+
+.h1-subpage {
+  font-size: rem(64);
+  line-height: rem(83);
+}
+
+h2, .h2 {
+  font-size: rem(42);
+  font-family: nimbus-sans, sans-serif;
+  font-style: normal;
+}
+
+h3, .h3 {
+  font-size: rem(28);
+  line-height: rem(37);
+  font-weight: 600;
+  font-family: nimbus-sans, sans-serif;
+  font-style: normal;
+}
+
+//h4, .h4 {
+//  font-family: nimbus-sans, sans-serif;
+//  font-style: normal;
+//  font-size: rem(18);
+//  font-weight: 400;
+//  line-height: rem(24);
+//}

@@ -1,0 +1,44 @@
+{% if fields.title or fields.intro_text or fields.note or fields.products %}
+  <div class="fce-products" data-template="fce/products.twig">
+    <div class="container">
+      {% if fields.title %}
+        <h2>{{fields.title}}</h2>
+      {% endif %}
+      {% if fields.intro_text %}
+        {{fields.intro_text}}
+      {% endif %}
+      {% if fields.products %}
+        {% for product in fields.products %}
+            <div class="col-sm-6 col-lg-4">
+              {{ product.post_title }}
+              <br>
+              {{ product.interval }}
+              <br>
+              {% if product.type == "download" %}
+                <p>{{ product.max_download_speed }} Max download speed</p>
+              {% else %}
+                <p>{{ product.max_download_speed }} Verfügbarer Cloud Speicherplatz</p>
+              {% endif %}
+
+              {% set price_list = function('getPostById', product.id) %}
+
+              {% for price in price_list %}
+                  {% if price.new_price %}
+                    <del> € {{ price.old_price }}</del> {{ price.text }}
+                    <br>
+                    nur € {{ price.new_price }}
+                  {% else %}
+                    € {{ price.old_price }} {{ price.text }}
+                  {% endif %}
+                  <br>
+              {% endfor %}
+              <br>
+            </div>
+        {% endfor %}
+      {% endif %}
+      {% if fields.note %}
+        <p>{{ fields.note }}</p>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

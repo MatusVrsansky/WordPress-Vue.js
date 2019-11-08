@@ -1,0 +1,25 @@
+<div class="fce-quotes" data-template="fce/quote.twig">
+  <div class="container">
+    {% if fields.title %}
+      <h2>{{ fields.title }}</h2>
+    {% endif %}
+    {% for quote in fields.quotes %}
+      <blockquote class="fce-quotes-item">
+        {% if quote.text %}
+          {% include 'images/quote.svg' %}
+          <p class="fce-quotes-item-text">
+            {{quote.text}}
+          </p>
+          {% include 'images/quote.svg' %}
+        {% endif %}
+        {% if quote.author %}
+          <footer>
+            <span class="fce-quotes-item-author">
+              {{quote.author}}
+            </span>
+          </footer>
+        {% endif %}
+      </blockquote>
+    {% endfor %}
+  </div>
+</div>

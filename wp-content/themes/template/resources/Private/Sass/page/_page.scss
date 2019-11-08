@@ -1,0 +1,64 @@
+// =============================================================================
+// page.scss - General styles
+// ========================================================================== */
+body {
+  // sass-lint:disable-block no-vendor-prefixes
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+#page {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
+}
+
+#subpage {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
+}
+
+#main {
+  flex: 1 1 auto;
+  min-height: 1px;
+}
+
+//.container, .container-fluid{
+//  margin-bottom: rem(114);
+//}
+//
+//.container:last-of-type {
+//  margin-bottom: 6.1rem;
+//}
+
+.teaser:hover {
+
+  .news-plugin-teaser-content, span {
+    background-color: $secondary;
+    color: $white;
+  }
+
+  .zoom-picture-hover .picture img {
+    transform: translateZ(0) scale(1.1);
+  }
+
+  .icon-arrow-right {
+    right: -.5rem;
+  }
+}
+
+.icon-arrow-right {
+  color: $secondary;
+  transition: right .3s ease-out .1s,color .3s ease;
+}
+
+.svg {
+  fill: $secondary;
+}

@@ -1,0 +1,69 @@
+.ce-media {
+  $ce-media: &;
+  margin-bottom: $ce-margin-bottom-default;
+
+  &-btn-play {
+    background-color: transparent;
+    border: 0;
+    color: rgba($white, .9);
+    font-size: 6.5rem;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: $transition-base;
+    z-index: 3;
+
+    &:hover {
+      color: rgba($white, .9);
+    }
+
+    #{$ce-media}-poster:hover &, &:focus {
+      transform: translate(-50%, -50%) scale(1.15);
+    }
+  }
+  &-poster {
+    margin: 0;
+    padding: 0;
+    transition: opacity .4s, visibility 0s .4s;
+    z-index: 2;
+
+    img {
+      width: 100%;
+    }
+
+    &:after {
+      background-color: $gray-800;
+      content: "";
+      height: 100%;
+      left: 0;
+      opacity: .6;
+      position: absolute;
+      top: 0;
+      transition: $transition-base;
+      width: 100%;
+    }
+
+    @include hover {
+      &:after {
+        opacity: .9;
+      }
+    }
+  }
+
+  &-directive {
+    margin-bottom: rem(16);
+    &.is-playing {
+      #{$ce-media}-poster {
+        opacity: 0;
+        transition: opacity .4s, visibility 0s 0s;
+        visibility: hidden;
+      }
+    }
+  }
+
+  p {
+    font-size: rem(14);
+    line-height: rem(28);
+  }
+}

@@ -1,0 +1,59 @@
+.ce-regular-text-element {
+  margin-bottom: $ce-margin-bottom-default;
+  text-align: center;
+  h2, h3 {
+    text-align: center;
+  }
+
+  //h4:last-of-type {
+  //  margin-bottom: 6.85rem;
+  //}
+
+  p, li {
+    font-size: rem(14);
+    text-align: left;
+  }
+
+  p {
+    line-height: rem(26);
+  }
+
+  li {
+    line-height: rem(25);
+  }
+
+  // unordered list - only for that Content Element
+  ul {
+    padding-left: rem(10);
+    margin: 0;
+    list-style: none;
+    & > li {
+      padding-left: rem(42);
+      position: relative;
+      line-height: (rem(40) / $font-size-base);
+      &::before {
+        background-image: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctitle%3EUntitled-2%3C/title%3E%3Cpath d='M7.88,15.84a7.37,7.37,0,0,1-5.44-2.31A7.62,7.62,0,0,1,.16,8a7.53,7.53,0,0,1,2.3-5.55A7.53,7.53,0,0,1,8,.16a7.5,7.5,0,0,1,5.54,2.31,7.64,7.64,0,0,1,2.29,5.6,7.4,7.4,0,0,1-2.32,5.5A7.78,7.78,0,0,1,7.88,15.84Z' fill='#{$secondary}' /%3E%3C/svg%3E"), "#", "%23");
+        content: " ";
+        height: rem(7);
+        width: rem(7);
+        left: 0;
+        position: absolute;
+        top: 0.7rem;
+      }
+      ul {
+        & > li {
+          padding-left: rem(16);
+          &::before {
+            height: rem(5);
+            width: rem(5);
+          }
+        }
+      }
+      &.cke_panel_listItem { // Typo3 backend RTE
+        &:before {
+          content: none;
+        }
+      }
+    }
+  }
+}

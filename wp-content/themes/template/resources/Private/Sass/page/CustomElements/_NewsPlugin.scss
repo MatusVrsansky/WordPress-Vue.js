@@ -1,0 +1,41 @@
+.teaser-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.teaser {
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.teaser, .teaser-content {
+  display: flex;
+}
+
+.teaser-content {
+  flex-flow: column;
+  flex: 1 0 auto;
+}
+
+
+
+.news-plugin {
+  &-teaser {
+    transition: background-color .3s ease;
+
+    &-content {
+      background-color: $image-teaser-background;
+      padding: 1.2rem 2.2rem 3.7rem;
+     // height: calc(100% - 1.25rem);
+    }
+  }
+  a {
+    color: $black;
+  }
+
+  span {
+    color: $secondary;
+  }
+}
+
