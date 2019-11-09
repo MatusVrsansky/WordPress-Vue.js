@@ -8,6 +8,25 @@
 
         this.winnersPlayerOne = 0;
         this.winnersPlayerTwo = 0;
+
+        this.hideGameForm = false;
+
+        // show again button
+        this.showResetButton = false;
+
+        // set total winner and looser of the game
+        this.winnerPlayer = '';
+        this.looserPlayer = '';
+
+
+        /*
+        Set visibility of quiz Form
+         */
+        this.showQuizForm = false;
+    }
+
+    showQuiz() {
+        this.showQuizForm = true;
     }
 
     generateRandomNumber() {
@@ -33,12 +52,8 @@
     }
 
     resetValues() {
-
-        var cusid_ele = document.getElementsByClassName('game-view-square');
-
-
-        //
-        // let square = new Square();
+        // set Reset button on false
+        this.showResetButton = false;
 
         this.inProgress = true;
         this.winner = null; // O or X
