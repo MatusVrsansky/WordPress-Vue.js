@@ -47,24 +47,23 @@
             <div class="blockG" id="rotateG_08"></div>
           </div>
         </div>
-        <div class="quiz" id="quiz" data-toggle="buttons">
-          <label class="choice element-animation1 btn btn-lg btn-primary btn-block">
+        <div class="quiz" id="quiz" data-toggle="buttons" @click.prevent="activeGame.test(this.id)">
+          <label id="1" class="choice element-animation1 btn btn-lg btn-primary btn-block">
             <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
-            <input type="radio" name="q_answer" value="1">
+{#            <input type="radio" name="q_answer" value="1">#}
             {{ questions.posts[0].answer_a }}
           </label>
-          <label class="choice element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="2">
+          <label id="2" class="choice element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="2">
             {{ questions.posts[0].answer_b }}
           </label>
-          <label class="choice element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="3">
+          <label id="3" class="choice element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="3">
             {{ questions.posts[0].answer_c }}
           </label>
-          <label class="choice element-animation4 btn btn-lg btn-primary btn-block mb-2-half"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="4">
+          <label id="4" class="choice element-animation4 btn btn-lg btn-primary btn-block mb-2-half"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="4">
             {{ questions.posts[0].answer_d }}
           </label>
           <!-- right answer for current question-->
-          <input type="hidden" name="question_right_answer" value="{{ questions.posts[0].right_answer }}">
-{#          <p class="text-center" id="answer-text"></p>#}
+          <input type="hidden" name="question_right_answer" id="rightAnswer" value="{{ questions.posts[0].right_answer }}">
           <div class="d-flex">
             <div class="p-2 h3"><span id="question-number">1</span> z 10</div>
             <div><span id="arrow-back" style="display: none">&#8592;</span></div>

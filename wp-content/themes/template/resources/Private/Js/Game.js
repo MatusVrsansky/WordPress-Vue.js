@@ -22,7 +22,7 @@
         /*
         Set visibility of quiz Form
          */
-        this.showQuizForm = false;
+        this.showQuizForm = true;
     }
 
     showQuiz() {
@@ -92,10 +92,68 @@
         // Check for tie
         if(this.movesMade === this.squares.length) {
             this.inProgress = false; // inProgress = false AND winner = null
-
         }
 
     }
+
+    // section with Quiz
+     /*
+     * would like to separate it in near future
+      */
+     test(clickedId) {
+
+         var rightAnswer = document.getElementById('rightAnswer');
+         var elements = document.getElementsByClassName('choice');
+
+         var custom_fields = JSON.parse(cars_array);
+         var my_images = JSON.parse(passed_object);
+
+         console.log(custom_fields);
+         console.log(my_images);
+
+
+         console.log("*****************************");
+         console.log(rightAnswer.value);
+         console.log("*****************************");
+
+         // remove active class for all buttons
+         for(let i=0;i<elements.length;i++) {
+             elements[i].classList.remove('active');
+         }
+
+          // get current ID
+          clickedId = clickedId || window.event;
+          clickedId = clickedId.target || clickedId.srcElement;
+
+          if(clickedId.id === '1' || clickedId.id === '2' || clickedId.id === '3' || clickedId.id === '4') {
+
+              if(parseInt(clickedId.textContent) === parseInt(rightAnswer.value)) {
+                  clickedId.style.border = "thick solid #00ff00";
+              }
+
+              else {
+                  clickedId.style.border = "thick solid #ff0000";
+
+                  // set value for right answer
+                  for(let i=0;i<elements.length;i++) {
+                      if(parseInt(elements[i].textContent) === parseInt(rightAnswer.value))
+                      elements[i].style.border = "thick solid #00ff00";
+                  }
+              }
+          }
+
+
+
+
+         //x[0].style.border = "thick solid #00ff00";
+         // x.style.border = "thick solid #00ff00";
+
+
+
+        //  var priceEls = document.getElementById('rightAnswer');
+        //
+        // console.log(priceEls.value);
+     }
 }
 
 Game.O = 'O';

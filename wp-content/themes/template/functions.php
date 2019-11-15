@@ -52,6 +52,7 @@ function enqueue_base_scripts() {
 function studienFilterScript() {
     wp_enqueue_script( 'Game.js', get_template_directory_uri(). '/resources/Private/Js/Game.js', array('jquery'));
     wp_enqueue_script( 'Square.js', get_template_directory_uri(). '/resources/Private/Js/Square.js', array('jquery'));
+    wp_enqueue_script( 'Quiz.js', get_template_directory_uri(). '/resources/Private/Js/Quiz.js', array('jquery'));
 
 }
 add_action( 'wp_enqueue_scripts', 'studienFilterScript' );
