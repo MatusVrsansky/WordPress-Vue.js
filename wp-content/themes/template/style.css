@@ -73,5 +73,11 @@ Text Domain: dw
   padding: 32px;
 }
 
+/* modal window */
+.modal-window {
+  padding: 32px;
+}
 
-
+.question-information-counter {
+  font-size: 25px;
+}

@@ -185,8 +185,8 @@ function getRandomQuestions() {
     $customFields = json_encode($arrayCustomFields);
 
 
-    wp_localize_script( 'script-critical', 'passed_object', $my_json_str );
-    wp_localize_script( 'script-critical', 'cars_array', $customFields );
+    wp_localize_script( 'script-critical', 'questions', $my_json_str );
+    wp_localize_script( 'script-critical', 'answers', $customFields );
 
     return $wp_query;
 }

@@ -47,6 +47,7 @@
               </div>
               <div v-if="activeGame.hideGameForm === true" id="winner-information">
                 <p>Hráč <strong><% activeGame.winnerPlayer %></strong> vyhral nad súperom <strong><% activeGame.looserPlayer %></strong> </p>
+
                 <p>Mozete ist odpovedat na otazky</p>
                 <button type="button" @click.prevent="activeGame.showQuiz()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">odpovedat</button>
               </div>
