@@ -9,10 +9,30 @@ Tags: digitalwerk, template, wordpress
 Text Domain: dw
 */
 
+
+.image-box {
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+}
+.image-box img {
+  max-width: 100%;
+  transition: all 0.3s;
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1);
+}
+
+.image-box:hover img {
+  transform: scale(1.1);
+}
+
 #game-view {
-  width: 500px;
+  width: 100%;
   margin: 0 auto;
-  border: 1px solid #000;
+  padding-top: 32px;
+  /*border: 1px solid #000;*/
 }
 
 #game-view-info {
@@ -80,4 +100,51 @@ Text Domain: dw
 
 .question-information-counter {
   font-size: 25px;
+}
+
+
+.bg-info {
+  background-color: transparent !important;
+}
+
+/* table */
+tr {
+  cursor: pointer;
+}
+
+/* form for entering name and surname */
+#name {
+  margin-bottom: 15px;
+}
+
+/* pagination */
+.cs_pagination {
+  font-size: 20px;
+}
+
+.page-numbers {
+  position: relative;
+  padding: 0.2rem 0.45rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page-numbers.current {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+a.prev.page-numbers {
+  border-top-left-radius: .4rem;
+  border-bottom-left-radius: .4rem;
+}
+
+a.next.page-numbers {
+  border-top-right-radius: .4rem;
+  border-bottom-right-radius: .4rem;
 }

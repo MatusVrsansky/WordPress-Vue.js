@@ -13,9 +13,10 @@
       <div id="enter-name-form" class="p-4" style="display: none">
         <form type="POST" onsubmit="return activeGame.handle_my_input()">
           <div class="form-group">
-            <label for="exampleInputEmail1">Meno hráča</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vaše meno">
-            <small id="emailHelp" class="form-text text-muted">Vaše meno sa zapíše do tabuľkych najlepších hráčov</small>
+            <label for="exampleInputEmail1" class="mb-2">Zadajte svoje meno a priezvisko</label>
+            <input type="text" class="form-control" id="name" oninvalid="activeGame.InvalidMsg(this);" aria-describedby="emailHelp" placeholder="Vaše meno" required>
+            <input type="text" class="form-control" id="surname" oninvalid="activeGame.InvalidMsg(this);" aria-describedby="emailHelp" placeholder="Vaše priezvisko" required>
+            <small id="emailHelp" class="form-text text-muted">Vaše meno a priezvisko sa zapíše do tabuľky najlepších hráčov</small>
           </div>
           <button type="submit" class="btn btn-primary">Odoslať</button>
         </form>
@@ -68,7 +69,7 @@
           </div>
           <div class="d-flex">
             <div class="question-information-counter"><span id="question-number">1</span> z 5</div>
-            <div v-if="activeGame.questionIndex > 0"><span id="arrow-back">&#8592;</span></div>
+{#            <div v-if="activeGame.questionIndex > 0"><span id="arrow-back">&#8592;</span></div>#}
 
             <div v-if="activeGame.arrowVisibility === true" @click.prevent="activeGame.setNextQuestion()" class="ml-auto p-2"><span id="arrow-next">&#8594;</span></div>
             <button v-if="activeGame.formClicked === true && activeGame.questionIndex === 4" @click.prevent="activeGame.showNameForm()" class="btn btn-primary ml-auto" type="button">Skončiť test</button>

@@ -69,52 +69,6 @@ add_action( 'wp_enqueue_scripts', 'studienFilterScript' );
 
 add_filter('show_admin_bar', '__return_false');
 
-function formatSizeUnits($bytes)
-{
-    if ($bytes >= 1073741824)
-    {
-        $bytes = number_format($bytes / 1073741824, 2) . ' GB';
-    }
-    elseif ($bytes >= 1048576)
-    {
-        $bytes = number_format($bytes / 1048576, 2) . ' MB';
-    }
-    elseif ($bytes >= 1024)
-    {
-        $bytes = ceil(number_format($bytes / 1024, 2)) . ' KB';
-    }
-    elseif ($bytes > 1)
-    {
-        $bytes = $bytes . ' bytes';
-    }
-    elseif ($bytes == 1)
-    {
-        $bytes = $bytes . ' byte';
-    }
-    else
-    {
-        $bytes = '0 bytes';
-    }
-
-    return $bytes;
-}
-
-function getFileType($file) {
-    $path_parts = pathinfo($file);
-
-    //file extension
-    $fileExtension = $path_parts['extension'];
-    return $fileExtension;
-}
-
-add_action( 'init', 'setFaqCategoriesToSidebar', 999);
-function setFaqCategoriesToSidebar() {
-    $tax = get_taxonomy('faq_category');
-    $tax->meta_box_cb = 'post_categories_meta_box';
-    $tax->hierarchical = true;
-}
-
-
 function getTaxonomyPosts($slug) {
     $query = array(
         'post_type' => 'faq',
@@ -189,4 +143,123 @@ function getRandomQuestions() {
     wp_localize_script( 'script-critical', 'answers', $customFields );
 
     return $wp_query;
+}
+
+// get admin URL
+function myPluginAjaxUrl() {
+    echo '<script type="text/javascript">
+           var ajaxurl = "' . admin_url('admin-ajax.php') . '";
+         </script>';
+}
+
+// Get my ajaxURL
+add_action('wp_head', 'myPluginAjaxUrl');
+
+// update Database Table for voting
+function updatePoolTable()
+{
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    updateTopPlayersTable($name, $surname);
+}
+
+add_action('wp_ajax_updatePoolTable', 'updatePoolTable'); // add action for logged users
+add_action( 'wp_ajax_nopriv_updatePoolTable', 'updatePoolTable' ); // add action for unlogged users
+
+// update Database Table for voting
+function updateTopPlayersTable($name, $surname)
+{
+    global $wpdb;
+    $wpdb->insert('top_players', array('name' => $name, 'surname' => $surname));
+}
+
+function getAllHighscoreUsers() {
+    global $wpdb;
+
+    $users = $wpdb->get_results( "SELECT * FROM top_players");
+
+
+    return $users;
+}
+
+add_action( 'init', 'change_room_term_to_checkbox', 999);
+
+function change_room_term_to_checkbox() {
+    $tax = get_taxonomy('question_category');
+    $tax->meta_box_cb = 'post_categories_meta_box';
+    $tax->hierarchical = true;
+}
+
+function wpbeginner_numeric_posts_nav() {
+
+   return 'test';
+
+}
+
+function paginationHighScore() {
+    global $wpdb;
+    $users = $wpdb->get_results( "SELECT * FROM top_players");
+
+
+// Array here.
+    $data_print = $users;
+//**************************
+//
+// Pagination
+//
+//**************************
+    $page = ! empty( $_GET['cpage'] ) ? (int) $_GET['cpage'] : 1;
+    $total = count($data_print); //total items in array
+    $limit = 8; //per page
+    $totalPages = ceil( $total/ $limit ); //calculate total pages
+    $page = max($page, 1); //get 1 page when $_GET['cpage'] <= 0
+    $page = min($page, $totalPages); //get last page when $_GET&#91;'cpage'&#93; > $totalPages
+    $offset = ($page - 1) * $limit;
+    if( $offset < 0 ) $offset = 0;
+//**************************
+//
+// Pagination
+//
+//**************************
+// offset array
+    ?>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Meno</th>
+            <th scope="col">Priezvisko</th>
+            <th scope="col">E-mail</th>
+        </tr>
+        </thead>
+        <tbody>
+    <?php
+    $data_print = array_slice( $data_print, $offset, $limit );
+    for($i = 0; $i < count($data_print); $i++){
+        ?>
+        <tr>
+            <th scope="row"><?php echo $data_print[$i]->id?></th>
+            <td><?php echo $data_print[$i]->name?></td>
+            <td><?php echo $data_print[$i]->surname?></td>
+            <td>@mdo</td>
+        </tr>
+        <?php
+    }
+    ?>
+        </tbody>
+    </table>
+<?php
+// Show pagination here
+    if($totalPages > 1){
+        $arr_params = array ('cpage' => '%#%');
+        $customPagHTML     =  '<div class="cs_pagination">'.paginate_links( array(
+                'base' => add_query_arg( $arr_params ),
+                'format' => '',
+                'prev_text' =>  '<span class="cs_page_number" aria-hidden="true">&laquo;</span>',
+                'next_text' => ' <span class="cs_page_number" aria-hidden="true">&raquo;</span>',
+                'total' => $totalPages,
+                'current' => $page
+            )).'</div>';
+        echo $customPagHTML;
+    }
 }

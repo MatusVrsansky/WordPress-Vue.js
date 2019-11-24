@@ -1,7 +1,31 @@
 {% if fields.text %}
-  <div class="fce-text" data-template="fce/text.twig">
-    <div class="container">
-      {{fields.text}}
-    </div>
+  <div class="container">
+
+    {% set pages = function('wpbeginner_numeric_posts_nav') %}
+    <p>{{ pages }}</p>
+{#    {% set users = function('getAllHighscoreUsers') %}#}
+{#    <table class="mt-4 table table-hover">#}
+{#      <thead>#}
+{#      <tr>#}
+{#        <th scope="col">#</th>#}
+{#        <th scope="col">Meno</th>#}
+{#        <th scope="col">Priezvisko</th>#}
+{#        <th scope="col">e-mail</th>#}
+{#      </tr>#}
+{#      </thead>#}
+{#      <tbody>#}
+
+{#        {% set id = 1 %}#}
+{#        {% for user in users %}#}
+{#          <tr style="cursor: pointer;">#}
+{#            <th scope="row">{{ id }}</th>#}
+{#            <td>{{ user.name }}</td>#}
+{#            <td>{{ user.surname }}</td>#}
+{#            <td>@mdo</td>#}
+{#            {% set id = id + 1 %}#}
+{#          </tr>#}
+{#        {% endfor %}#}
+{#      </tbody>#}
+{#    </table>#}
   </div>
 {% endif %}

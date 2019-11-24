@@ -55,13 +55,14 @@ class Game {
          */
         this.showAlreadyAnswerQuestions = false;
 
-        
+
     }
 
     showQuiz() {
         this.showQuizForm = true;
     }
 
+    // set random order of current player
     generateRandomNumber() {
         var number = Math.floor((Math.random() * 2) + 1);
 
@@ -258,6 +259,26 @@ class Game {
          this.formClicked = false;
      }
 
+    handle_my_input() {
+         var name = document.getElementById('name').value;
+         var surname = document.getElementById('surname').value;
+
+        $.ajax({
+            url: ajaxurl,
+            // id: 3,
+            type: "POST",
+            data: {"action": "updatePoolTable", "name":name, "surname":surname},
+            success:function(data) {
+                var str= '';
+                document.getElementById('enter-name-form').innerHTML = "Vaše meno bolo pridané do tabuľky najlepších hráčov. Veľa šťastia pri ďaľšej hre";
+                document.getElementById('enter-name-form').innerHTML += " <a href='/'>Domov</a>"
+            }
+        });
+
+
+         return false;
+    }
+
      setAnswersCount() {
          // set count for span with correct answers
          document.getElementById('count_right_answers').innerHTML = this.countRightAnswers;
@@ -267,6 +288,16 @@ class Game {
     showNameForm() {
         document.getElementById("enter-name-form").style.display = "block";
         document.getElementById("quiz-content").style.display = "none";
+    }
+
+    InvalidMsg(input) {
+        if (input.value === '') {
+            input.setCustomValidity('Tento údaj je povinný!!!');
+        }
+        else {
+            input.setCustomValidity('');
+        }
+        return true;
     }
 }
 

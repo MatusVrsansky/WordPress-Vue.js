@@ -3,6 +3,9 @@
   <head>
     <meta charset="{{site.charset}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
 
     {{wp_head}}
   </head>
@@ -20,115 +23,6 @@
         {% include 'partials/header.twig' %}
 
         {% block content %}{% endblock %}
-
-
-        <div class="container">
-          <div id="game-view">
-
-            <div v-if="activeGame.showQuizForm === false">
-              <div class="">
-                <p>Výhry hráč 1( 0 ): <% activeGame.winnersPlayerOne %> </p>
-                <p>Výhry hráč 2:( X ): <% activeGame.winnersPlayerTwo %> </p>
-              </div>
-              <div id="game-view-info">
-                <% infoMessage %>
-              </div>
-              <div v-if="activeGame.hideGameForm === false" id="game-view-squares">
-                <div
-                  v-for="(square, i) in squares"
-                  @click="activeGame.makeMove(i)"
-                  v-bind:class="{ highlighted: square.isHighlighted }"
-                  class="game-view-square">
-                  <% square.value %>
-                </div>
-              </div>
-              <div v-if="activeGame.showResetButton" class="again-button">
-                <button type="button" class="btn btn-primary" @click.prevent="activeGame.resetValues()">Este raz</button>
-              </div>
-              <div v-if="activeGame.hideGameForm === true" id="winner-information">
-                <p>Hráč <strong><% activeGame.winnerPlayer %></strong> vyhral nad súperom <strong><% activeGame.looserPlayer %></strong> </p>
-
-                <p>Mozete ist odpovedat na otazky</p>
-                <button type="button" @click.prevent="activeGame.showQuiz()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">odpovedat</button>
-              </div>
-            </div>
-
-            <div v-if="activeGame.showQuizForm === true">
-              {% include 'fce/image.twig' %}
-            </div>
-          </div>
-
-        </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
-        <script type="text/javascript">
-
-
-            let activeGame = new Game();
-
-
-            new Vue({
-                el: "#game-view",
-                data: activeGame,
-                delimiters: ['<%', '%>'],
-                computed: {
-                    infoMessage: function () {
-                        if(this.inProgress) {
-                            return 'Na rade je ' + this.currentTurn;
-                        }
-
-                        else if (this.winner) {
-
-                            if(this.winner === 'O') {
-
-                                // show reset button
-                                this.showResetButton = true;
-                                this.winnersPlayerOne++;
-                                this.setQuizFormVisibility();
-                            }
-
-                            else {
-
-                                // show reset button
-                                this.showResetButton = true;
-                                this.winnersPlayerTwo++;
-                                this.setQuizFormVisibility();
-                            }
-
-                            return this.winner + ' vyhráva';
-                        }
-
-                        else {
-                            return 'Nevyhráva nikto';
-                        }
-                    }
-                },
-                methods: {
-                    setQuizFormVisibility: function() {
-                        if(this.winnersPlayerOne === 2 || this.winnersPlayerTwo === 2) {
-                            if(this.winnersPlayerOne === 2) {
-                                this.winnerPlayer = 'O';
-                                this.looserPlayer = 'X';
-                                this.hideGameForm = true;
-
-                                // set reset button on false
-                                this.showResetButton = false;
-                            }
-
-                            else {
-                                this.winnerPlayer = 'X';
-                                this.looserPlayer = 'O';
-                                this.hideGameForm = true;
-
-                                // set reset button on false
-                                this.showResetButton = false;
-                            }
-                        }
-                    }
-                }
-            });
-        </script>
 
 
         {% include 'partials/footer.twig' %}
