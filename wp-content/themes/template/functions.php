@@ -196,9 +196,9 @@ function wpbeginner_numeric_posts_nav() {
 
 }
 
-function paginationHighScore() {
+function paginationHighScore($tableName) {
     global $wpdb;
-    $users = $wpdb->get_results( "SELECT * FROM top_players");
+    $users = $wpdb->get_results( "SELECT * FROM $tableName");
 
 
 // Array here.
