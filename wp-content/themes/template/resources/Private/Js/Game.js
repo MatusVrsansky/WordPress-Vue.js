@@ -55,7 +55,9 @@ class Game {
          */
         this.showAlreadyAnswerQuestions = false;
 
-
+        /**************************************************************/
+        /* question or category creation */
+        this.validQuestionForm = false;
     }
 
     showQuiz() {
@@ -275,8 +277,26 @@ class Game {
             }
         });
 
-
          return false;
+    }
+
+    addNewQuestion() {
+         event.preventDefault();
+
+         // if input fields are not empty!
+         if(document.getElementById('new-question-title').value !== "" || document.getElementById('new-question-answer-a').value !== "") {
+             var backOfferButton = document.getElementById('add-new-question-button');
+             backOfferButton.dataset.target = "#success_tic";
+
+             // envoke click event
+             document.getElementById('add-new-question-button').click();
+
+             // empty input fields
+             document.getElementById('new-question-title').value = "";
+             document.getElementById('new-question-answer-a').value = "";
+         }
+
+        return false;
     }
 
      setAnswersCount() {
@@ -292,12 +312,12 @@ class Game {
 
     InvalidMsg(input) {
         if (input.value === '') {
-            input.setCustomValidity('Tento údaj je povinný!!!');
+            input.setCustomValidity('Toto políčko je povinné!');
         }
         else {
             input.setCustomValidity('');
         }
-        return true;
+        return false;
     }
 }
 

@@ -45,6 +45,64 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_5de3843a18787": {
+                    "key": "layout_5de3843a18787",
+                    "name": "add-question-form",
+                    "label": "Add Question Form",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5de3846918788",
+                            "label": "",
+                            "name": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_5de238f0c7dc4": {
+                    "key": "layout_5de238f0c7dc4",
+                    "name": "ultimate-member",
+                    "label": "Ultimate Member",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5de238f7c7dc5",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "56c1c90b1e391": {
                     "key": "56c1c90b1e391",
                     "name": "image",
@@ -1574,13 +1632,6 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "default"
-            }
-        ],
-        [
-            {
-                "param": "page_template",
-                "operator": "==",
                 "value": "template-questions.php"
             }
         ],
@@ -1595,6 +1646,13 @@
             {
                 "param": "page_template",
                 "operator": "==",
+                "value": "template-highscore.php"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
                 "value": "index.php"
             }
         ],
@@ -1602,7 +1660,14 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "template-highscore.php"
+                "value": "default"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-add-question.php"
             }
         ]
     ],
@@ -1622,5 +1687,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1574593940
+    "modified": 1575191726
 }

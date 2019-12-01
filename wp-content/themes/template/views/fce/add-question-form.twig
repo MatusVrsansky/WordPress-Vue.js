@@ -1,0 +1,127 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-9">
+      <h1 class="text-dark">Pridanie otázky</h1>
+      <form type="POST" onsubmit="return activeGame.addNewQuestion(this)">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Otázka</label>
+          <input type="text" class="form-control" id="new-question-title" aria-describedby="emailHelp"required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Odpoveď A</label>
+          <input type="text" class="form-control" id="new-question-answer-a" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Odpoveď B</label>
+          <input type="text" class="form-control" id="new-question-answer-b" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Odpoveď C</label>
+          <input type="text" class="form-control" id="new-question-answer-c" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Odpoveď D</label>
+          <input type="text" class="form-control" id="new-question-answer-d" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Správna odpoveď</label>
+          <input type="text" class="form-control" id="new-question-right-answer" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Pridať</button>
+        <input type="submit" class="btn btn-info btn-lg" data-toggle="modal" id="add-new-question-button" value="Pridaj">
+
+      </form>
+      <!-- Modal -->
+      <div id="success_tic" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <a class="close" href="#" data-dismiss="modal">&times;</a>
+            <div class="page-body">
+              <div class="head">
+                <h3 style="margin-top:5px;">Otázka bola úspešne pridaná</h3>
+              </div>
+
+              <h1 style="text-align:center;"><div class="checkmark-circle">
+                  <div class="background"></div>
+                  <div class="checkmark draw"></div>
+                </div>
+              </h1>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script type="text/javascript">
+
+
+    let activeGame = new Game();
+
+
+    new Vue({
+        el: "#game-view",
+        data: activeGame,
+        delimiters: ['<%', '%>'],
+        computed: {
+            infoMessage: function () {
+                if(this.inProgress) {
+                    return 'Na rade je ' + this.currentTurn;
+                }
+
+                else if (this.winner) {
+
+                    if(this.winner === 'O') {
+
+                        // show reset button
+                        this.showResetButton = true;
+                        this.winnersPlayerOne++;
+                        this.setQuizFormVisibility();
+                    }
+
+                    else {
+
+                        // show reset button
+                        this.showResetButton = true;
+                        this.winnersPlayerTwo++;
+                        this.setQuizFormVisibility();
+                    }
+
+                    return this.winner + ' vyhráva';
+                }
+
+                else {
+                    return 'Nevyhráva nikto';
+                }
+            }
+        },
+        methods: {
+            setQuizFormVisibility: function() {
+                if(this.winnersPlayerOne === 2 || this.winnersPlayerTwo === 2) {
+                    if(this.winnersPlayerOne === 2) {
+                        this.winnerPlayer = 'O';
+                        this.looserPlayer = 'X';
+                        this.hideGameForm = true;
+
+                        // set reset button on false
+                        this.showResetButton = false;
+                    }
+
+                    else {
+                        this.winnerPlayer = 'X';
+                        this.looserPlayer = 'O';
+                        this.hideGameForm = true;
+
+                        // set reset button on false
+                        this.showResetButton = false;
+                    }
+                }
+            }
+        }
+    });
+</script>

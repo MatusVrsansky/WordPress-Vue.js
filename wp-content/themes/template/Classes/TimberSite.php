@@ -73,7 +73,8 @@ class TimberSite extends \TimberSite
             'main' => new \TimberMenu('main-menu'),
             'footer' => new \TimberMenu('footer-menu'),
             'meta' => new \TimberMenu('meta-menu'),
-            'sitemap' => new \TimberMenu('footer-menu-sitemap')
+            'sitemap' => new \TimberMenu('footer-menu-sitemap'),
+            'teacher' => new \TimberMenu('teacher-menu'),
         ];
 
         $context['site'] = $this;
