@@ -53,7 +53,7 @@ function um_submit_form_errors_hook_login( $args ) {
 	if ( $user && wp_check_password( $args['user_password'], $user->data->user_pass, $user->ID ) ) {
 		UM()->login()->auth_id = username_exists( $user_name );
 	} else {
-		UM()->form()->add_error( 'user_password', __( 'Password is incorrect. Please try again.', 'ultimate-member' ) );
+		UM()->form()->add_error( 'user_password', __( 'Nesprávne heslo. Skúste znova.', 'ultimate-member' ) );
 	}
 
 	$user = apply_filters( 'authenticate', null, $user_name, $args['user_password'] );

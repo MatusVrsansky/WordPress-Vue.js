@@ -24,6 +24,8 @@ class Game {
         this.looserPlayer = '';
 
 
+        this.test = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII am TEEEEEEEEEEEEEEEEEEst";
+
         /*
         Set visibility of quiz Form
          */
@@ -269,7 +271,7 @@ class Game {
             url: ajaxurl,
             // id: 3,
             type: "POST",
-            data: {"action": "updatePoolTable", "name":name, "surname":surname},
+            data: {"action": "addToUserTable", "name":name, "surname":surname},
             success:function(data) {
                 var str= '';
                 document.getElementById('enter-name-form').innerHTML = "Vaše meno bolo pridané do tabuľky najlepších hráčov. Veľa šťastia pri ďaľšej hre";
@@ -280,21 +282,22 @@ class Game {
          return false;
     }
 
-    addNewQuestion() {
-         event.preventDefault();
+    addNewQuestion(e) {
+        e.preventDefault();
+        // let backOfferButton = document.getElementById('add-new-question-button');
+        let name = "TEST";
 
          // if input fields are not empty!
-         if(document.getElementById('new-question-title').value !== "" || document.getElementById('new-question-answer-a').value !== "") {
-             var backOfferButton = document.getElementById('add-new-question-button');
-             backOfferButton.dataset.target = "#success_tic";
+             $.ajax({
+                 url: ajaxurl,
+                 type: "POST",
+                 data: {"action": "addNewQuestion", "name":name},
+                 success:function(data) {
+                     // backOfferButton.dataset.target = "/";
+                     console.log('add new function is working!');
+                 }
+             });
 
-             // envoke click event
-             document.getElementById('add-new-question-button').click();
-
-             // empty input fields
-             document.getElementById('new-question-title').value = "";
-             document.getElementById('new-question-answer-a').value = "";
-         }
 
         return false;
     }

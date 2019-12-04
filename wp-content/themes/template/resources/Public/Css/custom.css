@@ -1,6 +1,8 @@
 #arrow-next, #arrow-back {
   font-size: 45px;
   cursor: pointer;
+  position: relative;
+  top: -22px;
 }
 
 #arrow-back {

@@ -155,30 +155,68 @@ function myPluginAjaxUrl() {
 // Get my ajaxURL
 add_action('wp_head', 'myPluginAjaxUrl');
 
+
+add_action('wp_ajax_addToUserTable', 'addToUserTable'); // add action for logged users
+add_action( 'wp_ajax_nopriv_addToUserTable', 'addToUserTable' ); // add action for unlogged users
+
 // update Database Table for voting
-function updatePoolTable()
-{
+function addToUserTable() {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     updateTopPlayersTable($name, $surname);
 }
 
-add_action('wp_ajax_updatePoolTable', 'updatePoolTable'); // add action for logged users
-add_action( 'wp_ajax_nopriv_updatePoolTable', 'updatePoolTable' ); // add action for unlogged users
-
 // update Database Table for voting
-function updateTopPlayersTable($name, $surname)
-{
+function updateTopPlayersTable($name, $surname) {
     global $wpdb;
-    $wpdb->insert('top_players', array('name' => $name, 'surname' => $surname));
+    $wpdb->insert('top_players_tic_tac_toe', array('name' => $name, 'surname' => $surname));
 }
+
+add_action('wp_ajax_addNewQuestion', 'addNewQuestion'); // add action for logged users
+add_action( 'wp_ajax_nopriv_addNewQuestion', 'addNewQuestion' ); // add action for unlogged users
+
+// add new question function
+function addNewQuestion() {
+    header('Content-Type: application/html;charset=utf-8');
+
+    // Create post object
+    $my_post = array(
+        'post_title'    => $_POST['name'],
+        'post_status'   => 'publish',
+        'post_author'   => get_current_user_id(),
+        'post_type' => 'questions',
+    );
+
+
+    $post_id = wp_insert_post( $my_post);
+
+    // wp_set_object_terms(); this function can add new Category
+//    wp_set_post_terms($post_id, $_POST['category'], 'custom_taxonomy');
+
+
+//    if(isset($POST['category'])) {
+//        //  wp_set_post_categories( $post_id, $_POST['category'] );
+//    }
+
+    // Insert the post into the database
+    add_post_meta($post_id, 'answer_a', $_POST['answer_a']);
+    add_post_meta($post_id, 'answer_b', $_POST['answer_b']);
+    add_post_meta($post_id, 'answer_c', $_POST['answer_c']);
+    add_post_meta($post_id, 'answer_d', $_POST['answer_d']);
+    add_post_meta($post_id, 'right_answer', $_POST['answer_d']);
+
+    //wp_set_post_categories( $post_id, $post_categories );
+
+    // echo json_encode($uploadedImages);
+    wp_die();
+}
+
+
 
 function getAllHighscoreUsers() {
     global $wpdb;
 
     $users = $wpdb->get_results( "SELECT * FROM top_players");
-
-
     return $users;
 }
 

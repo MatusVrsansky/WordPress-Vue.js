@@ -96,27 +96,6 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
-        },
-        {
-            "key": "field_5d9dd3acd2e18",
-            "label": "Current Id Order In List",
-            "name": "current_id_order_in_list",
-            "type": "number",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "min": "",
-            "max": "",
-            "step": ""
         }
     ],
     "location": [
@@ -138,5 +117,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1570892576
+    "modified": 1575484758
 }

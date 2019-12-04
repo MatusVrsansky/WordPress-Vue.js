@@ -1,8 +1,11 @@
+{#<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>#}
+
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-9">
       <h1 class="text-dark">Pridanie otázky</h1>
-      <form type="POST" onsubmit="return activeGame.addNewQuestion(this)">
+      <p><% activeGame.test %></p>
+      <form type="POST" @submit="addNewQuestion">
         <div class="form-group">
           <label for="exampleInputEmail1">Otázka</label>
           <input type="text" class="form-control" id="new-question-title" aria-describedby="emailHelp"required>
@@ -24,12 +27,16 @@
           <input type="text" class="form-control" id="new-question-answer-d" required>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Správna odpoveď</label>
-          <input type="text" class="form-control" id="new-question-right-answer" required>
+          <label for="inputState">Správna odpoveď</label>
+          <select id="right_answer_select" class="form-control" required>
+            <option value="">Vybrať správnu odpoveď</option>
+            <option value="answer_a">Odpoveď A</option>
+            <option value="answer_b">Odpoveď B</option>
+            <option value="answer_c">Odpoveď C</option>
+            <option value="answer_d">Odpoveď D</option>
+          </select>
         </div>
-        <button type="submit" class="btn btn-primary">Pridať</button>
-        <input type="submit" class="btn btn-info btn-lg" data-toggle="modal" id="add-new-question-button" value="Pridaj">
-
+        <button type="submit" class="btn btn-info btn-lg" data-toggle="modal" id="add-new-question-button" class="btn btn-primary">Pridat</button>
       </form>
       <!-- Modal -->
       <div id="success_tic" class="modal fade" role="dialog">
@@ -56,72 +63,72 @@
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+{#<script src="https://cdn.jsdelivr.net/npm/vue"></script>#}
 
-<script type="text/javascript">
-
-
-    let activeGame = new Game();
+{#<script type="text/javascript">#}
 
 
-    new Vue({
-        el: "#game-view",
-        data: activeGame,
-        delimiters: ['<%', '%>'],
-        computed: {
-            infoMessage: function () {
-                if(this.inProgress) {
-                    return 'Na rade je ' + this.currentTurn;
-                }
+{#    let activeGame = new Game();#}
 
-                else if (this.winner) {
 
-                    if(this.winner === 'O') {
+{#    new Vue({#}
+{#        el: "#game-view",#}
+{#        data: activeGame,#}
+{#        delimiters: ['<%', '%>'],#}
+{#        computed: {#}
+{#            infoMessage: function () {#}
+{#                if(this.inProgress) {#}
+{#                    return 'Na rade je ' + this.currentTurn;#}
+{#                }#}
 
-                        // show reset button
-                        this.showResetButton = true;
-                        this.winnersPlayerOne++;
-                        this.setQuizFormVisibility();
-                    }
+{#                else if (this.winner) {#}
 
-                    else {
+{#                    if(this.winner === 'O') {#}
 
-                        // show reset button
-                        this.showResetButton = true;
-                        this.winnersPlayerTwo++;
-                        this.setQuizFormVisibility();
-                    }
+{#                        // show reset button#}
+{#                        this.showResetButton = true;#}
+{#                        this.winnersPlayerOne++;#}
+{#                        this.setQuizFormVisibility();#}
+{#                    }#}
 
-                    return this.winner + ' vyhráva';
-                }
+{#                    else {#}
 
-                else {
-                    return 'Nevyhráva nikto';
-                }
-            }
-        },
-        methods: {
-            setQuizFormVisibility: function() {
-                if(this.winnersPlayerOne === 2 || this.winnersPlayerTwo === 2) {
-                    if(this.winnersPlayerOne === 2) {
-                        this.winnerPlayer = 'O';
-                        this.looserPlayer = 'X';
-                        this.hideGameForm = true;
+{#                        // show reset button#}
+{#                        this.showResetButton = true;#}
+{#                        this.winnersPlayerTwo++;#}
+{#                        this.setQuizFormVisibility();#}
+{#                    }#}
 
-                        // set reset button on false
-                        this.showResetButton = false;
-                    }
+{#                    return this.winner + ' vyhráva';#}
+{#                }#}
 
-                    else {
-                        this.winnerPlayer = 'X';
-                        this.looserPlayer = 'O';
-                        this.hideGameForm = true;
+{#                else {#}
+{#                    return 'Nevyhráva nikto';#}
+{#                }#}
+{#            }#}
+{#        },#}
+{#        methods: {#}
+{#            setQuizFormVisibility: function() {#}
+{#                if(this.winnersPlayerOne === 2 || this.winnersPlayerTwo === 2) {#}
+{#                    if(this.winnersPlayerOne === 2) {#}
+{#                        this.winnerPlayer = 'O';#}
+{#                        this.looserPlayer = 'X';#}
+{#                        this.hideGameForm = true;#}
 
-                        // set reset button on false
-                        this.showResetButton = false;
-                    }
-                }
-            }
-        }
-    });
-</script>
+{#                        // set reset button on false#}
+{#                        this.showResetButton = false;#}
+{#                    }#}
+
+{#                    else {#}
+{#                        this.winnerPlayer = 'X';#}
+{#                        this.looserPlayer = 'O';#}
+{#                        this.hideGameForm = true;#}
+
+{#                        // set reset button on false#}
+{#                        this.showResetButton = false;#}
+{#                    }#}
+{#                }#}
+{#            }#}
+{#        }#}
+{#    });#}
+{#</script>#}

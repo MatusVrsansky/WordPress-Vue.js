@@ -31,7 +31,7 @@ Text Domain: dw
 #game-view {
   width: 100%;
   margin: 0 auto;
-  padding-top: 32px;
+  /*padding-top: 32px;*/
   /*border: 1px solid #000;*/
 }
 
@@ -91,6 +91,10 @@ Text Domain: dw
 
 .again-button {
   padding: 32px;
+}
+
+.choice:hover {
+  cursor: pointer;
 }
 
 /* modal window */
