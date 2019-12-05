@@ -190,13 +190,9 @@ function addNewQuestion() {
 
     $post_id = wp_insert_post( $my_post);
 
-    // wp_set_object_terms(); this function can add new Category
-//    wp_set_post_terms($post_id, $_POST['category'], 'custom_taxonomy');
+    wp_set_object_terms($post_id, $_POST['category'], 'question_category');
 
 
-//    if(isset($POST['category'])) {
-//        //  wp_set_post_categories( $post_id, $_POST['category'] );
-//    }
 
     // Insert the post into the database
     add_post_meta($post_id, 'answer_a', $_POST['answer_a']);
@@ -300,4 +296,13 @@ function paginationHighScore($tableName) {
             )).'</div>';
         echo $customPagHTML;
     }
+}
+
+function getQuestionsCategories() {
+
+    $categories = get_terms( array(
+        'taxonomy' => 'question_category',
+        'hide_empty' => false) );
+
+    return $categories;
 }

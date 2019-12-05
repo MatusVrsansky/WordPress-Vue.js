@@ -1,0 +1,18 @@
+{% set allCategories = function('getQuestionsCategories') %}
+{#{{dump(allCategories)}}#}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-7">
+      <h1 class="text-dark pt-2">Pridanie Kategórie</h1>
+      <form id="app" @submit="checkForm" method="post">
+        <ul v-if="errors.length" class="p-0">
+          <li v-for="error in errors" class="list-unstyled text-danger"><% error %></li>
+        </ul>
+        <div class="form-group">
+          <input type="text" class="form-control" name="name" id="new_category_name" v-model="name">
+        </div>
+        <button type="submit"  class="btn btn-small btn-primary">Pridať kategóriu</button>
+      </form>
+    </div>
+  </div>
+</div>

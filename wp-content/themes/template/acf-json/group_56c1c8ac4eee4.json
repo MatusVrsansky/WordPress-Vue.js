@@ -74,6 +74,35 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_5de90b317ae5e": {
+                    "key": "layout_5de90b317ae5e",
+                    "name": "add-category-form",
+                    "label": "Add Category Form",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5de90b3f7ae5f",
+                            "label": "",
+                            "name": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_5de238f0c7dc4": {
                     "key": "layout_5de238f0c7dc4",
                     "name": "ultimate-member",
@@ -1687,5 +1716,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1575191726
+    "modified": 1575553871
 }

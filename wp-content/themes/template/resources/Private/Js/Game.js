@@ -283,6 +283,8 @@ class Game {
     }
 
     addNewQuestion(e) {
+
+
         e.preventDefault();
         // let backOfferButton = document.getElementById('add-new-question-button');
         let name = "TEST";
