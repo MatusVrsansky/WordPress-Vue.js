@@ -5,7 +5,7 @@
 
 ### HTML, CSS
 ### PHP
-### Javascript (Jquery)
+### Javascript
 ### Vue Js as a front-end technology
 ### SQL
 
