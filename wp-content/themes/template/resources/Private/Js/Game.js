@@ -3,8 +3,12 @@
 
 let arrayAllAnswers = [];
 
+
+
 class Game {
     constructor() {
+
+
         this.inProgress = true;
         this.winner = null; // O or X
         this.currentTurn = this.generateRandomNumber();
@@ -61,6 +65,7 @@ class Game {
         /* question or category creation */
         this.validQuestionForm = false;
     }
+
 
     showQuiz() {
         this.showQuizForm = true;

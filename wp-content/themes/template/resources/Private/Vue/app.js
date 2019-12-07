@@ -4,6 +4,9 @@ import "../Sass/rte.scss";
 import Vue from 'vue';
 
 import BootstrapVue from 'bootstrap-vue';
+
+import axios from "axios";
+
 import {
     Collapse as ElCollapse,
     CollapseItem as ElCollapseItem,
@@ -33,6 +36,7 @@ Vue.use(PhotoSwipe);
 import "../Js/Game.js";
 
 let activeGame = new Game();
+let myCategories = JSON.parse(categories);
 
 new Vue({
     el: '#game-view',
@@ -42,8 +46,9 @@ new Vue({
         activeGame : activeGame,
         errors: [],
         name: null,
-        age: null,
-        movie: null
+        match: false,
+        myJSON: myCategories,
+        showModal: false
     },
     delimiters: ['<%', '%>'],
     components: {
@@ -52,28 +57,53 @@ new Vue({
         CookiesInfoBox
     },
     methods: {
+        GoToHomepage() {
+            window.location.href = '/';
+        },
+        ReloadCurrentPage() {
+            location.reload();
+        },
         checkForm(e) {
-
+            // set false again
+            this.match = false;
             let input = document.getElementById('new_category_name');
 
-            if (this.name && this.name !== 'Šport') {
-                    console.log("OKA");
+            if (this.name && this.name !== "") {
+                // if input field is not empty!
+                for(let i = 0; i < this.myJSON.length; i++){
+                    if(this.name === this.myJSON[i].name) {
+                        this.errors = [];
+                        input.classList.add("border-danger");
+                        this.errors.push('Táto kategória už existuje');
+                        this.match = true;
+                    }
+                }
+
+                if(this.match === false) {
+                    document.getElementById('submit_new_category_button').dataset.target = "#staticBackdrop";
+                    document.getElementById('submit_new_category_button').click();
+
+                    $.ajax({
+                        url: ajaxurl,
+                        type: "POST",
+                        data:
+                            {
+                                "action": "addNewCategory",
+                                "category": this.name
+                            },
+                        success:function(data) {
+                            this.errors = [];
+                            input.classList.remove("border-danger");
+                        }
+                    });
+                }
             }
 
             else {
                 this.errors = [];
                 input.classList.add("border-danger");
-
-                if(this.name === 'Šport') {
-                    this.errors.push('Táto kategória už existuje');
-                }
-
-                else {
-                    this.errors.push('Vyplňte prosím toto políčko');
-                }
+                this.errors.push('Vyplňte prosím toto políčko');
             }
-
-
 
             e.preventDefault();
         },
@@ -126,9 +156,6 @@ new Vue({
                     }
                 };
             }
-
-
-
             e.preventDefault();
         },
         load() {
@@ -159,7 +186,6 @@ new Vue({
                     const isCommandPressed = e.metaKey,
                         isCtrlPressed = e.ctrlKey,
                         isShiftPressed = e.shiftKey;
-
 
                     if (isCtrlPressed === true ||
                         isShiftPressed === true ||

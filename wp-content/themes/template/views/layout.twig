@@ -22,6 +22,8 @@
       <noscript>
           <p class="text-center">For full functionality of this page it is necessary to enable JavaScript. Here are the <a href="http://www.enable-javascript.com" target="_blank"> instructions how to enable JavaScript in your web browser</a></p>
       </noscript>
+      {% set allCategories = function('getQuestionsCategories') %}
+
 
       {% filter secureContentEmails %}
         {% include 'partials/header.twig' %}

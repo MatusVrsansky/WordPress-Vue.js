@@ -1,18 +1,32 @@
-{% set allCategories = function('getQuestionsCategories') %}
-{#{{dump(allCategories)}}#}
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-7">
       <h1 class="text-dark pt-2">Pridanie Kategórie</h1>
       <form id="app" @submit="checkForm" method="post">
-        <ul v-if="errors.length" class="p-0">
+        <ul v-if="errors.length" class="p-0" id="new_category_errors_list">
           <li v-for="error in errors" class="list-unstyled text-danger"><% error %></li>
         </ul>
         <div class="form-group">
           <input type="text" class="form-control" name="name" id="new_category_name" v-model="name">
         </div>
-        <button type="submit"  class="btn btn-small btn-primary">Pridať kategóriu</button>
+        <button type="submit" id="submit_new_category_button" class="btn btn-small btn-primary" data-toggle="modal" data-target="">Pridať kategóriu</button>
       </form>
+
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <p class="m-0">Kategória: <strong><% name %></strong> bola úspešne pridaná</p>
+            </div>
+            <div class="modal-footer justify-content-start">
+              <span>Chcete pridať ďaľšiu kategóriu?</span>
+              <button type="button" @click="GoToHomepage" class="btn btn-secondary">Nie</button>
+              <button type="button" @click="ReloadCurrentPage" class="btn btn-primary">Áno</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

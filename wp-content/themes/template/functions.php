@@ -138,7 +138,14 @@ function getRandomQuestions() {
     $my_json_str = json_encode($wp_query->posts);
     $customFields = json_encode($arrayCustomFields);
 
+    $categories = get_terms( array(
+        'taxonomy' => 'question_category',
+        'hide_empty' => false) );
 
+    $categories = json_encode($categories);
+
+
+    wp_localize_script( 'script-critical', 'categories', $categories);
     wp_localize_script( 'script-critical', 'questions', $my_json_str );
     wp_localize_script( 'script-critical', 'answers', $customFields );
 
@@ -299,10 +306,31 @@ function paginationHighScore($tableName) {
 }
 
 function getQuestionsCategories() {
-
     $categories = get_terms( array(
         'taxonomy' => 'question_category',
         'hide_empty' => false) );
 
+    $my_json_str = json_encode($categories);
+    wp_localize_script( 'script-app', 'categories', $my_json_str );
+
     return $categories;
+}
+
+add_action('wp_ajax_addNewCategory', 'addNewCategory'); // add action for logged users
+add_action( 'wp_ajax_nopriv_addNewCategory', 'addNewCategory' ); // add action for unlogged users
+
+// add new category function
+function addNewCategory() {
+    $category = $_POST['category'];
+    $slug = strtolower($category);
+    wp_insert_term(
+
+        $category, // the term
+        'question_category', // the taxonomy
+        array(
+            'slug' => $slug,
+        )
+    );
+
+    wp_die();
 }
