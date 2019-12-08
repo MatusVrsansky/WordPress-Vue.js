@@ -9,16 +9,16 @@
 function um_logout_user_links( $args ) {
 	?>
 
-	<li>
-		<a href="<?php echo esc_url( um_get_core_page( 'account' ) ); ?>">
-			<?php _e( 'Váš účet', 'ultimate-member' ); ?>
-		</a>
-	</li>
-	<li>
+<!--	<li>-->
+<!--		<a href="--><?php //echo esc_url( um_get_core_page( 'account' ) ); ?><!--">-->
+<!--			--><?php //_e( 'Váš účet', 'ultimate-member' ); ?>
+<!--		</a>-->
+<!--	</li>-->
+<!--	<li>-->
 		<a href="<?php echo esc_url( add_query_arg( 'redirect_to', UM()->permalinks()->get_current_url( true ), um_get_core_page( 'logout' ) ) ); ?>">
 			<?php _e( 'Odlhlásiť sa', 'ultimate-member' ); ?>
 		</a>
-	</li>
+<!--	</li>-->
 
 	<?php
 }

@@ -1,19 +1,20 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
-<div class="um <?php echo esc_attr( $this->get_class( $mode, $args ) ); ?> um-<?php echo esc_attr( $form_id ); ?>">
+<div class="text-center">
 
+    <h4 class="pt-4">Užívateľ: <span class="text-danger">ucitel</span> je aktuálne prihlásený</h4>
 	<div class="um-form">
 
-		<div class="um-misc-with-img">
+		<div class="um-misc-with-img" style="display: none">
 
 			<div class="um-misc-img">
 				<a href="<?php echo esc_url( um_get_core_page( 'user' ) ); ?>">
 					<?php echo um_user( 'profile_photo', 80 ); ?>
 				</a>
 			</div>
-			
+
 			<div><strong><?php echo esc_html( um_user( 'display_name' ) ); ?></strong></div>
-			
+
 			<?php
 			/**
 			 * UM hook
@@ -35,11 +36,11 @@
 			 * ?>
 			 */
 			do_action( 'um_logout_after_user_welcome', $args ); ?>
-			
+
 		</div>
-		
+
 		<ul class="um-misc-ul">
-			
+
 			<?php
 			/**
 			 * UM hook
@@ -61,7 +62,7 @@
 			 * ?>
 			 */
 			do_action( 'um_logout_user_links', $args ); ?>
-		
+
 		</ul>
 	</div>
 </div>
