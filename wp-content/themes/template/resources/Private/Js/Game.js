@@ -33,7 +33,7 @@ class Game {
         /*
         Set visibility of quiz Form
          */
-        this.showQuizForm = true;
+        this.showQuizForm = false;
 
         ////////////////////////////////////////////////////////////////////////////////////// Quiz Form section variables and functions()
 
@@ -288,8 +288,6 @@ class Game {
     }
 
     addNewQuestion(e) {
-
-
         e.preventDefault();
         // let backOfferButton = document.getElementById('add-new-question-button');
         let name = "TEST";

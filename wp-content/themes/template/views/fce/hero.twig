@@ -8,9 +8,6 @@
     <li class="nav-item">
       <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Druhá hra</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Tretia hra</a>
-    </li>
   </ul><!-- Tab panes -->
   <div class="tab-content">
     <div class="tab-pane active" id="tabs-1" role="tabpanel">
@@ -20,9 +17,6 @@
     <div class="tab-pane" id="tabs-2" role="tabpanel">
       {% set pagination = function('paginationHighScore', 'top_players_game_two') %}
       {{ pagination }}
-    </div>
-    <div class="tab-pane" id="tabs-3" role="tabpanel">
-      <p>Table for third Game is not created yet!!!</p>
     </div>
   </div>
 </div>

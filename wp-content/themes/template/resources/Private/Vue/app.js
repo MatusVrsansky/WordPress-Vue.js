@@ -21,6 +21,9 @@ import AjaxForm from "./Components/AjaxForm.vue";
 import AjaxList from "./Components/AjaxList.vue";
 import CookiesInfoBox from "./Components/CookiesInfoBox.vue";
 
+import AddNewCategory from "./Components/AddNewCategory.vue";
+
+
 const MOUSE_MIDDLE_BUTTON = 2,
     PREVENT_LOAD_LINK_CLASSES = ["[href^=mailto]", "[href^=tel]", "[href^=javascript]", "[href^=\\#]", "[target^=_blank]", ".photoswipe", "#scroll-to-top", ".download", ".ajax", "[href*=tx_typoscriptrendering]", "[href*=ajax]"];
 
@@ -33,10 +36,14 @@ Vue.directive('video-player', VideoPlayer);
 
 Vue.use(PhotoSwipe);
 
+Vue.component('AddNewCategory', AddNewCategory);
+
 import "../Js/Game.js";
 
 let activeGame = new Game();
-let myCategories = JSON.parse(categories);
+
+window.categories = JSON.parse(categories);
+
 
 new Vue({
     el: '#game-view',
@@ -44,69 +51,15 @@ new Vue({
         preventUnloading: false,
         time: 1500,
         activeGame : activeGame,
-        errors: [],
-        name: null,
-        match: false,
-        myJSON: myCategories,
-        showModal: false
     },
     delimiters: ['<%', '%>'],
     components: {
         swiper,
         swiperSlide,
-        CookiesInfoBox
+        CookiesInfoBox,
+        AddNewCategory
     },
     methods: {
-        GoToHomepage() {
-            window.location.href = '/';
-        },
-        ReloadCurrentPage() {
-            location.reload();
-        },
-        checkForm(e) {
-            // set false again
-            this.match = false;
-            let input = document.getElementById('new_category_name');
-
-            if (this.name && this.name !== "") {
-                // if input field is not empty!
-                for(let i = 0; i < this.myJSON.length; i++){
-                    if(this.name === this.myJSON[i].name) {
-                        this.errors = [];
-                        input.classList.add("border-danger");
-                        this.errors.push('Táto kategória už existuje');
-                        this.match = true;
-                    }
-                }
-
-                if(this.match === false) {
-                    document.getElementById('submit_new_category_button').dataset.target = "#staticBackdrop";
-                    document.getElementById('submit_new_category_button').click();
-
-                    $.ajax({
-                        url: ajaxurl,
-                        type: "POST",
-                        data:
-                            {
-                                "action": "addNewCategory",
-                                "category": this.name
-                            },
-                        success:function(data) {
-                            this.errors = [];
-                            input.classList.remove("border-danger");
-                        }
-                    });
-                }
-            }
-
-            else {
-                this.errors = [];
-                input.classList.add("border-danger");
-                this.errors.push('Vyplňte prosím toto políčko');
-            }
-
-            e.preventDefault();
-        },
         addNewQuestion(e) {
             var inputs = document.getElementsByTagName("INPUT");
             for (var i = 0; i < inputs.length; i++) {

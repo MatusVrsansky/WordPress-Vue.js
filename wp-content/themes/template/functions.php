@@ -138,14 +138,6 @@ function getRandomQuestions() {
     $my_json_str = json_encode($wp_query->posts);
     $customFields = json_encode($arrayCustomFields);
 
-    $categories = get_terms( array(
-        'taxonomy' => 'question_category',
-        'hide_empty' => false) );
-
-    $categories = json_encode($categories);
-
-
-    wp_localize_script( 'script-critical', 'categories', $categories);
     wp_localize_script( 'script-critical', 'questions', $my_json_str );
     wp_localize_script( 'script-critical', 'answers', $customFields );
 
@@ -311,6 +303,7 @@ function getQuestionsCategories() {
         'hide_empty' => false) );
 
     $my_json_str = json_encode($categories);
+
     wp_localize_script( 'script-app', 'categories', $my_json_str );
 
     return $categories;
