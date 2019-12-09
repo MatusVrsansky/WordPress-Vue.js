@@ -302,3 +302,11 @@ a.next.page-numbers {
   }
 }
 
+/* add new question error class*/
+.has-warning {
+  border-color: red;
+}
+
+.form-control-feedback {
+  color: red;
+}

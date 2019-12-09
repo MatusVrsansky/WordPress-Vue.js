@@ -72,7 +72,7 @@
 
                 if (this.name && this.name !== "") {
                     // if input field is not empty!
-                    for(let i = 0; i < this.myJSON.length; i++){
+                    for(let i = 0; i < this.myJSON.length; i++) {
                         if(this.name === this.myJSON[i].name) {
                             this.errors = [];
                             input.classList.add("border-danger");

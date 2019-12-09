@@ -198,7 +198,7 @@ function addNewQuestion() {
     add_post_meta($post_id, 'answer_b', $_POST['answer_b']);
     add_post_meta($post_id, 'answer_c', $_POST['answer_c']);
     add_post_meta($post_id, 'answer_d', $_POST['answer_d']);
-    add_post_meta($post_id, 'right_answer', $_POST['answer_d']);
+    add_post_meta($post_id, 'right_answer', $_POST['right_answer']);
 
     //wp_set_post_categories( $post_id, $post_categories );
 
@@ -326,4 +326,21 @@ function addNewCategory() {
     );
 
     wp_die();
+}
+
+function getAllQuestions() {
+    $args = array(
+        'post_type' => 'questions',
+    );
+
+    $query = new WP_Query( $args );
+
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+        }
+    }
+
+    $json = json_encode($query->posts);
+    wp_localize_script( 'script-app', 'all_questions', $json );
 }

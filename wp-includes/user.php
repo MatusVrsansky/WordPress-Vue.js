@@ -149,9 +149,9 @@ function wp_authenticate_username_password( $user, $username, $password ) {
 	if ( ! $user ) {
 		return new WP_Error(
 			'invalid_username',
-			__( '<strong>ERROR</strong>: Invalid username.' ) .
+			__( '<strong>CHYBA</strong>: Nesprávne meno alebo heslo.' ) .
 			' <a href="' . wp_lostpassword_url() . '">' .
-			__( 'Lost your password?' ) .
+			__( 'Zabudli ste heslo?' ) .
 			'</a>'
 		);
 	}
@@ -175,11 +175,11 @@ function wp_authenticate_username_password( $user, $username, $password ) {
 			'incorrect_password',
 			sprintf(
 				/* translators: %s: user name */
-				__( '<strong>ERROR</strong>: The password you entered for the username %s is incorrect.' ),
+				__( '<strong>CHYBA</strong>: Heslo, ktoré ste zadali pre meno používateľa %s je nesprávne.' ),
 				'<strong>' . $username . '</strong>'
 			) .
 			' <a href="' . wp_lostpassword_url() . '">' .
-			__( 'Lost your password?' ) .
+			__( 'Zabudli ste heslo?' ) .
 			'</a>'
 		);
 	}
