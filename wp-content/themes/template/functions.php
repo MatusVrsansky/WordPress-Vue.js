@@ -135,11 +135,11 @@ function getRandomQuestions() {
     } else {
         // no posts found
     }
-    $my_json_str = json_encode($wp_query->posts);
-    $customFields = json_encode($arrayCustomFields);
+    $jsonRandomQuestionsTitles = json_encode($wp_query->posts);
+    $jsonRandomQuestionsAnswers = json_encode($arrayCustomFields);
 
-    wp_localize_script( 'script-critical', 'questions', $my_json_str );
-    wp_localize_script( 'script-critical', 'answers', $customFields );
+    wp_localize_script( 'script-app', 'randomQuestionsTitles', $jsonRandomQuestionsTitles );
+    wp_localize_script( 'script-app', 'randomQuestionsAnswers', $jsonRandomQuestionsAnswers );
 
     return $wp_query;
 }

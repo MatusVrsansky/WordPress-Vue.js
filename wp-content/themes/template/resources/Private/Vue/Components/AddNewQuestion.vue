@@ -7,7 +7,7 @@
                         <label class="form-control-label" for="new_question_title">Názov</label>
                         <input id="new_question_title" name="name_question" class="form-control form-control-warning" v-bind:class="{ 'has-warning': attemptSubmit && missingQuestionName || addExistedQuestion }"  type="text" v-model="name">
                         <div class="form-control-feedback" v-if="attemptSubmit && missingQuestionName">Vyplňte prosím toto políčko</div>
-                        <div class="form-control-feedback" v-if="attemptSubmit && matchExistedQuestionName">Otázka s takýmto názvom už existuje</div>
+                        <div class="form-control-feedback" v-if="attemptSubmit && addExistedQuestion">Otázka s takýmto názvom už existuje</div>
                     </div><!-- /form-group -->
                     <div class="form-group">
                         <label class="form-control-label" for="new_question_answer_a">Odpoveď A</label>
@@ -48,8 +48,23 @@
                         </select>
                         <div class="form-control-feedback" v-if="attemptSubmit && missingSelectedCategory">Priradte prosím príslušnú kategóriu k danej otázke</div>
                     </div>
-                    <button class="btn btn-primary">Submit</button>
+                    <button  id="submit_new_question_button" class="btn btn-small btn-primary" data-toggle="modal" data-target="">Pridať otázku</button>
                 </form>
+
+                <div class="modal fade" id="staticBackdropQuestion" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p class="m-0">Otázka bola úspešne pridaná</p>
+                            </div>
+                            <div class="modal-footer justify-content-start">
+                                <span>Chcete pridať ďaľšiu otázku?</span>
+                                <button type="button" @click="GoToHomepage" class="btn btn-secondary">Nie</button>
+                                <button type="button" @click="ReloadCurrentPage" class="btn btn-primary">Áno</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div><!-- /col -->
         </div><!-- /row -->
     </div><!-- /container -->
@@ -84,7 +99,7 @@
 
                 switch (this.matchExistedQuestionName) {
                     case true: return true;
-                    default: return false;
+                    case false: return false;
                 }
             },
             missingQuestionName: function () { return this.name === '';},
@@ -96,6 +111,12 @@
             missingSelectedCategory: function () { return this.selectedCategory === ''; }
         },
         methods: {
+            GoToHomepage() {
+                window.location.href = '/';
+            },
+            ReloadCurrentPage() {
+                location.reload();
+            },
             validateForm: function (event) {
                 this.attemptSubmit = true;
                 if (this.addExistedQuestion || this.missingQuestionName || this.missingQuestionAnswerA || this.missingQuestionAnswerB
@@ -124,13 +145,12 @@
                         case 'answer_d': right_answer = answer_d; break;
                     }
 
-                    console.log("*****************");
-                    console.log('right answer is: '+right_answer);
-                    console.log("*****************");
-
                     // get option Category from select box
                     let category = document.getElementById('question_selected_category');
                     let selected_category = category[category.selectedIndex].value;
+
+                    document.getElementById('submit_new_question_button').dataset.target = "#staticBackdropQuestion";
+                    document.getElementById('submit_new_question_button').click();
 
                     // if input fields are not empty!
                     $.ajax({
@@ -143,7 +163,6 @@
                             },
                         success:function(data) {
                             // backOfferButton.dataset.target = "/";
-                            console.log('add new function is working!');
                         }
                     });
                 }

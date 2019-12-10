@@ -23,6 +23,7 @@ import CookiesInfoBox from "./Components/CookiesInfoBox.vue";
 
 import AddNewCategory from "./Components/AddNewCategory.vue";
 import AddNewQuestion from "./Components/AddNewQuestion.vue";
+import GameTicTacToe from "./Components/GameTicTacToe.vue";
 
 
 const MOUSE_MIDDLE_BUTTON = 2,
@@ -39,6 +40,7 @@ Vue.use(PhotoSwipe);
 
 Vue.component('AddNewCategory', AddNewCategory);
 Vue.component('AddNewQuestion', AddNewQuestion);
+Vue.component('GameTicTacToe', GameTicTacToe);
 
 import "../Js/Game.js";
 
@@ -47,16 +49,8 @@ let activeGame = new Game();
 window.categories = JSON.parse(categories);
 window.allQuestions = JSON.parse(all_questions);
 
-
-// for(let i = 0; i <window.allQuestions.length; i++) {
-//     // if(this.name === this.window.allQuestions[i].post_title) {
-//     //     this.errors = [];
-//     //     input.classList.add("border-danger");
-//     //     this.errors.push('Táto kategória už existuje');
-//     //     this.match = true;
-//     // }
-//     console.log(window.allQuestions[i].post_title);
-// }
+window.randomQuizQuestionsTitles = JSON.parse(randomQuestionsTitles);
+window.randomQuestionsAnswers = JSON.parse(randomQuestionsAnswers);
 
 
 new Vue({
@@ -71,60 +65,10 @@ new Vue({
         swiper,
         swiperSlide,
         CookiesInfoBox,
-        AddNewCategory
+        AddNewCategory,
+        AddNewQuestion
     },
     methods: {
-        // addNewQuestion(e) {
-        //     var inputs = document.getElementsByTagName("INPUT");
-        //     for (var i = 0; i < inputs.length; i++) {
-        //         inputs[i].oninvalid = function (e) {
-        //             e.target.setCustomValidity("");
-        //             if (!e.target.validity.valid) {
-        //                 e.target.setCustomValidity(e.target.getAttribute("data-error"));
-        //             }
-        //
-        //             else {
-        //                 let title = document.getElementById('new-question-title').value;
-        //                 let answer_a = document.getElementById('new-question-answer-a').value;
-        //                 let answer_b = document.getElementById('new-question-answer-b').value;
-        //                 let answer_c = document.getElementById('new-question-answer-c').value;
-        //                 let answer_d = document.getElementById('new-question-answer-d').value;
-        //
-        //                 // get option from select box
-        //                 let selector = document.getElementById('right_answer_select');
-        //                 let value = selector[selector.selectedIndex].value;
-        //                 let right_answer;
-        //
-        //                 switch (value) {
-        //                     case 'answer_a': right_answer = answer_a; break;
-        //                     case 'answer_b': right_answer = answer_b; break;
-        //                     case 'answer_c': right_answer = answer_c; break;
-        //                     case 'answer_d': right_answer = answer_d; break;
-        //                 }
-        //
-        //                 // get option Category from select box
-        //                 let category = document.getElementById('question_selected_category');
-        //                 let selected_category = category[category.selectedIndex].value;
-        //
-        //                 // if input fields are not empty!
-        //                 $.ajax({
-        //                     url: ajaxurl,
-        //                     type: "POST",
-        //                     data:
-        //                         {
-        //                             "action": "addNewQuestion",
-        //                             "name":title, "answer_a":answer_a, "answer_b":answer_b, "answer_c":answer_c, "answer_d":answer_d, "right_answer":right_answer, "category": selected_category
-        //                         },
-        //                     success:function(data) {
-        //                         // backOfferButton.dataset.target = "/";
-        //                         console.log('add new function is working!');
-        //                     }
-        //                 });
-        //             }
-        //         };
-        //     }
-        //     e.preventDefault();
-        // },
         load() {
             document.body.classList.add("loaded");
         },

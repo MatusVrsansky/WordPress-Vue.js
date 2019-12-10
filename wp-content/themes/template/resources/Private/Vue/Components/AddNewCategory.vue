@@ -1,24 +1,23 @@
 <template>
-    <div class="container">
+    <div class="container mt-3 mt-sm-5">
         <div class="row justify-content-center">
-            <div class="col-7">
-                <h1 class="text-dark pt-2">Pridanie Kategórie</h1>
-                <form id="app" @submit="addNewCategory" method="post">
-                    <ul v-if="errors.length" class="p-0" id="new_category_errors_list">
-                        <li v-for="error in errors" class="list-unstyled text-danger">{{ error }}</li>
-                    </ul>
+            <div class="col-md-6">
+                <form id="form" method="POST" @submit="addNewCategory">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" id="new_category_name" v-model="name">
-                    </div>
-                    <button type="submit" id="submit_new_category_button" class="btn btn-small btn-primary" data-toggle="modal" data-target="">Pridať kategóriu</button>
+                        <label class="form-control-label" for="new_category_title">Názov</label>
+                        <input id="new_category_title" class="form-control form-control-warning" v-bind:class="{ 'has-warning': attemptSubmit && missingCategoryName || addExistedCategory }"  type="text" v-model="name_category">
+                        <div class="form-control-feedback" v-if="attemptSubmit && missingCategoryName">Vyplňte prosím toto políčko</div>
+                        <div class="form-control-feedback" v-if="attemptSubmit && addExistedCategory">Kategória s takýmto názvom už existuje</div>
+                    </div><!-- /form-group -->
+                    <!--                    <button class="btn btn-primary">Submit</button>-->
+                    <button  id="submit_new_category_button" class="btn btn-small btn-primary" data-toggle="modal" data-target="">Pridať kategóriu</button>
                 </form>
 
-                <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <p class="m-0">Kategória: <strong>{{ name }}</strong> bola úspešne pridaná</p>
+                                <p class="m-0">Kategória <strong>{{name_category}}</strong> bola úspešne pridaná</p>
                             </div>
                             <div class="modal-footer justify-content-start">
                                 <span>Chcete pridať ďaľšiu kategóriu?</span>
@@ -28,88 +27,74 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
 </template>
 
 <script>
-    import Cookies from 'js-cookie';
-
-    const DAYS_IN_YEAR = 365;
-
     export default {
         data() {
             return {
-                errors: [],
-                name: null,
-                match: false,
-                showModal: false,
-                myJSON: window.categories
+                name_category: '',
+                jsonAllCategories: window.categories,
+                matchExistedCategoryName: false,
+                attemptSubmit: false,
             }
         },
-        props: {
-            closeLabel: String
-        },
-        created() {
-            this.isAccepted = Cookies.get("cookiesAccepted") === "1";
-        },
+        computed: {
+            addExistedCategory: function () {
+                this.matchExistedCategoryName = false;
+                for (let i = 0; i < this.jsonAllCategories.length; i++) {
+                    if (this.name_category === this.jsonAllCategories[i].name) {
+                        this.matchExistedCategoryName = true;
+                    }
+                }
 
+                switch (this.matchExistedCategoryName) {
+                    case true:
+                        return true;
+                    case false:
+                        return false;
+                }
+            },
+            missingCategoryName: function () {
+                return this.name_category === '';
+            },
+        },
         methods: {
-            accept() {
-                Cookies.set("cookiesAccepted", "1", {expires: DAYS_IN_YEAR});
-                this.isAccepted = true;
-            }, GoToHomepage() {
+            GoToHomepage() {
                 window.location.href = '/';
             },
             ReloadCurrentPage() {
                 location.reload();
             },
             addNewCategory(e) {
-                // set false again
-                this.match = false;
-                let input = document.getElementById('new_category_name');
 
-                if (this.name && this.name !== "") {
-                    // if input field is not empty!
-                    for(let i = 0; i < this.myJSON.length; i++) {
-                        if(this.name === this.myJSON[i].name) {
-                            this.errors = [];
-                            input.classList.add("border-danger");
-                            this.errors.push('Táto kategória už existuje');
-                            this.match = true;
+                this.attemptSubmit = true;
+                if (this.addExistedCategory || this.missingCategoryName) {
+                    e.preventDefault();
+                } else {
+                    e.preventDefault();
+                    document.getElementById('submit_new_category_button').dataset.target = "#staticBackdrop";
+                    document.getElementById('submit_new_category_button').click();
+
+                    $.ajax({
+                        url: ajaxurl,
+                        type: "POST",
+                        data:
+                            {
+                                "action": "addNewCategory",
+                                "category": this.name_category
+                            },
+                        success: function (data) {
+
                         }
-                    }
-
-                    if(this.match === false) {
-                        document.getElementById('submit_new_category_button').dataset.target = "#staticBackdrop";
-                        document.getElementById('submit_new_category_button').click();
-
-                        $.ajax({
-                            url: ajaxurl,
-                            type: "POST",
-                            data:
-                                {
-                                    "action": "addNewCategory",
-                                    "category": this.name
-                                },
-                            success:function(data) {
-                                this.errors = [];
-                                input.classList.remove("border-danger");
-                            }
-                        });
-                    }
+                    });
                 }
-
-                else {
-                    this.errors = [];
-                    input.classList.add("border-danger");
-                    this.errors.push('Vyplňte prosím toto políčko');
-                }
-
-                e.preventDefault();
-            },
-        }
+            }
+        },
     }
+
 </script>
 
