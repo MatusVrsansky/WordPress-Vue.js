@@ -23,7 +23,39 @@
             <div v-if="activeGame.hideGameForm === true" id="winner-information">
                 <p>Hráč <strong>{{ activeGame.winnerPlayer }}</strong> vyhral nad súperom <strong>{{ activeGame.looserPlayer }}</strong> </p>
 
-                <p>Mozete ist odpovedat na otazky</p>
+                <p>Vyberte si, z ktorej kategórie chcete odpovedať na otázky</p>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="#">
+                                First
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="#">
+                                Second
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="#">
+                               Third
+                            </a>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
                 <button type="button" @click.prevent="activeGame.showQuiz()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">odpovedat</button>
             </div>
         </div>
@@ -35,9 +67,9 @@
                         <div id="enter-name-form" class="p-4" style="display: none">
                             <form type="POST" onsubmit="return activeGame.handle_my_input()">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1" class="mb-2">Zadajte svoje meno a priezvisko</label>
-                                            <input type="text" class="form-control" id="name" oninvalid="activeGame.InvalidMsg(this);" aria-describedby="emailHelp" placeholder="Vaše meno" required>
-                                    <input type="text" class="form-control" id="surname" oninvalid="activeGame.InvalidMsg(this);" aria-describedby="emailHelp" placeholder="Vaše priezvisko" required>
+                                    <label class="mb-2">Zadajte svoje meno a priezvisko</label>
+                                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Vaše meno" required>
+                                    <input type="text" class="form-control" id="surname" aria-describedby="emailHelp" placeholder="Vaše priezvisko" required>
                                     <small id="emailHelp" class="form-text text-muted">Vaše meno a priezvisko sa zapíše do tabuľky najlepších hráčov</small>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Odoslať</button>
@@ -61,31 +93,28 @@
                             <div class="modal-body">
                                 <div class="col-xs-3 col-xs-offset-5">
                                 </div>
-                                <div class="quiz" id="quiz" data-toggle="buttons" @click.prevent="activeGame.test(this.id)">
-                                    <label id="1" class="choice element-animation1 btn btn-lg btn-primary btn-block">
+                                <div class="quiz" id="quiz"  @click.prevent="activeGame.test">
+                                    <button id="1" class="choice element-animation1 btn btn-lg btn-primary btn-block">
                                         <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
-<!--                                           <input type="radio" name="q_answer" value="1">-->
                                         {{ jsonRandomQuestionsAnswers[0].answer_a }}
-                                    </label>
-                                    <label id="2" class="choice element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                                    </button>
+                                    <button id="2" class="choice element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
                                         {{ jsonRandomQuestionsAnswers[0].answer_b }}
-                                    </label>
-                                    <label id="3" class="choice element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                                    </button>
+                                    <button id="3" class="choice element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
                                         {{ jsonRandomQuestionsAnswers[0].answer_c }}
-                                    </label>
-                                    <label id="4" class="choice element-animation4 btn btn-lg btn-primary btn-block mb-2-half"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                                    </button>
+                                    <button id="4" class="choice element-animation4 btn btn-lg btn-primary btn-block mb-2-half"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
                                         {{ jsonRandomQuestionsAnswers[0].answer_d }}
-                                    </label>
+                                    </button>
                                     <!-- right answer for current question-->
-                                    <input type="hidden" name="question_right_answer" id="rightAnswer" value="">
+                                    <p id="rightAnswer" style="display: none">{{jsonRandomQuestionsAnswers[0].right_answer}}</p>
+<!--                                    <input type="hidden" name="question_right_answer" id="rightAnswer" value="">-->
                                 </div>
                                 <div class="d-flex">
                                     <div class="question-information-counter"><span id="question-number">1</span> z 5</div>
-                                       <div v-if="activeGame.questionIndex > 0"><span id="arrow-back">&#8592;</span></div>
-
                                     <div v-if="activeGame.arrowVisibility === true" @click.prevent="activeGame.setNextQuestion()" class="ml-auto p-2"><span id="arrow-next">&#8594;</span></div>
                                     <button v-if="activeGame.formClicked === true && activeGame.questionIndex === 4" @click.prevent="activeGame.showNameForm()" class="btn btn-primary ml-auto" type="button">Skončiť test</button>
-
                                 </div>
 
                             </div>
@@ -108,10 +137,10 @@
                 activeGame: activeGame,
                 jsonRandomQuestionsTitles: window.randomQuizQuestionsTitles,
                 jsonRandomQuestionsAnswers: window.randomQuestionsAnswers,
-
             }
         },
         computed: {
+
             infoMessage: function () {
                 if(activeGame.inProgress) {
                     return 'Na rade je ' + activeGame.currentTurn;

@@ -4,11 +4,8 @@
 let arrayAllAnswers = [];
 
 
-
 class Game {
     constructor() {
-
-
         this.inProgress = true;
         this.winner = null; // O or X
         this.currentTurn = this.generateRandomNumber();
@@ -28,12 +25,12 @@ class Game {
         this.looserPlayer = '';
 
 
-        this.test = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII am TEEEEEEEEEEEEEEEEEEst";
+
 
         /*
         Set visibility of quiz Form
          */
-        this.showQuizForm = false;
+        this.showQuizForm = true;
 
         ////////////////////////////////////////////////////////////////////////////////////// Quiz Form section variables and functions()
 
@@ -143,29 +140,17 @@ class Game {
      /*
      * would like to separate it soon
       */
-     test(clickedId) {
-         var rightAnswer = document.getElementById('rightAnswer');
-         var elements = document.getElementsByClassName('choice');
-
-
-         // array for collection of all answers
-
-
-         console.log("*****************************");
-         console.log(rightAnswer.value);
-         console.log("*****************************");
-
-
-          // get current ID
-          clickedId = clickedId || window.event;
-          clickedId = clickedId.target || clickedId.srcElement;
-
-          // if we clicked on one of our answers
-          if(clickedId.id === '1' || clickedId.id === '2' || clickedId.id === '3' || clickedId.id === '4') {
+     test(event) {
+        let rightAnswer = document.getElementById('rightAnswer');
+        let elements = document.getElementsByClassName('choice');
 
               if(this.formClicked === false) {
                   // set form clicked on TRUE
                   this.formClicked = true;
+
+                  // get clicked button
+                  let clickedId = event.target;
+
 
                   // consider it!!!
                   // var els = document.querySelectorAll('.choice');
@@ -173,17 +158,15 @@ class Game {
                   //     els[i].setAttribute("disabled", "");
                   // }
 
-
                   // remove active class for all buttons
                   for(let i=0;i<elements.length;i++) {
                       elements[i].classList.remove('active');
                   }
 
                   // right answer
-                  if(parseInt(clickedId.textContent) === parseInt(rightAnswer.value)) {
+                  if(clickedId.innerText === rightAnswer.innerText) {
 
                       clickedId.style.border = "thick solid #00ff00";
-                      arrayAllAnswers.push({right_answer_id: clickedId.id, incorrect_answer_id: 0, question_index: this.questionIndex});
 
                       // increment right answers count
                       this.countRightAnswers++;
@@ -204,9 +187,9 @@ class Game {
 
                       // set value for right answer
                       for(let i=0;i<elements.length;i++) {
-                          if(parseInt(elements[i].textContent) === parseInt(rightAnswer.value)) {
+                          if(elements[i].innerText === rightAnswer.innerText) {
                               elements[i].style.border = "thick solid #00ff00";
-                              arrayAllAnswers.push({right_answer_id: elements[i].id, incorrect_answer_id: clickedId.id, question_index: this.questionIndex});
+                              // arrayAllAnswers.push({right_answer_id: elements[i].id, incorrect_answer_id: clickedId.id, question_index: this.questionIndex});
                           }
                       }
 
@@ -221,18 +204,12 @@ class Game {
                           this.arrowVisibility = true;
                       }
                   }
-
-                  console.log('//////////////////////////');
-                  console.log(arrayAllAnswers);
-                  console.log('//////////////////////////');
-
               }
-          }
      }
 
      setNextQuestion() {
-         let myAnswers = JSON.parse(answers);
-         let myQuestions = JSON.parse(questions);
+         let myAnswers = window.randomQuestionsAnswers;
+         let myQuestions = window.randomQuizQuestionsTitles;
 
          document.getElementById('question-number').innerHTML = this.questionIndex+1;
          let elements = document.getElementsByClassName('choice');
@@ -258,11 +235,10 @@ class Game {
          document.getElementById('4').innerHTML = myAnswers[this.questionIndex].answer_d;
 
          // set right answer
-         document.getElementById('rightAnswer').value = myAnswers[this.questionIndex].right_answer;
+         document.getElementById('rightAnswer').innerHTML = myAnswers[this.questionIndex].right_answer;
 
          // set text value for information of question number
          document.getElementById('question-number').innerHTML = this.questionIndex+1;
-
 
          // set form again to be clicked
          this.formClicked = false;
@@ -287,26 +263,6 @@ class Game {
          return false;
     }
 
-    addNewQuestion(e) {
-        e.preventDefault();
-        // let backOfferButton = document.getElementById('add-new-question-button');
-        let name = "TEST";
-
-         // if input fields are not empty!
-             $.ajax({
-                 url: ajaxurl,
-                 type: "POST",
-                 data: {"action": "addNewQuestion", "name":name},
-                 success:function(data) {
-                     // backOfferButton.dataset.target = "/";
-                     console.log('add new function is working!');
-                 }
-             });
-
-
-        return false;
-    }
-
      setAnswersCount() {
          // set count for span with correct answers
          document.getElementById('count_right_answers').innerHTML = this.countRightAnswers;
@@ -318,15 +274,6 @@ class Game {
         document.getElementById("quiz-content").style.display = "none";
     }
 
-    InvalidMsg(input) {
-        if (input.value === '') {
-            input.setCustomValidity('Toto políčko je povinné!');
-        }
-        else {
-            input.setCustomValidity('');
-        }
-        return false;
-    }
 }
 
 Game.O = 'O';
