@@ -15,7 +15,7 @@ class Game {
         this.winnersPlayerOne = 0;
         this.winnersPlayerTwo = 0;
 
-        this.hideGameForm = false;
+        this.hideGameForm = true;
 
         // show again button
         this.showResetButton = false;
@@ -30,7 +30,7 @@ class Game {
         /*
         Set visibility of quiz Form
          */
-        this.showQuizForm = true;
+        this.showQuizForm = false;
 
         ////////////////////////////////////////////////////////////////////////////////////// Quiz Form section variables and functions()
 

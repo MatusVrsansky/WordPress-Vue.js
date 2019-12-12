@@ -24,37 +24,19 @@
                 <p>Hráč <strong>{{ activeGame.winnerPlayer }}</strong> vyhral nad súperom <strong>{{ activeGame.looserPlayer }}</strong> </p>
 
                 <p>Vyberte si, z ktorej kategórie chcete odpovedať na otázky</p>
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <a href="#">
-                                First
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="#">
-                                Second
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="#">
-                               Third
-                            </a>
-                        </div>
+                <p>Slideshow 2:</p>
+                <div class="slideshow-container">
+                    <div class="mySlides" v-for="(category, index) in jsonAllCategories" v-bind:style="index === 0 ? 'display: block' : ''">
+                        <div class="numbertext">1 / 3</div>
+                        <img src="/wp-content/themes/template/resources/images/logo.svg" style="width:100%">
+                        <button type="button" class="btn btn-info btn-small text">{{category.name}}</button>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    <a class="prev" @click="plusSlides(-1)">&#10094;</a>
+                    <a class="next" @click="plusSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span v-for="(category,index) in jsonAllCategories" class="dot" v-bind:class="index === 0? 'active' : ''"></span>
                 </div>
                 <button type="button" @click.prevent="activeGame.showQuiz()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">odpovedat</button>
             </div>
@@ -135,12 +117,13 @@
         data() {
             return {
                 activeGame: activeGame,
+                jsonAllCategories: window.categories,
                 jsonRandomQuestionsTitles: window.randomQuizQuestionsTitles,
                 jsonRandomQuestionsAnswers: window.randomQuestionsAnswers,
+                slideIndex: 1
             }
         },
         computed: {
-
             infoMessage: function () {
                 if(activeGame.inProgress) {
                     return 'Na rade je ' + activeGame.currentTurn;
@@ -173,26 +156,26 @@
             }
         },
         methods: {
-            setQuizFormVisibility: function() {
-                if(activeGame.winnersPlayerOne === 2 || activeGame.winnersPlayerTwo === 2) {
-                    if(activeGame.winnersPlayerOne === 2) {
-                        activeGame.winnerPlayer = 'O';
-                        activeGame.looserPlayer = 'X';
-                        activeGame.hideGameForm = true;
-
-                        // set reset button on false
-                        activeGame.showResetButton = false;
-                    }
-
-                    else {
-                        activeGame.winnerPlayer = 'X';
-                        activeGame.looserPlayer = 'O';
-                        activeGame.hideGameForm = true;
-
-                        // set reset button on false
-                        activeGame.showResetButton = false;
-                    }
+            plusSlides: function(n) {
+                this.showSlides(this.slideIndex += n);
+            },
+            currentSlide: function (n) {
+                this.showSlides(this.slideIndex = n);
+            },
+            showSlides: function(n) {
+                let i;
+                let slides = document.getElementsByClassName("mySlides");
+                let dots = document.getElementsByClassName("dot");
+                if (n > slides.length) {this.slideIndex = 1}
+                if (n < 1) {this.slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
                 }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[this.slideIndex-1].style.display = "block";
+                dots[this.slideIndex-1].className += " active";
             }
         }
     }
