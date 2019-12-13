@@ -111,11 +111,23 @@ function getPostById($id) {
    return $price_list;
 }
 
+add_action('wp_ajax_getRandomQuestions', 'getRandomQuestions'); // add action for logged users
+add_action( 'wp_ajax_nopriv_getRandomQuestions', 'getRandomQuestions' ); // add action for unlogged users
+
 function getRandomQuestions() {
     $args = array(
         'post_type' => 'questions',
         'orderby'   => 'rand',
+        "posts_per_page" => 5,
+        'relation' => "AND"
     );
+
+    $category = 'Sport';
+
+    $args['tax_query'][0]['taxonomy'] = 'question_category';
+    $args['tax_query'][0]['field']    = 'slug';
+    $args['tax_query'][0]['terms']    = strtolower($category);
+
 
     $wp_query = new WP_Query( $args );
 

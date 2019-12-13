@@ -28,8 +28,8 @@
                 <div class="slideshow-container">
                     <div class="mySlides" v-for="(category, index) in jsonAllCategories" v-bind:style="index === 0 ? 'display: block' : ''">
                         <div class="numbertext">1 / 3</div>
-                        <img src="/wp-content/themes/template/resources/images/logo.svg" style="width:100%">
-                        <button type="button" class="btn btn-info btn-small text">{{category.name}}</button>
+                        <img src="" style="width:100%">
+                        <button type="button" class="btn btn-info btn-small text category-name" @click="setRandomQuizQuestionsCategory">{{category.name}}</button>
                     </div>
                     <a class="prev" @click="plusSlides(-1)">&#10094;</a>
                     <a class="next" @click="plusSlides(1)">&#10095;</a>
@@ -156,6 +156,26 @@
             }
         },
         methods: {
+            setRandomQuizQuestionsCategory: function(event) {
+                let clickedId = event.target;
+                let category = clickedId.innerText;
+
+                this.activeGame.showQuiz();
+
+                $.ajax({
+                    url: ajaxurl,
+                    type: "POST",
+                    data:
+                        {
+                            "action": "getRandomQuestions",
+                            "category": category
+                        },
+                    success: function (data) {
+
+                    }
+                });
+
+            },
             plusSlides: function(n) {
                 this.showSlides(this.slideIndex += n);
             },
