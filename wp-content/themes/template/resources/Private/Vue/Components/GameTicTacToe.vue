@@ -1,12 +1,120 @@
+<script>
+
+    let activeGame = new Game();
+    export default {
+        data() {
+            return {
+                quizFormVisibility: false,
+                activeGame: activeGame,
+                jsonAllCategories: window.categories,
+                jsonRandomQuestionsTitles: {},
+                jsonRandomQuestionsAnswers: {},
+                slideIndex: 1
+            }
+        },
+        computed: {
+            infoMessage: function () {
+                if(activeGame.inProgress) {
+                    return 'Na rade je ' + activeGame.currentTurn;
+                }
+
+                else if (activeGame.winner) {
+
+                    if(activeGame.winner === 'O') {
+
+                        // show reset button
+                        activeGame.showResetButton = true;
+                        activeGame.winnersPlayerOne++;
+                        this.setQuizFormVisibility();
+                    }
+
+                    else {
+
+                        // show reset button
+                        activeGame.showResetButton = true;
+                        activeGame.winnersPlayerTwo++;
+                        this.setQuizFormVisibility();
+                    }
+
+                    return activeGame.winner + ' vyhráva';
+                }
+
+                else {
+                    return 'Nevyhráva nikto';
+                }
+            }
+        },
+        methods: {
+            setRandomQuizQuestionsCategory: function(event) {
+                let self = this;
+
+                event.preventDefault();
+                let clickedId = event.target;
+
+                console.log(clickedId.textContent);
+
+                $.ajax({
+                    url: ajaxurl,
+                    type: "POST",
+                    dataType: "json",
+                    data:
+                        {
+                            "action": "getRandomQuestions",
+                            "category": clickedId.textContent
+                        },
+                    success: function (data) {
+
+                        // this.jsonRandomQuestionsTitles = data;
+                        self.setValues(data.data1, data.data2);
+
+
+                      // /  this.activeGame.showQuizForm = true;
+                    }
+                });
+
+            },
+            setValues: function(data1, data2) {
+                this.jsonRandomQuestionsTitles = data1;
+                this.jsonRandomQuestionsAnswers = data2;
+                this.quizFormVisibility = true;
+
+                window.questions = this.jsonRandomQuestionsTitles;
+                window.answers = this.jsonRandomQuestionsAnswers;
+            },
+            plusSlides: function(n) {
+                this.showSlides(this.slideIndex += n);
+            },
+            currentSlide: function (n) {
+                this.showSlides(this.slideIndex = n);
+            },
+            showSlides: function(n) {
+                let i;
+                let slides = document.getElementsByClassName("mySlides");
+                let dots = document.getElementsByClassName("dot");
+                if (n > slides.length) {this.slideIndex = 1}
+                if (n < 1) {this.slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[this.slideIndex-1].style.display = "block";
+                dots[this.slideIndex-1].className += " active";
+            }
+        }
+    }
+
+</script>
 <template>
     <div class="container">
-        <div v-if="activeGame.showQuizForm === false">
+        <template v-if="!(quizFormVisibility)">
             <div class="">
                 <p>Výhry hráč 1( 0 ): {{ activeGame.winnersPlayerOne }} </p>
                 <p>Výhry hráč 2:( X ): {{ activeGame.winnersPlayerTwo }} </p>
             </div>
             <div id="game-view-info">
-               {{ infoMessage }}
+                {{ infoMessage }}
             </div>
             <div v-if="activeGame.hideGameForm === false" id="game-view-squares">
                 <div
@@ -38,16 +146,16 @@
                 <div style="text-align:center">
                     <span v-for="(category,index) in jsonAllCategories" class="dot" v-bind:class="index === 0? 'active' : ''"></span>
                 </div>
-                <button type="button" @click.prevent="activeGame.showQuiz()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">odpovedat</button>
+                <!--                <button type="button" @click.prevent="activeGame.showQuiz()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">odpovedat</button>-->
             </div>
-        </div>
+        </template>
 
-        <div v-if="activeGame.showQuizForm === true">
+        <template v-else>
             <div class="container-fluid bg-info">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div id="enter-name-form" class="p-4" style="display: none">
-                            <form type="POST" onsubmit="return activeGame.handle_my_input()">
+                            <form method="POST" onsubmit="return activeGame.handle_my_input()">
                                 <div class="form-group">
                                     <label class="mb-2">Zadajte svoje meno a priezvisko</label>
                                     <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Vaše meno" required>
@@ -91,7 +199,7 @@
                                     </button>
                                     <!-- right answer for current question-->
                                     <p id="rightAnswer" style="display: none">{{jsonRandomQuestionsAnswers[0].right_answer}}</p>
-<!--                                    <input type="hidden" name="question_right_answer" id="rightAnswer" value="">-->
+                                    <!--                                    <input type="hidden" name="question_right_answer" id="rightAnswer" value="">-->
                                 </div>
                                 <div class="d-flex">
                                     <div class="question-information-counter"><span id="question-number">1</span> z 5</div>
@@ -107,97 +215,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </div>
 </template>
-<script>
-
-    let activeGame = new Game();
-    export default {
-        data() {
-            return {
-                activeGame: activeGame,
-                jsonAllCategories: window.categories,
-                jsonRandomQuestionsTitles: window.randomQuizQuestionsTitles,
-                jsonRandomQuestionsAnswers: window.randomQuestionsAnswers,
-                slideIndex: 1
-            }
-        },
-        computed: {
-            infoMessage: function () {
-                if(activeGame.inProgress) {
-                    return 'Na rade je ' + activeGame.currentTurn;
-                }
-
-                else if (activeGame.winner) {
-
-                    if(activeGame.winner === 'O') {
-
-                        // show reset button
-                        activeGame.showResetButton = true;
-                        activeGame.winnersPlayerOne++;
-                        this.setQuizFormVisibility();
-                    }
-
-                    else {
-
-                        // show reset button
-                        activeGame.showResetButton = true;
-                        activeGame.winnersPlayerTwo++;
-                        this.setQuizFormVisibility();
-                    }
-
-                    return activeGame.winner + ' vyhráva';
-                }
-
-                else {
-                    return 'Nevyhráva nikto';
-                }
-            }
-        },
-        methods: {
-            setRandomQuizQuestionsCategory: function(event) {
-                let clickedId = event.target;
-                let category = clickedId.innerText;
-
-                this.activeGame.showQuiz();
-
-                $.ajax({
-                    url: ajaxurl,
-                    type: "POST",
-                    data:
-                        {
-                            "action": "getRandomQuestions",
-                            "category": category
-                        },
-                    success: function (data) {
-
-                    }
-                });
-
-            },
-            plusSlides: function(n) {
-                this.showSlides(this.slideIndex += n);
-            },
-            currentSlide: function (n) {
-                this.showSlides(this.slideIndex = n);
-            },
-            showSlides: function(n) {
-                let i;
-                let slides = document.getElementsByClassName("mySlides");
-                let dots = document.getElementsByClassName("dot");
-                if (n > slides.length) {this.slideIndex = 1}
-                if (n < 1) {this.slideIndex = slides.length}
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-                slides[this.slideIndex-1].style.display = "block";
-                dots[this.slideIndex-1].className += " active";
-            }
-        }
-    }
-
-</script>

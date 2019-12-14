@@ -111,51 +111,6 @@ function getPostById($id) {
    return $price_list;
 }
 
-add_action('wp_ajax_getRandomQuestions', 'getRandomQuestions'); // add action for logged users
-add_action( 'wp_ajax_nopriv_getRandomQuestions', 'getRandomQuestions' ); // add action for unlogged users
-
-function getRandomQuestions() {
-    $args = array(
-        'post_type' => 'questions',
-        'orderby'   => 'rand',
-        "posts_per_page" => 5,
-        'relation' => "AND"
-    );
-
-    $category = 'Sport';
-
-    $args['tax_query'][0]['taxonomy'] = 'question_category';
-    $args['tax_query'][0]['field']    = 'slug';
-    $args['tax_query'][0]['terms']    = strtolower($category);
-
-
-    $wp_query = new WP_Query( $args );
-
-    $arrayCustomFields = array();
-
-    if ( $wp_query->have_posts() ) {
-        while ( $wp_query->have_posts() ) {
-            $wp_query->the_post();
-            $answer_a =  get_field('answer_a');
-            $answer_b =  get_field('answer_b');
-            $answer_c =  get_field('answer_c');
-            $answer_d =  get_field('answer_d');
-            $right_answer = get_field('right_answer');
-
-            array_push($arrayCustomFields, array("answer_a"=>$answer_a,"answer_b"=>$answer_b,"answer_c"=>$answer_c, "answer_d" => $answer_d, "right_answer" => $right_answer));
-        }
-    } else {
-        // no posts found
-    }
-    $jsonRandomQuestionsTitles = json_encode($wp_query->posts);
-    $jsonRandomQuestionsAnswers = json_encode($arrayCustomFields);
-
-    wp_localize_script( 'script-app', 'randomQuestionsTitles', $jsonRandomQuestionsTitles );
-    wp_localize_script( 'script-app', 'randomQuestionsAnswers', $jsonRandomQuestionsAnswers );
-
-    return $wp_query;
-}
-
 // get admin URL
 function myPluginAjaxUrl() {
     echo '<script type="text/javascript">
@@ -165,6 +120,7 @@ function myPluginAjaxUrl() {
 
 // Get my ajaxURL
 add_action('wp_head', 'myPluginAjaxUrl');
+
 
 
 add_action('wp_ajax_addToUserTable', 'addToUserTable'); // add action for logged users
@@ -339,6 +295,61 @@ function addNewCategory() {
 
     wp_die();
 }
+
+add_action('wp_ajax_getRandomQuestions', 'getRandomQuestions'); // add action for logged users
+add_action( 'wp_ajax_nopriv_getRandomQuestions', 'getRandomQuestions' ); // add action for unlogged users
+
+function getRandomQuestions() {
+    $args = array(
+        'post_type' => 'questions',
+        'orderby'   => 'rand',
+        "posts_per_page" => 5,
+        'relation' => "AND"
+    );
+
+
+    $category = $_POST['category'];
+
+    $args['tax_query'][0]['taxonomy'] = 'question_category';
+    $args['tax_query'][0]['field']    = 'slug';
+    $args['tax_query'][0]['terms']    = strtolower($category);
+
+
+    $wp_query = new WP_Query( $args );
+
+    $arrayCustomFields = array();
+
+    if ( $wp_query->have_posts() ) {
+        while ( $wp_query->have_posts() ) {
+            $wp_query->the_post();
+            $answer_a =  get_field('answer_a');
+            $answer_b =  get_field('answer_b');
+            $answer_c =  get_field('answer_c');
+            $answer_d =  get_field('answer_d');
+            $right_answer = get_field('right_answer');
+
+            array_push($arrayCustomFields, array("answer_a"=>$answer_a,"answer_b"=>$answer_b,"answer_c"=>$answer_c, "answer_d" => $answer_d, "right_answer" => $right_answer));
+        }
+    } else {
+        // no posts found
+    }
+
+    // final JSON
+
+
+//    $json = json_encode($wp_query->posts);
+//    $json[1] = json_encode($arrayCustomFields);
+
+//    $jsonRandomQuestionsTitles = json_encode($wp_query->posts);
+//    $jsonRandomQuestionsAnswers = json_encode($arrayCustomFields);
+
+//    wp_localize_script( 'script-app', 'randomQuestionsTitles', $jsonRandomQuestionsTitles );
+//    wp_localize_script( 'script-app', 'randomQuestionsAnswers', $jsonRandomQuestionsAnswers );
+
+    echo json_encode(array('data1' => $wp_query->posts, 'data2' => $arrayCustomFields));
+    wp_die();
+}
+
 
 function getAllQuestions() {
     $args = array(

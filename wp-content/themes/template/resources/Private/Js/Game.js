@@ -208,8 +208,8 @@ class Game {
      }
 
      setNextQuestion() {
-         let myAnswers = window.randomQuestionsAnswers;
-         let myQuestions = window.randomQuizQuestionsTitles;
+         let myAnswers = window.answers;
+         let myQuestions = window.questions;
 
          document.getElementById('question-number').innerHTML = this.questionIndex+1;
          let elements = document.getElementsByClassName('choice');

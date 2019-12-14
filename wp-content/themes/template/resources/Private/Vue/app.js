@@ -51,8 +51,8 @@ let activeGame = new Game();
 window.categories = JSON.parse(categories);
 window.allQuestions = JSON.parse(all_questions);
 
-window.randomQuizQuestionsTitles = JSON.parse(randomQuestionsTitles);
-window.randomQuestionsAnswers = JSON.parse(randomQuestionsAnswers);
+// window.randomQuizQuestionsTitles = JSON.parse(randomQuestionsTitles);
+// window.randomQuestionsAnswers = JSON.parse(randomQuestionsAnswers);
 
 
 new Vue({
@@ -61,6 +61,7 @@ new Vue({
         preventUnloading: false,
         time: 1500,
         activeGame : activeGame,
+
     },
     delimiters: ['<%', '%>'],
     components: {
