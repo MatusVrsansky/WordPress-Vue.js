@@ -15,7 +15,7 @@ class Game {
         this.winnersPlayerOne = 0;
         this.winnersPlayerTwo = 0;
 
-        this.hideGameForm = true;
+        this.hideGameForm = false;
 
         // show again button
         this.showResetButton = false;

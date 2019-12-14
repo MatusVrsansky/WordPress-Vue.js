@@ -40,11 +40,33 @@
                 }
 
                 else {
+                    activeGame.showResetButton = true;
                     return 'Nevyhráva nikto';
                 }
             }
         },
         methods: {
+            setQuizFormVisibility: function() {
+                if(activeGame.winnersPlayerOne === 2 || activeGame.winnersPlayerTwo === 2) {
+                    if(activeGame.winnersPlayerOne === 2) {
+                        activeGame.winnerPlayer = 'O';
+                        activeGame.looserPlayer = 'X';
+                        activeGame.hideGameForm = true;
+
+                        // set reset button on false
+                        activeGame.showResetButton = false;
+                    }
+
+                    else {
+                        activeGame.winnerPlayer = 'X';
+                        activeGame.looserPlayer = 'O';
+                        activeGame.hideGameForm = true;
+
+                        // set reset button on false
+                        activeGame.showResetButton = false;
+                    }
+                }
+            },
             setRandomQuizQuestionsCategory: function(event) {
                 let self = this;
 
@@ -109,6 +131,16 @@
 <template>
     <div class="container">
         <template v-if="!(quizFormVisibility)">
+            <div class="game-tic-tac-toe-info text-center p-2 mb-4" style="background-color: #eee;">
+                <h3>Pravidlá</h3>
+                <p>
+                    Dvaja hráčí: <strong>X</strong> a <strong>O</strong>
+                    <br>
+                    Každý z dvojice sa dopredu musí rozhodnúť, za aký symbol bude hrať.
+                    <br>
+                    Poradie začínajúceho hráča je náhodne(napr. v prvom kole ide prvý <strong>X</strong>, v ďaľšom kole <strong>O</strong>
+                </p>
+            </div>
             <div class="">
                 <p>Výhry hráč 1( 0 ): {{ activeGame.winnersPlayerOne }} </p>
                 <p>Výhry hráč 2:( X ): {{ activeGame.winnersPlayerTwo }} </p>
@@ -126,7 +158,7 @@
                 </div>
             </div>
             <div v-if="activeGame.showResetButton" class="again-button">
-                <button type="button" class="btn btn-primary" @click.prevent="activeGame.resetValues()">Este raz</button>
+                <button type="button" class="btn btn-primary" @click.prevent="activeGame.resetValues()">Ešte raz</button>
             </div>
             <div v-if="activeGame.hideGameForm === true" id="winner-information">
                 <p>Hráč <strong>{{ activeGame.winnerPlayer }}</strong> vyhral nad súperom <strong>{{ activeGame.looserPlayer }}</strong> </p>
