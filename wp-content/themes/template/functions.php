@@ -51,6 +51,7 @@ function enqueue_base_scripts() {
 // Scripts for Ajax Filter Search
 function studienFilterScript() {
     wp_enqueue_script( 'Game.js', get_template_directory_uri(). '/resources/Private/Js/Game.js', array('jquery'));
+    wp_enqueue_script( 'MemoryCard.js', get_template_directory_uri(). '/resources/Private/Js/MemoryCard.js', array('jquery'));
     wp_enqueue_script( 'Square.js', get_template_directory_uri(). '/resources/Private/Js/Square.js', array('jquery'));
     wp_enqueue_script( 'Quiz.js', get_template_directory_uri(). '/resources/Private/Js/Quiz.js', array('jquery'));
 

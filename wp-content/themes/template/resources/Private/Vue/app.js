@@ -48,8 +48,10 @@ Vue.component('GameTicTacToe', GameTicTacToe);
 Vue.component('GameMemoryCard', GameMemoryCard);
 
 import "../Js/Game.js";
+import "../Js/MemoryCard.js";
 
 let activeGame = new Game();
+let memoryCard = new MemoryCard();
 
 window.categories = JSON.parse(categories);
 window.allQuestions = JSON.parse(all_questions);
@@ -64,6 +66,7 @@ new Vue({
         preventUnloading: false,
         time: 1500,
         activeGame : activeGame,
+        memoryCard : memoryCard
 
     },
     delimiters: ['<%', '%>'],

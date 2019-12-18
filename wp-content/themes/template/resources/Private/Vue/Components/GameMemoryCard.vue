@@ -1,7 +1,7 @@
 
 <template>
     <div class="container">
-        <section class="memory-game">
+        <section class="memory-game" @click.prevent="memoryCard.flipCard">
             <div class="memory-card" data-framework="react" style="order: 11;">
                 <img class="front-face" src="/wp-content/themes/template/resources/images/react.svg" alt="React">
                 <img class="back-face" src="/wp-content/themes/template/resources/images/js-badge.svg" alt="Memory Card">
@@ -65,47 +65,15 @@
 </template>
 
 <script>
-    const cards = document.querySelectorAll('.memory-card');
 
-    let hasFlippedCard = false;
-    let firstCard, secondCard;
-
-    function flipCard() {
-        this.classList.add('flip');
-
-        if(!hasFlippedCard) {
-            hasFlippedCard = true;
-            firstCard = this;
-        } else {
-            hasFlippedCard = false;
-            secondCard = this;
-
-            if(firstCard.dataset.framework === secondCard.dataset.framework) {
-                firstCard.removeEventListener('click', flipCard);
-                secondCard.removeEventListener('click', flipCard);
-            } else {
-                setTimeout(() => {
-                    firstCard.classList.remove('flip');
-                    secondCard.classList.remove('flip');
-                }, 1500);
+    let memoryCard = new MemoryCard();
+    export default {
+        data() {
+            return {
+                memoryCard: memoryCard
             }
-        }
+        },
     }
-
-    // export default {
-    //     data() {
-    //         return {
-    //
-    //         }
-    //     },
-    //     methods: {
-    //         test(e) {
-    //            e.target.classList.add('flip');
-    //
-    //            // console.log("This: "+e.);
-    //         }
-    //     },
-    // }
 
 </script>
 

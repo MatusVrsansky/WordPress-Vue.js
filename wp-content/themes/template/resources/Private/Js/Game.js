@@ -27,6 +27,8 @@ class Game {
 
 
 
+
+
         /*
         Set visibility of quiz Form
          */
@@ -150,6 +152,8 @@ class Game {
 
                   // get clicked button
                   let clickedId = event.target;
+
+
 
 
                   // consider it!!!
