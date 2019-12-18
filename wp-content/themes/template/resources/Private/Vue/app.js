@@ -27,6 +27,8 @@ import AddNewCategory from "./Components/AddNewCategory.vue";
 import AddNewQuestion from "./Components/AddNewQuestion.vue";
 import GameTicTacToe from "./Components/GameTicTacToe.vue";
 
+import GameMemoryCard from "./Components/GameMemoryCard.vue";
+
 
 const MOUSE_MIDDLE_BUTTON = 2,
     PREVENT_LOAD_LINK_CLASSES = ["[href^=mailto]", "[href^=tel]", "[href^=javascript]", "[href^=\\#]", "[target^=_blank]", ".photoswipe", "#scroll-to-top", ".download", ".ajax", "[href*=tx_typoscriptrendering]", "[href*=ajax]"];
@@ -43,6 +45,7 @@ Vue.use(PhotoSwipe);
 Vue.component('AddNewCategory', AddNewCategory);
 Vue.component('AddNewQuestion', AddNewQuestion);
 Vue.component('GameTicTacToe', GameTicTacToe);
+Vue.component('GameMemoryCard', GameMemoryCard);
 
 import "../Js/Game.js";
 

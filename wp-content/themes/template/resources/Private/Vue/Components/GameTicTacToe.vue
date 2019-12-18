@@ -9,7 +9,10 @@
                 jsonAllCategories: window.categories,
                 jsonRandomQuestionsTitles: {},
                 jsonRandomQuestionsAnswers: {},
-                slideIndex: 1
+                slideIndex: 1,
+                name_player: '',
+                surname_player: '',
+                attemptSubmit: false,
             }
         },
         computed: {
@@ -43,6 +46,12 @@
                     activeGame.showResetButton = true;
                     return 'Nevyhráva nikto';
                 }
+            },
+            missingPlayerName: function () {
+                return this.name_player === '';
+            },
+            missingPlayerSurname: function () {
+                return this.surname_player === '';
             }
         },
         methods: {
@@ -123,6 +132,31 @@
                 }
                 slides[this.slideIndex-1].style.display = "block";
                 dots[this.slideIndex-1].className += " active";
+            },
+            addNewPlayer(e) {
+
+                this.attemptSubmit = true;
+                if (this.missingPlayerName || this.missingPlayerSurname) {
+                    e.preventDefault();
+                } else {
+                    e.preventDefault();
+                    let name = this.name_player;
+                    let surname = this.surname_player;
+
+                    $.ajax({
+                        url: ajaxurl,
+                        // id: 3,
+                        type: "POST",
+                        data: {"action": "addToUserTable", "name":name, "surname":surname},
+                        success:function(data) {
+                            var str= '';
+                            document.getElementById('enter-name-form').innerHTML = "Vaše meno bolo pridané do tabuľky najlepších hráčov. Veľa šťastia pri ďaľšej hre";
+                            document.getElementById('enter-name-form').innerHTML += " <a href='/'>Domov</a>"
+                        }
+                    });
+
+                    return false;
+                }
             }
         }
     }
@@ -187,14 +221,18 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div id="enter-name-form" class="p-4" style="display: none">
-                            <form method="POST" onsubmit="return activeGame.handle_my_input()">
+                            <form method="POST" @submit="addNewPlayer">
                                 <div class="form-group">
-                                    <label class="mb-2">Zadajte svoje meno a priezvisko</label>
-                                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Vaše meno" required>
-                                    <input type="text" class="form-control" id="surname" aria-describedby="emailHelp" placeholder="Vaše priezvisko" required>
-                                    <small id="emailHelp" class="form-text text-muted">Vaše meno a priezvisko sa zapíše do tabuľky najlepších hráčov</small>
+                                    <label class="mb-2">Zadajte svoje meno</label>
+                                    <input id="name" class="form-control form-control-warning" placeholder="Vaše meno" v-bind:class="{ 'has-warning': attemptSubmit && missingPlayerName }"  type="text" v-model="name_player">
+                                    <div class="form-control-feedback" v-if="attemptSubmit && missingPlayerName">Vyplňte prosím toto políčko</div>
+                                    <label class="mb-2">Zadajte svoje priezvisko</label>
+                                    <input id="surname" class="form-control form-control-warning" placeholder="Vaše priezvisko" v-bind:class="{ 'has-warning': attemptSubmit && missingPlayerSurname }"  type="text" v-model="surname_player">
+                                    <div class="form-control-feedback" v-if="attemptSubmit && missingPlayerSurname">Vyplňte prosím toto políčko</div>
+                                    <!--                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Vaše meno" required>-->
                                 </div>
                                 <button type="submit" class="btn btn-primary">Odoslať</button>
+                                <small id="emailHelp" class="form-text text-muted">Vaše meno a priezvisko sa zapíše do tabuľky najlepších hráčov</small>
                             </form>
                         </div>
                         <div id="quiz-content">
