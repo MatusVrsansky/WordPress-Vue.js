@@ -447,6 +447,7 @@ img {vertical-align: middle;}
 
 .memory-card.flip {
   transform: rotateY(180deg);
+  pointer-events : none;
 }
 
 .front-face,

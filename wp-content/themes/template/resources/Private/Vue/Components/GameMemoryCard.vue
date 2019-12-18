@@ -1,11 +1,33 @@
+<script>
+
+    let memoryCard = new MemoryCard();
+    export default {
+        data() {
+            return {
+                memoryCard: memoryCard
+            }
+        },
+        created() {
+            const cards = document.querySelectorAll('.memory-card');
+            let randomPos;
+            cards.forEach(card => {
+                randomPos = Math.floor(Math.random() * 12);
+                card.style.order = randomPos;
+                console.log("working");
+            });
+        },
+    }
+
+</script>
+
 
 <template>
     <div class="container">
         <section class="memory-game" @click.prevent="memoryCard.flipCard">
-            <div class="memory-card" data-framework="react" style="order: 11;">
+            <a href="#" class="memory-card" data-framework="react" style="order: 11;">
                 <img class="front-face" src="/wp-content/themes/template/resources/images/react.svg" alt="React">
                 <img class="back-face" src="/wp-content/themes/template/resources/images/js-badge.svg" alt="Memory Card">
-            </div>
+            </a>
             <div class="memory-card" data-framework="react" style="order: 1;">
                 <img class="front-face" src="/wp-content/themes/template/resources/images/react.svg" alt="React">
                 <img class="back-face" src="/wp-content/themes/template/resources/images/js-badge.svg" alt="Memory Card">
@@ -63,17 +85,4 @@
         </section>
     </div>
 </template>
-
-<script>
-
-    let memoryCard = new MemoryCard();
-    export default {
-        data() {
-            return {
-                memoryCard: memoryCard
-            }
-        },
-    }
-
-</script>
 
