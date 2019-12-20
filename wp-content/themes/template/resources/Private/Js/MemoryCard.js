@@ -10,7 +10,6 @@ class MemoryCard {
 
         this.firstCard = '';
         this.secondCard = '';
-
     }
 
      flipCard(event) {
@@ -24,7 +23,7 @@ class MemoryCard {
              return;
          }
 
-
+        e.classList.add('disable-click');
         e.classList.add('flip');
 
         if(!this.hasFlippedCard) {
@@ -36,13 +35,11 @@ class MemoryCard {
 
         // second click
         this.secondCard = e;
-
         this.checkForMatch();
     }
 
     checkForMatch() {
         let isMatch = this.firstCard.dataset.framework === this.secondCard.dataset.framework;
-
         isMatch ? this.disableCards() : this.unflipCards();
     }
 
@@ -61,6 +58,9 @@ class MemoryCard {
             this.firstCard.classList.remove('flip');
             this.secondCard.classList.remove('flip');
 
+            this.firstCard.classList.remove('disable-click');
+            this.secondCard.classList.remove('disable-click');
+
             this.resetBoard();
         }, 1500);
     }
@@ -72,13 +72,4 @@ class MemoryCard {
         this.firstCard = null;
         this.secondCard = null;
     }
-
-shuffle() {
-        const cards = document.querySelectorAll('.memory-card');
-
-        cards.forEach(card => {
-            let randomPos = Math.floor(Math.random() * 12);
-            card.style.order = randomPos;
-        });
-    };
 }
