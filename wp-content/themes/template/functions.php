@@ -51,7 +51,6 @@ function enqueue_base_scripts() {
 // Scripts for Ajax Filter Search
 function studienFilterScript() {
     wp_enqueue_script( 'Game.js', get_template_directory_uri(). '/resources/Private/Js/Game.js', array('jquery'));
-    wp_enqueue_script( 'MemoryCard.js', get_template_directory_uri(). '/resources/Private/Js/MemoryCard.js', array('jquery'));
     wp_enqueue_script( 'Square.js', get_template_directory_uri(). '/resources/Private/Js/Square.js', array('jquery'));
     wp_enqueue_script( 'Quiz.js', get_template_directory_uri(). '/resources/Private/Js/Quiz.js', array('jquery'));
 
@@ -131,13 +130,17 @@ add_action( 'wp_ajax_nopriv_addToUserTable', 'addToUserTable' ); // add action f
 function addToUserTable() {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
-    updateTopPlayersTable($name, $surname);
+    $table = $_POST['table'];
+    $count_good_answers = $_POST['good_answers'];
+    $count_bad_answers = $_POST['bad_answers'];
+    updateTopPlayersTable($name, $surname, $count_good_answers, $count_bad_answers, $table);
 }
 
 // update Database Table for voting
-function updateTopPlayersTable($name, $surname) {
+function updateTopPlayersTable($name, $surname, $count_good_answers, $count_bad_answers, $table) {
     global $wpdb;
-    $wpdb->insert('top_players_tic_tac_toe', array('name' => $name, 'surname' => $surname));
+    $wpdb->insert($table, array('name' => $name, 'surname' => $surname,
+        'count_good_answers' => $count_good_answers, 'count_bad_answers' => $count_bad_answers));
 }
 
 add_action('wp_ajax_addNewQuestion', 'addNewQuestion'); // add action for logged users
@@ -212,7 +215,7 @@ function paginationHighScore($tableName) {
 //**************************
     $page = ! empty( $_GET['cpage'] ) ? (int) $_GET['cpage'] : 1;
     $total = count($data_print); //total items in array
-    $limit = 8; //per page
+    $limit = 2; //per page
     $totalPages = ceil( $total/ $limit ); //calculate total pages
     $page = max($page, 1); //get 1 page when $_GET['cpage'] <= 0
     $page = min($page, $totalPages); //get last page when $_GET&#91;'cpage'&#93; > $totalPages
@@ -231,7 +234,8 @@ function paginationHighScore($tableName) {
             <th scope="col">#</th>
             <th scope="col">Meno</th>
             <th scope="col">Priezvisko</th>
-            <th scope="col">E-mail</th>
+            <th scope="col">Správne odpovede</th>
+            <th scope="col">Nesprávne odpovede</th>
         </tr>
         </thead>
         <tbody>
@@ -243,7 +247,8 @@ function paginationHighScore($tableName) {
             <th scope="row"><?php echo $data_print[$i]->id?></th>
             <td><?php echo $data_print[$i]->name?></td>
             <td><?php echo $data_print[$i]->surname?></td>
-            <td>@mdo</td>
+            <td><?php echo $data_print[$i]->count_good_answers?></td>
+            <td><?php echo $data_print[$i]->count_bad_answers?></td>
         </tr>
         <?php
     }

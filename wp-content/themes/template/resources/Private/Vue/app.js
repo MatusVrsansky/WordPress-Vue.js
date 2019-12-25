@@ -26,8 +26,9 @@ import CookiesInfoBox from "./Components/CookiesInfoBox.vue";
 import AddNewCategory from "./Components/AddNewCategory.vue";
 import AddNewQuestion from "./Components/AddNewQuestion.vue";
 import GameTicTacToe from "./Components/GameTicTacToe.vue";
-
 import GameMemoryCard from "./Components/GameMemoryCard.vue";
+import AllQuestions from './Components/AllQuestions.vue';
+
 
 
 const MOUSE_MIDDLE_BUTTON = 2,
@@ -46,12 +47,10 @@ Vue.component('AddNewCategory', AddNewCategory);
 Vue.component('AddNewQuestion', AddNewQuestion);
 Vue.component('GameTicTacToe', GameTicTacToe);
 Vue.component('GameMemoryCard', GameMemoryCard);
+Vue.component('AllQuestions', AllQuestions);
+
 
 import "../Js/Game.js";
-import "../Js/MemoryCard.js";
-
-let activeGame = new Game();
-let memoryCard = new MemoryCard();
 
 window.categories = JSON.parse(categories);
 window.allQuestions = JSON.parse(all_questions);
@@ -65,9 +64,6 @@ new Vue({
     data: {
         preventUnloading: false,
         time: 1500,
-        activeGame : activeGame,
-        memoryCard : memoryCard
-
     },
     delimiters: ['<%', '%>'],
     components: {
