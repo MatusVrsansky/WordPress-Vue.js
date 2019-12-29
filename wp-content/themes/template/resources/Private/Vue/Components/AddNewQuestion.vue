@@ -117,7 +117,7 @@
             ReloadCurrentPage() {
                 location.reload();
             },
-            validateForm: function (event) {
+            validateForm(event) {
                 this.attemptSubmit = true;
                 if (this.addExistedQuestion || this.missingQuestionName || this.missingQuestionAnswerA || this.missingQuestionAnswerB
                     || this.missingQuestionAnswerC || this.missingQuestionAnswerD || this.missingRightAnswer || this.missingSelectedCategory)

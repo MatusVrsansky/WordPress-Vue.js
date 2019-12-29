@@ -87,28 +87,47 @@ function getTaxonomyPosts($slug) {
     return $wp_query;
 }
 
-function getPostById($id) {
+add_action('wp_ajax_getPostById', 'getPostById'); // add action for logged users
+add_action( 'wp_ajax_nopriv_getPostById', 'getPostById' ); // add action for unlogged users
+
+function getPostById() {
     $args = array(
-        'p'         => $id, // ID of a page, post, or custom type
-        'post_type' => 'products',
+        'p'         => $_POST['id'], // ID of a page, post, or custom type
+        'post_type' => 'questions',
         'post_status' => 'publish',
         'order' => 'ASC'
     );
 
     $wp_query = new WP_Query($args);
 
-    $price_list = array();
-    // The Loop
+    $arrayCustomFields = array();
+
+    $taxonomy = get_the_terms($_POST['id'], 'question_category');
+
     if ( $wp_query->have_posts() ) {
         while ( $wp_query->have_posts() ) {
             $wp_query->the_post();
-            $price_list =  get_field('price_list');
+            $answer_a =  get_field('answer_a');
+            $answer_b =  get_field('answer_b');
+            $answer_c =  get_field('answer_c');
+            $answer_d =  get_field('answer_d');
+            $right_answer = get_field('right_answer');
+
+            array_push($arrayCustomFields, array("answer_a"=>$answer_a,"answer_b"=>$answer_b,
+                "answer_c"=>$answer_c, "answer_d" => $answer_d, "right_answer" => $right_answer, "category" => $taxonomy));
         }
-    } else {
-        // no posts found
     }
 
-   return $price_list;
+//    echo json_encode($arrayCustomFields);
+    $finalArray = array();
+    array_push($finalArray, $wp_query->posts);
+    array_push($finalArray, $arrayCustomFields);
+
+    echo json_encode($finalArray);
+
+
+
+    wp_die();
 }
 
 // get admin URL
@@ -373,3 +392,50 @@ function getAllQuestions() {
     $json = json_encode($query->posts);
     wp_localize_script( 'script-app', 'all_questions', $json );
 }
+
+add_action('wp_ajax_editAdvertisement', 'editAdvertisement'); // add action for logged users
+add_action( 'wp_ajax_nopriv_editAdvertisement', 'editAdvertisement' ); // add action for unlogged users
+
+function editAdvertisement() {
+    header('Content-Type: application/html;charset=utf-8');
+    $uploadDir = wp_upload_dir();
+
+    // Create post object
+    $my_post = array(
+        'ID' => $_POST['id'],
+        'post_title'    => $_POST['name'],
+        'post_status'   => 'publish',
+        'post_author'   => get_current_user_id(),
+        'post_type' => 'questions'
+    );
+
+
+    $post_id = wp_update_post( $my_post);
+
+
+    // remove all Categories from current post
+    $categories = get_terms( array(
+        'taxonomy' => 'question_category',
+        'hide_empty' => false,
+    ) );
+
+    // wp_set_object_terms(); this function can add new Category
+    wp_set_post_terms($_POST['id'], $_POST['category'], 'question_category');
+    // wp_set_post_terms($post_id, array(22,23), 'custom_taxonomy'); <-- if you will assign more Categories, simply get all IDs
+
+    // Insert the post into the database
+    update_post_meta($post_id, 'answer_a', $_POST['answer_a']);
+    update_post_meta($post_id, 'answer_b', $_POST['answer_b']);
+    update_post_meta($post_id, 'answer_c', $_POST['answer_c']);
+    update_post_meta($post_id, 'answer_d', $_POST['answer_d']);
+    update_post_meta($post_id, 'right_answer', $_POST['right_answer']);
+
+
+    //echo json_encode($arrayUploadedId);
+    echo get_permalink($post_id);
+
+    // echo json_encode($uploadedImages);
+
+    wp_die();
+}
+

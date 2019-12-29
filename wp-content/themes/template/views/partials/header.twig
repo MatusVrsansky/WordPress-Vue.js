@@ -49,9 +49,21 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-lg-auto mr-0">
       {% for item in menu.meta.items %}
-        <li class="nav-item">
-          <a class="nav-link {{ item.class }}" href="{{ item.link }}">{{ item }}</a>
-        </li>
+        {% if item == 'Skóre' %}
+          <li class="nav-item dropdown">
+            <a class="nav-link {{ item.class }}" href="#"  id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ item }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/skore-piskorky/">Piškôrky</a>
+              <a class="dropdown-item" href="/skore-pexeso/">Pexeso</a>
+            </div>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link {{ item.class }}" href="{{ item.link }}">{{ item }}</a>
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
     {% if user %}

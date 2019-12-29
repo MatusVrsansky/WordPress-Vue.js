@@ -59,19 +59,19 @@
                     console.log(window.location.pathname);
                     switch ( window.location.pathname) {
                         case '/piskorky/': table = 'top_players_tic_tac_toe';break;
-                        case '/pexeso/': table = 'top_players_game_two'; break;
+                        case '/pexeso/': table = 'top_players_memory_game'; break;
                         default: break;
                     }
 
-                    let good_answers = document.getElementById('count_right_answers').value;
-                    let bad_answers = document.getElementById('count_incorrect_answers').value;
+                    let good_answers = document.getElementById('count_right_answers').innerText;
+                    let bad_answers = document.getElementById('count_incorrect_answers').innerText;
 
                     $.ajax({
                         url: ajaxurl,
                         // id: 3,
                         type: "POST",
-                        data: {"action": "addToUserTable", "name":name, "surname":surname,"good_answers":2,
-                            "bad_answers":4, "table":table},
+                        data: {"action": "addToUserTable", "name":name, "surname":surname,"good_answers":good_answers,
+                            "bad_answers":bad_answers, "table":table},
                         success:function(data) {
                             var str= '';
                             document.getElementById('enter-name-form').innerHTML = "Vaše meno bolo pridané do tabuľky najlepších hráčov. Veľa šťastia pri ďaľšej hre";
