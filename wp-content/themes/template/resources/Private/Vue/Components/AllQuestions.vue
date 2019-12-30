@@ -22,7 +22,7 @@
                 <button type="button" id="button-all-questions" class="btn btn-default btn-sm btn-success" @click.prevent="editQuestion(row.ID)" data-toggle="modal" data-target=".bs-example-modal-new">
                     <span class="fa fa-pencil"></span> Edit
                 </button>
-                    <button type="button" class="btn btn-default btn-sm btn-danger">
+                <button type="button" id="" class="btn btn-default btn-sm btn-danger" @click.prevent="removeQuestion(row.ID, row.post_title)" data-toggle="modal" data-target=".bs-example-modal-delete">
                     <span class="fa fa-pencil"></span> Vymazať
                 </button>
                 </td>
@@ -57,6 +57,7 @@
                                                 Otázka bola úspešne upravená
                                             </div>
                                         </transition>
+                                        <input type="hidden" id="current_question_id" value="0"></input>
                                         <div class="form-group">
                                             <label class="form-control-label" for="new_question_title">Názov</label>
                                             <input id="new_question_title" name="name_question" class="form-control form-control-warning" v-bind:class="{ 'has-warning': attemptSubmit && missingQuestionName }" type="text" v-model="name">
@@ -116,6 +117,35 @@
                 <!-- Modal Content: ends -->
             </div>
         </div>
+        <div class="modal fade bs-example-modal-delete" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <!-- Modal Content: begins -->
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h2 class="w-100 text-center">Vymazať otázku</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <div class="body-message">
+                            <transition name="fade" v-on:enter="enterDelete">
+                                <div v-if="showDeleteModal" class="alert alert-danger" role="alert">
+                                    Otázka bola úspešne odstránená
+                                </div>
+                            </transition>
+                            <h4>Naozaj chcete vymazať túto otázku?</h4><p>"{{deleteModalQuestionTitle}}"</p>
+                        </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-success" data-dismiss="modal">Áno</button>
+                        <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal">Nie</button>
+                    </div>
+                </div>
+                <!-- Modal Content: ends -->
+            </div>
+        </div>
     </div>
 </template>
 
@@ -141,7 +171,9 @@
                 selectedCategory: '',
                 attemptSubmit: false,
                 show: false,
-                set: false
+                set: false,
+                deleteModalQuestionTitle: '',
+                showDeleteModal : false
             }
         },
         computed: {
@@ -198,8 +230,14 @@
             }
         },
         methods: {
-            fadeMe: function () {
-                this.show = !this.show
+            removeQuestion(id, questionTitle) {
+                this.deleteModalQuestionTitle = questionTitle;
+            },
+            fadeMe() {
+                this.show = !this.show;
+            },
+            fadeModalDelete() {
+                this.showDeleteModal = !this.showDeleteModal;
             },
             hh() {
                 this.name = document.getElementById('new_question_title').value;
@@ -215,6 +253,19 @@
 
                 setTimeout(function () {
                     that.show = false;
+
+                    // reload page
+                    location.reload();
+                }, 2500); // hide the message after 3 seconds
+            },
+            enterDelete: function (el, done) {
+                let that = this;
+
+                setTimeout(function () {
+                    that.showDeleteModal = false;
+
+                    // reload page
+                    location.reload();
                 }, 2500); // hide the message after 3 seconds
             },
             setPage(idx) {
@@ -224,6 +275,9 @@
                 this.currPage = idx;
             },
             editQuestion(ID) {
+
+                document.getElementById('current_question_id').value = ID;
+
                 $.ajax({
                     url: ajaxurl,
                     type: "POST",
@@ -268,25 +322,16 @@
                 location.reload();
             },
             validateForm(event) {
-
                 this.fadeMe();
-
-
                 this.attemptSubmit = true;
-
-                this.name = document.getElementById('new_question_title').value;
-                this.answer_a = document.getElementById('new_question_answer_a').value;
-                this.answer_b = document.getElementById('new_question_answer_b').value;
-                this.answer_c = document.getElementById('new_question_answer_c').value;
-                this.answer_d = document.getElementById('new_question_answer_d').value;
-                this.rightAnswer = document.getElementById('right_answer_select').value;
-                this.selectedCategory = document.getElementById('question_selected_category').value;
 
                 if (this.missingQuestionName || this.missingQuestionAnswerA || this.missingQuestionAnswerB
                     || this.missingQuestionAnswerC || this.missingQuestionAnswerD || this.missingRightAnswer || this.missingSelectedCategory) {
                     event.preventDefault();
                 } else {
                     event.preventDefault();
+
+                    let id = document.getElementById('current_question_id').value;
                     let title = document.getElementById('new_question_title').value;
                     let answer_a = document.getElementById('new_question_answer_a').value;
                     let answer_b = document.getElementById('new_question_answer_b').value;
@@ -326,7 +371,8 @@
                         type: "POST",
                         data:
                             {
-                                "action": "addNewQuestion",
+                                "action": "editAdvertisement",
+                                "id" : id,
                                 "name": title,
                                 "answer_a": answer_a,
                                 "answer_b": answer_b,

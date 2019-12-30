@@ -183,7 +183,6 @@ function addNewQuestion() {
     wp_set_object_terms($post_id, $_POST['category'], 'question_category');
 
 
-
     // Insert the post into the database
     add_post_meta($post_id, 'answer_a', $_POST['answer_a']);
     add_post_meta($post_id, 'answer_b', $_POST['answer_b']);
@@ -420,7 +419,8 @@ function editAdvertisement() {
     ) );
 
     // wp_set_object_terms(); this function can add new Category
-    wp_set_post_terms($_POST['id'], $_POST['category'], 'question_category');
+    wp_set_object_terms($_POST['id'], $_POST['category'], 'question_category');
+
     // wp_set_post_terms($post_id, array(22,23), 'custom_taxonomy'); <-- if you will assign more Categories, simply get all IDs
 
     // Insert the post into the database
