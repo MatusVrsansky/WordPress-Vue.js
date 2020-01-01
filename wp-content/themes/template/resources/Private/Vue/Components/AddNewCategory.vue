@@ -2,6 +2,7 @@
     <div class="container mt-3 mt-sm-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
+                <h2>Pridať Kategóriu</h2>
                 <form id="form" method="POST" @submit="addNewCategory">
                     <div class="form-group">
                         <label class="form-control-label" for="new_category_title">Názov</label>
@@ -10,7 +11,7 @@
                         <div class="form-control-feedback" v-if="attemptSubmit && addExistedCategory">Kategória s takýmto názvom už existuje</div>
                     </div><!-- /form-group -->
                     <!--                    <button class="btn btn-primary">Submit</button>-->
-                    <button  id="submit_new_category_button" class="btn btn-small btn-primary" data-toggle="modal" data-target="">Pridať kategóriu</button>
+                    <button  id="submit_new_category_button" class="btn btn-small btn-primary" data-toggle="modal" data-target="">Odoslať</button>
                 </form>
 
                 <!-- I removed fade  -->

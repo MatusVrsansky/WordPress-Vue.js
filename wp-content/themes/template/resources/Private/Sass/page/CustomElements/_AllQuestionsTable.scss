@@ -1,0 +1,11 @@
+@include media-breakpoint-down(sm) {
+  #all-question-table {
+    td, th {
+      border-top: 0 solid $white !important;
+    }
+
+    tbody tr {
+      border-bottom: 2px solid $table-all-questions-border;
+    }
+  }
+}

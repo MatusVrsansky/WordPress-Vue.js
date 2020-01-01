@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-4">
-        <table class="table table-warning">
+        <table id="all-question-table" class="table table-warning">
             <thead>
                 <tr class="row m-0">
                     <th class="d-inline-block col-12">
@@ -8,18 +8,18 @@
                     </th>
                 </tr>
                 <tr class="row m-0">
-                    <th class="d-inline-block col-2">#</th>
-                    <th class="d-inline-block col-8">Otázka</th>
-                    <th class="d-inline-block col-2">Akcie</th>
+                    <th class="d-inline-block col-sm-12 col-md-2">#</th>
+                    <th class="d-inline-block col-sm-12 col-lg-8 col-md-6">Otázka</th>
+                    <th class="d-inline-block col-lg-2 col-md-4">Akcie</th>
                 </tr>
             </thead>
             <tbody>
             <tr v-for="(row, index) in filteredRows.slice(pageStart, pageStart + countOfPage)" class="row m-0">
                 <th class="d-inline-block col-2">{{ (currPage-1) * countOfPage + index + 1 }}</th>
-                <td id="postTitleCurrent" class="d-inline-block col-8">{{row.post_title}}</td>
+                <td id="postTitleCurrent" class="d-inline-block col-lg-8 col-md-6">{{row.post_title}}</td>
                 <input type="hidden" id="postId" :value="row.ID">
-                <td class="d-inline-block col-2">
-                <button type="button" id="button-all-questions" class="btn btn-default btn-sm btn-success" @click.prevent="editQuestion(row.ID)" data-toggle="modal" data-target=".bs-example-modal-new">
+                <td class="d-inline-block col-lg-2 col-md-4">
+                <button type="button" id="button-all-questions" class="btn btn-default btn-sm btn-success mb-md-0 mb-lg-2 mb-xl-0" @click.prevent="editQuestion(row.ID)" data-toggle="modal" data-target=".bs-example-modal-new">
                     <span class="fa fa-pencil"></span> Edit
                 </button>
                 <button type="button" id="" class="btn btn-default btn-sm btn-danger" @click.prevent="removeQuestion(row.ID, row.post_title)" data-toggle="modal" data-target=".bs-example-modal-delete">
@@ -139,7 +139,7 @@
                     </div>
                     <!-- Modal Footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn-success" data-dismiss="modal">Áno</button>
+                        <button type="button" class="btn btn-primary btn-success" @click.prevent="deleteQuestion">Áno</button>
                         <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal">Nie</button>
                     </div>
                 </div>
@@ -285,9 +285,6 @@
                     data: {"action": "getPostById", "id": ID},
                     success: function (data) {
                         this.set = true;
-
-                        console.log('ajax is called here');
-
                         let my = JSON.parse(data);
 
 
@@ -322,7 +319,6 @@
                 location.reload();
             },
             validateForm(event) {
-                this.fadeMe();
                 this.attemptSubmit = true;
 
                 if (this.missingQuestionName || this.missingQuestionAnswerA || this.missingQuestionAnswerB
@@ -330,6 +326,7 @@
                     event.preventDefault();
                 } else {
                     event.preventDefault();
+                    this.fadeMe();
 
                     let id = document.getElementById('current_question_id').value;
                     let title = document.getElementById('new_question_title').value;
@@ -387,6 +384,23 @@
                     });
                 }
             },
+            deleteQuestion() {
+                this.fadeModalDelete();
+                let id = document.getElementById('current_question_id').value;
+
+                $.ajax({
+                    url: ajaxurl,
+                    type: "POST",
+                    data:
+                        {
+                            "action": "deleteQuestion",
+                            "id" : id,
+                        },
+                    success: function (data) {
+
+                    }
+                });
+            }
         },
         watch: {
             set() {

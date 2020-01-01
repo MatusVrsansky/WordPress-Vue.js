@@ -1,46 +1,3 @@
-{#<header>#}
-{#    <nav class="navbar navbar-expand-lg navbar-light bg-light">#}
-{#        <div class="container">#}
-{#            <a class="navbar-brand" href="{{ site.home_url }}">#}
-{#                <img src="{{TimberImage(options_page_header_logo)|resize(985)}}" width="30" height="30" class="d-inline-block align-top" alt="">#}
-{#            </a>#}
-{#            <div class="collapse navbar-collapse">#}
-{#                <ul class="navbar-nav mr-auto">#}
-{#                    {% for item in menu.main.items %}#}
-{#                        <li class="nav-item{{ (item.current) ? ' active' }}{{ (item.children) ? ' dropdown' }}">#}
-{#                            <a class="nav-link {{ item.class }}" href="{{ item.link }}">{{ item }}</a>#}
-{#                            {% if item.children %}#}
-{#                                <div class="dropdown-menu">#}
-{#                                    {% for item2 in item.children %}#}
-{#                                        <a href="{{item2.link}}" class="dropdown-item {{item2.class}}">{{item2}}</a>#}
-{#                                    {% endfor %}#}
-{#                                </div>#}
-{#                            {% endif %}#}
-{#                          {% if item.get_children %}#}
-{#                            <ul class="">#}
-{#                              {% for child in item.get_children %}#}
-{#                                <li><a href="{{child.get_link}}">{{child.title}}</a></li>#}
-{#                              {% endfor %}#}
-{#                            </ul>#}
-{#                          {% endif %}#}
-{#                        </li>#}
-{#                    {% endfor %}#}
-{#                </ul>#}
-{#            </div>#}
-{#            <nav class="meta-menu">#}
-{#              META MENU:<br>#}
-{#              <ul>#}
-{#                {% for item in menu.meta.items %}#}
-{#                  <li><a class="meta-menu-link {{ item.class }}" href="{{ item.link }}">{{ item }}</a></li>#}
-{#                {% endfor %}#}
-{#              </ul>#}
-{#              {{ options_page_header_number }}#}
-{#            </nav>#}
-{#        </div>#}
-{#    </nav>#}
-{#</header>#}
-
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a href="/"><i class='fas fa-dice-d6' style='font-size:36px'></i></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,23 +37,11 @@
                 <a class="nav-link dropdown-navlink" href="/logout">Odhlásiť sa</a>
               </div>
             </div>
-{#            <div class="dropdown">#}
-{#              <a href="#" class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                Dropdown#}
-{#              </a>#}
-{#              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">#}
-{#                <button class="dropdown-item" type="button">Action</button>#}
-{#                <button class="dropdown-item" type="button">Another action</button>#}
-{#                <button class="dropdown-item" type="button">Something else here</button>#}
-{#              </div>#}
-{#            </div>#}
           </li>
-
-
         </ul>
     {% else %}
       <div class="text-success">
-        <a href="/login"> <i class="fas fa-user"></i> Login</a>
+        <a href="/login"> <i class="fas fa-user"></i>Prihlásenie</a>
       </div>
     {% endif %}
   </div>

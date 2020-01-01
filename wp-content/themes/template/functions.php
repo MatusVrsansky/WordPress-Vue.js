@@ -439,3 +439,16 @@ function editAdvertisement() {
     wp_die();
 }
 
+add_action('wp_ajax_deleteQuestion', 'deleteQuestion');
+add_action( 'wp_ajax_nopriv_deleteQuestion', 'deleteQuestion');
+
+function deleteQuestion() {
+    header('Content-Type: application/html;charset=utf-8');
+
+    $post = $_POST['id'];
+    wp_delete_post($post);
+
+    echo 'test';
+
+    wp_die();
+}
