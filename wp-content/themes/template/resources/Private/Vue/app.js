@@ -3,12 +3,6 @@ import "../Sass/rte.scss";
 
 import Vue from 'vue';
 
-import BootstrapVue from 'bootstrap-vue';
-
-import axios from "axios";
-
-
-
 import {
     Collapse as ElCollapse,
     CollapseItem as ElCollapseItem,
@@ -28,8 +22,6 @@ import AddNewQuestion from "./Components/AddNewQuestion.vue";
 import GameTicTacToe from "./Components/GameTicTacToe.vue";
 import GameMemoryCard from "./Components/GameMemoryCard.vue";
 import AllQuestions from './Components/AllQuestions.vue';
-
-
 
 const MOUSE_MIDDLE_BUTTON = 2,
     PREVENT_LOAD_LINK_CLASSES = ["[href^=mailto]", "[href^=tel]", "[href^=javascript]", "[href^=\\#]", "[target^=_blank]", ".photoswipe", "#scroll-to-top", ".download", ".ajax", "[href*=tx_typoscriptrendering]", "[href*=ajax]"];
@@ -54,6 +46,8 @@ import "../Js/Game.js";
 
 window.categories = JSON.parse(categories);
 window.allQuestions = JSON.parse(all_questions);
+window.allCards = JSON.parse(all_cards);
+window.allCardsImages = JSON.parse(all_cards_images);
 
 // window.randomQuizQuestionsTitles = JSON.parse(randomQuestionsTitles);
 // window.randomQuestionsAnswers = JSON.parse(randomQuestionsAnswers);

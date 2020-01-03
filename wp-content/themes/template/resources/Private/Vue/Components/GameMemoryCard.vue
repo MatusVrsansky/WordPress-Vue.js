@@ -15,7 +15,9 @@
                 lockBoard : false,
                 firstCard : '',
                 secondCard : '',
-                showCategorySlider: false
+                showCategorySlider: false,
+                cards: window.allCards,
+                cardsImages: window.allCardsImages
             }
         },
 
@@ -145,70 +147,15 @@
             <div class="container mt-4">
                 <div class="game-tic-tac-toe-info text-center p-2 mb-4" style="background-color: #eee;">
                     <h3>Pravidlá</h3>
-                    <p>Nájsť dvojice kariet toho istého typu v čo najkratšom čase<br>Čas sa spustí po otočení prvej karty</p>
+                    <p>Nájsť dvojice kariet toho istého typu v čo najkratšom čase.<br>Čas sa spustí po otočení prvej karty</p>
                 </div>
                 <p>Dľžka hry:{{time}}</p>
                 <section class="memory-game">
-                    <div class="memory-card" data-framework="react" style="order: 11;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/react.svg" alt="React">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-                    <div class="memory-card" data-framework="react" style="order: 1;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/react.svg" alt="React">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="angular" style="order: 1;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/angular.svg" alt="Angular">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="angular" style="order: 12;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/angular.svg" alt="Angular">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="ember" style="order: 10;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/ember.svg" alt="Ember">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="ember" style="order: 3;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/ember.svg" alt="Ember">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="vue" style="order: 10;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/vue.svg" alt="Vue">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="vue" style="order: 1;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/vue.svg" alt="Vue">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="backbone" style="order: 2;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/backbone.svg" alt="Backbone">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="backbone" style="order: 6;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/backbone.svg" alt="Backbone">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="aurelia" style="order: 2;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/aurelia.svg" alt="Aurelia">
-                        <img class="back-face" src="/wp-content/themes/template/resources/images/card" alt="Memory Card">
-                    </div>
-
-                    <div class="memory-card" data-framework="aurelia" style="order: 9;" @click.prevent="flipCard">
-                        <img class="front-face" src="/wp-content/themes/template/resources/images/aurelia.svg" alt="Aurelia">
+                    <div v-for="(card, index) in cards" v-bind:data-framework="card.post_title" class="memory-card" style="" @click.prevent="flipCard">
+                        <img v-bind:src="cardsImages[index].card" class="front-face" v-bind:alt="card.post_title">
                         <img class="back-face" src="/wp-content/themes/template/resources/images/card.png" alt="Memory Card">
                     </div>
                 </section>
-                <!--        <button type="button" @click="test">Test</button>-->
             </div>
         </template>
 

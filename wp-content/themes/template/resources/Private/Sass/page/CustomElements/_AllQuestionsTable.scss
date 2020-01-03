@@ -1,5 +1,11 @@
-@include media-breakpoint-down(sm) {
-  #all-question-table {
+.all-question-table {
+  border-radius: rem(16);
+
+  thead th {
+    border-top: 0;
+  }
+
+  @include media-breakpoint-down(sm) {
     td, th {
       border-top: 0 solid $white !important;
     }

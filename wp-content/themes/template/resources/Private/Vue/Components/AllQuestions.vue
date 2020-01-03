@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-4">
-        <table id="all-question-table" class="table table-warning">
+        <table class="all-question-table table table-warning">
             <thead>
                 <tr class="row m-0">
                     <th class="d-inline-block col-12">

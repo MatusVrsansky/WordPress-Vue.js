@@ -246,7 +246,7 @@ function paginationHighScore($tableName) {
 //**************************
 // offset array
     ?>
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -390,6 +390,35 @@ function getAllQuestions() {
 
     $json = json_encode($query->posts);
     wp_localize_script( 'script-app', 'all_questions', $json );
+}
+
+function getRandomCards() {
+    $args = array(
+        'post_type' => 'cards',
+    );
+
+    $query = new WP_Query( $args );
+    $arrayCustomFields = array();
+
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            $card = get_field('card');
+
+            array_push($arrayCustomFields, array("card"=>$card));
+        }
+    }
+
+    $duplicateAllCards = $query->posts;
+    $duplicateAllCardsImages = $arrayCustomFields;
+
+    $cards = json_encode(array_merge($query->posts, $duplicateAllCards));
+    $images = json_encode(array_merge($arrayCustomFields, $duplicateAllCardsImages));
+
+
+
+    wp_localize_script( 'script-app', 'all_cards', $cards );
+    wp_localize_script( 'script-app', 'all_cards_images', $images );
 }
 
 add_action('wp_ajax_editAdvertisement', 'editAdvertisement'); // add action for logged users
