@@ -11,7 +11,11 @@
     }
 
     tbody tr {
-      border-bottom: 2px solid $table-all-questions-border;
+      border-bottom: rem(2) solid $table-all-questions-border;
     }
   }
+}
+
+#all-questions-search-form {
+  max-width: rem(400);
 }

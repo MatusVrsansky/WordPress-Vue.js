@@ -18,7 +18,9 @@
                 surname_player: '',
                 attemptSubmit: false,
                 hideTicTacToeGame : false,
-                test: 'I am test from parent Component'
+                test: 'I am test from parent Component',
+                winnerWins: 0,
+                looserWins: 0
             }
         },
         components: {
@@ -65,11 +67,15 @@
         },
         methods: {
             setQuizFormVisibility: function() {
-                if(activeGame.winnersPlayerOne === 2 || activeGame.winnersPlayerTwo === 2) {
-                    if(activeGame.winnersPlayerOne === 2) {
+                if(activeGame.winnersPlayerOne === 3 || activeGame.winnersPlayerTwo === 3) {
+                    if(activeGame.winnersPlayerOne === 3) {
                         activeGame.winnerPlayer = 'O';
                         activeGame.looserPlayer = 'X';
                         this.hideTicTacToeGame = true;
+
+                        // set winner and looser wins
+                        this.winnerWins = activeGame.winnersPlayerOne;
+                        this.looserWins = activeGame.winnersPlayerTwo;
 
                         // set reset button on false
                         activeGame.showResetButton = false;
@@ -79,6 +85,10 @@
                         activeGame.winnerPlayer = 'X';
                         activeGame.looserPlayer = 'O';
                         this.hideTicTacToeGame = true;
+
+                        // set winner and looser wins
+                        this.winnerWins = activeGame.winnersPlayerTwo;
+                        this.looserWins = activeGame.winnersPlayerOne;
 
                         // set reset button on false
                         activeGame.showResetButton = false;
@@ -181,7 +191,8 @@
                     <br>
                     Každý z dvojice sa dopredu musí rozhodnúť, za aký symbol bude hrať.
                     <br>
-                    Poradie začínajúceho hráča je náhodne(napr. v prvom kole ide prvý <strong>X</strong>, v ďaľšom kole <strong>O</strong>)
+                    Poradie začínajúceho hráča je náhodne(napr. v prvom kole ide prvý <strong>X</strong>, v ďaľšom kole <strong>O</strong>).<br>
+                    Víťazom sa stáva hráč, ktorý ako prvý dosiahne <strong>3</strong> víťazstvá.
                 </p>
             </div>
             <div class="">
@@ -205,8 +216,8 @@
             </div>
         </template>
         <template v-else>
-            <p>Hráč <strong>{{ activeGame.winnerPlayer }}</strong> vyhral nad súperom <strong>{{ activeGame.looserPlayer }}</strong></p>
-           <TestComponent/>
+            <h4>Hráč <strong>{{ activeGame.winnerPlayer }}</strong> vyhral nad súperom <strong>{{ activeGame.looserPlayer }}</strong> v pomere {{winnerWins}}:{{looserWins}}</h4>
+            <test-component table="top_players_tic_tac_toe"></test-component>
         </template>
     </div>
 </template>

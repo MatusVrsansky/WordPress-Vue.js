@@ -160,9 +160,9 @@
         </template>
 
         <template v-else>
-            <div class="container mt-4">
-                <p>Gratulujeme, podarilo sa Vám nájsť všetky dvojice kartiet v čase: <strong>{{time}}</strong></p>
-                <test-component title="test table name"></test-component>
+            <div class="container mt-4 p-0">
+                <h4 class="pl-2">Gratulujeme, podarilo sa Vám nájsť všetky dvojice kartiet v čase: <strong>{{time}}</strong></h4>
+                <test-component table="top_players_memory_game"></test-component>
             </div>
         </template>
     </div>

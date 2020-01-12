@@ -9,108 +9,6 @@ Tags: digitalwerk, template, wordpress
 Text Domain: dw
 */
 
-
-.image-box {
-  position: relative;
-  margin: auto;
-  overflow: hidden;
-}
-.image-box img {
-  max-width: 100%;
-  transition: all 0.3s;
-  display: block;
-  width: 100%;
-  height: auto;
-  transform: scale(1);
-}
-
-.image-box:hover img {
-  transform: scale(1.1);
-}
-
-#game-view {
-  width: 100%;
-  margin: 0 auto;
-  /*padding-top: 32px;*/
-  /*border: 1px solid #000;*/
-}
-
-#game-view-info {
-  padding: 15px;
-  font-family: sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  background-color: #eee;
-}
-
-#game-view-squares {
-  height: 500px;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 25px;
-  box-sizing: border-box;
-
-  margin-bottom: 30px;
-}
-
-.game-view-square {
-  width: 33.33%;
-  height: 33.33%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-
-  font-family: cursive;
-  font-size: 75px;
-  text-transform: uppercase;
-
-  border-radius: 15px;
-  cursor: pointer;
-  user-select: none;
-  -moz-user-select: none;
-}
-
-.game-view-square.highlighted {
-  color: green;
-}
-
-.game-view-square:hover {
-  background-color: #eee;
-}
-
-.game-view-square:nth-child(-n + 6) {
-  border-bottom: 15px solid brown;
-}
-
-.game-view-square:nth-child(3n + 1), .game-view-square:nth-child(3n + 2) {
-  border-right: 15px solid brown;
-}
-
-.again-button {
-  padding: 32px;
-}
-
-.choice:hover {
-  cursor: pointer;
-}
-
-/* modal window */
-.modal-window {
-  padding: 32px;
-}
-
-.question-information-counter {
-  font-size: 25px;
-}
-
-
-.bg-info {
-  background-color: transparent !important;
-}
-
 /* table */
 tr {
   /*cursor: pointer;*/
@@ -326,15 +224,14 @@ body {
   display: flex;
 }
 
-.mySlides {display: none}
 img {vertical-align: middle;}
 
-/* Slideshow container */
-.slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin: auto;
-}
+/*!* Slideshow container *!*/
+/*.slideshow-container {*/
+/*  max-width: 1000px;*/
+/*  position: relative;*/
+/*  margin-top: 50px;*/
+/*}*/
 
 /* Next & previous buttons */
 .prev, .next {
@@ -363,17 +260,6 @@ img {vertical-align: middle;}
   background-color: rgba(0,0,0,0.8);
 }
 
-/* Caption text */
-.text {
-  font-size: 30px;
-  padding: 8px 12px;
-  position: absolute;
-  text-align: center;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
 /* Number text (1/3 etc) */
 .numbertext {
@@ -424,8 +310,15 @@ img {vertical-align: middle;}
 }
 
 
-/* all questions page */
+/* user login */
+#um-admin-form-shortcode {
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  margin-top: 20px;
+}
 
-#all-questions-search-form {
-  max-width: 400px;
+/* category slider */
+.current-slide-category {
+  background-color: black;
 }

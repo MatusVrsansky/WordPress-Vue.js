@@ -1,0 +1,29 @@
+/* Slideshow container */
+.slideshow-container {
+  max-width: rem(640);
+  position: relative;
+  margin: auto;
+}
+
+.category {
+  height: rem(150);
+  width: auto;
+  padding: 0 6rem;
+  border-radius: rem(10);
+  background: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  @include media-breakpoint-down(sm) {
+    padding: 0 1rem;
+    height: 6rem;
+  }
+}
+
+.mySlides {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}

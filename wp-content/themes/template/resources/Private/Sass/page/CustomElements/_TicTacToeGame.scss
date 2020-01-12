@@ -1,0 +1,79 @@
+#game-view {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#game-view-info {
+  padding: rem(15);
+  font-family: sans-serif;
+  font-size: rem(20);
+  font-weight: bold;
+  text-align: center;
+  background-color: #eee;
+}
+
+#game-view-squares {
+  height: rem(500);
+  display: flex;
+  flex-wrap: wrap;
+  padding: rem(25);
+  box-sizing: border-box;
+  margin-bottom: rem(30);
+
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 0;
+  }
+}
+
+.game-view-square {
+  width: 33.33%;
+  height: 33.33%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  font-family: cursive;
+  font-size: rem(75);
+  text-transform: uppercase;
+
+  border-radius: rem(15);
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+}
+
+.game-view-square.highlighted {
+  color: green;
+}
+
+.game-view-square:hover {
+  background-color: #eee;
+}
+
+.game-view-square:nth-child(-n + 6) {
+  border-bottom: rem(15) solid brown;
+}
+
+.game-view-square:nth-child(3n + 1), .game-view-square:nth-child(3n + 2) {
+  border-right: rem(15) solid brown;
+}
+
+.again-button {
+  padding: rem(32);
+
+  @include media-breakpoint-down(sm) {
+    padding: 1rem;
+  }
+}
+
+
+.question-information-counter {
+  font-size: rem(25);
+}
+
+
+.bg-info {
+  //background-color: transparent !important;
+}

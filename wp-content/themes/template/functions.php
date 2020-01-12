@@ -421,10 +421,10 @@ function getRandomCards() {
     wp_localize_script( 'script-app', 'all_cards_images', $images );
 }
 
-add_action('wp_ajax_editAdvertisement', 'editAdvertisement'); // add action for logged users
-add_action( 'wp_ajax_nopriv_editAdvertisement', 'editAdvertisement' ); // add action for unlogged users
+add_action('wp_ajax_editQuestion', 'editQuestion'); // add action for logged users
+add_action( 'wp_ajax_nopriv_editQuestion', 'editQuestion' ); // add action for unlogged users
 
-function editAdvertisement() {
+function editQuestion() {
     header('Content-Type: application/html;charset=utf-8');
     $uploadDir = wp_upload_dir();
 
@@ -477,7 +477,57 @@ function deleteQuestion() {
     $post = $_POST['id'];
     wp_delete_post($post);
 
-    echo 'test';
+    wp_die();
+}
+
+add_action('wp_ajax_getCategoryById', 'getCategoryById'); // add action for logged users
+add_action( 'wp_ajax_nopriv_getCategoryById', 'getCategoryById' ); // add action for unlogged users
+
+function getCategoryById() {
+    $category = get_term_by('id', $_POST['id'], 'question_category');
+
+
+    echo json_encode($category->name);
+    wp_die();
+}
+
+add_action('wp_ajax_editCategory', 'editCategory'); // add action for logged users
+add_action( 'wp_ajax_nopriv_editCategory', 'editCategory' ); // add action for unlogged users
+
+function editCategory() {
+    wp_update_term( $_POST['id'], 'question_category', array(
+        'name' => $_POST['nameCategory'],
+        'slug' => strtolower($_POST['nameCategory'])
+    ) );
+
+    wp_die();
+}
+
+add_action('wp_ajax_deleteCategory', 'deleteCategory');
+add_action( 'wp_ajax_nopriv_deleteCategory', 'deleteCategory' );
+
+function deleteCategory() {
+    // delete all posts which contain current deleted Custom Taxonomy
+    $query = array(
+        'post_type' => 'questions',
+        'post_status' => 'publish',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'question_category',
+                'field' => 'term_id',
+                'terms' => $_POST['id']
+            )
+        )
+    );
+
+    $wp_query = new WP_Query( $query );
+
+    foreach ($wp_query->posts as $post) {
+        wp_delete_post((int)$post->ID);
+    }
+
+    // delete category by ID
+    wp_delete_term($_POST['id'], 'question_category');
 
     wp_die();
 }

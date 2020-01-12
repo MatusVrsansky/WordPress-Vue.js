@@ -1,69 +1,17 @@
 // =============================================================================
 // header.scss - Header styles
 // ========================================================================== */
-.header {
-  /* background: $header-bg;
-   box-shadow: $header-box-shadow;
-   padding: $header-padding-y $header-padding-x;
-   &-logo {
-     img {
-       height: $header-logo-height;
-       width: $header-logo-width;
-     }
-   } */
-  height: rem(110);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  &-logo {
-    padding-top: rem(20);
-    padding-left: rem(55);
-    color: #DB393D;
-  }
-
-  &-dropdown {
-
-    &-title {
-      cursor: pointer;
-      color: #ff1d25;
-      margin: 2.125rem 6.375rem 26px 50px;
-      position: relative;
-      display: inline-block;
-
-      p {
-        font-size: 1.625rem;
-        line-height: 2.125rem;
-        font-weight: 600;
-      }
-
-      &-content {
-        position: absolute;
-        color: $white;
-        display: none;
-        background-color: white;
-        width: 100%;
-        z-index: 1;
-
-        a {
-          display: block;
-          font-size: rem(26);
-          font-weight: 400;
-          line-height: rem(35);
-          font-family: nimbus-sans, sans-serif;
-        }
-
-        a:hover {
-          background-color: orange;
-        }
-      }
-    }
+.dropdown-menu {
+  @include media-breakpoint-down(md) {
+    width: 12rem;
+    padding-left: 1.2rem !important;
+    padding-right: 1.2rem !important;
   }
 }
 
-.header-dropdown-title:hover {
-     .header-dropdown-title-content {
-       display: block;
-     }
+.navbar-light .navbar-nav .show>.nav-link {
+  @include media-breakpoint-down(md) {
+    padding-left: rem(6);
+    padding-right: rem(6);
+  }
 }

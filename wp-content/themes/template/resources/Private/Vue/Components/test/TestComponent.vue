@@ -3,6 +3,9 @@
 
     export default {
         name: 'TestComponent',
+        props: [
+            'table'
+        ],
         data() {
             return {
                 jsonAllCategories: window.categories,
@@ -15,7 +18,6 @@
                 name_player: '',
                 surname_player: '',
                 attemptSubmit: false,
-                table: window.table
             }
         },
         computed: {
@@ -40,10 +42,10 @@
                     slides[i].style.display = "none";
                 }
                 for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
+                    dots[i].className = dots[i].className.replace(" current-slide-category", "");
                 }
-                slides[this.slideIndex-1].style.display = "block";
-                dots[this.slideIndex-1].className += " active";
+                slides[this.slideIndex-1].style.display = "flex";
+                dots[this.slideIndex-1].className += " current-slide-category";
             },
             addNewPlayer(e) {
 
@@ -55,13 +57,14 @@
                     let name = this.name_player;
                     let surname = this.surname_player;
 
-                    let table = '';
-                    console.log(window.location.pathname);
-                    switch ( window.location.pathname) {
-                        case '/piskorky/': table = 'top_players_tic_tac_toe';break;
-                        case '/pexeso/': table = 'top_players_memory_game'; break;
-                        default: break;
-                    }
+                    // let table = '';
+                    // console.log(window.location.pathname);
+                    // switch ( window.location.pathname) {
+                    //     case '/piskorky/': table = 'top_players_tic_tac_toe';break;
+                    //     case '/pexeso/': table = 'top_players_memory_game'; break;
+                    //     default: break;
+                    // }
+                    let table = document.getElementById('tableName').value;
 
                     let good_answers = document.getElementById('count_right_answers').innerText;
                     let bad_answers = document.getElementById('count_incorrect_answers').innerText;
@@ -96,8 +99,6 @@
                 event.preventDefault();
                 let clickedId = event.target;
 
-                console.log(clickedId.textContent);
-
                 $.ajax({
                     url: ajaxurl,
                     type: "POST",
@@ -121,25 +122,27 @@
 </script>
 
 <template>
-    <div class="container mt-3 mt-sm-5">
+    <div class="container mt-3 mt-sm-4 p-0">
         <template v-if="quizFormVisibility===false">
-            <p>Vyberte si, z ktorej kategórie chcete odpovedať na otázky</p>
+            <p class="mb-3 pl-2">Vyberte si, z ktorej kategórie chcete odpovedať na otázky</p>
             <div class="slideshow-container">
-                <div class="mySlides" v-for="(category, index) in jsonAllCategories" v-bind:style="index === 0 ? 'display: block' : ''">
-                    <div class="numbertext">1 / 3</div>
-                    <img src="" style="width:100%">
-                    <button type="button" class="btn btn-info btn-small text category-name" @click="setRandomQuizQuestionsCategory">{{category.name}}</button>
+                <div class="mySlides text-center" v-for="(category, index) in jsonAllCategories" v-bind:style="index === 0 ? 'display: flex' : ''">
+<!--                    <div class="numbertext">1 / 3</div>-->
+                    <div class="category"  @click="setRandomQuizQuestionsCategory">
+                        <h2>{{category.name}}</h2>
+                    </div>
+<!--                    <button type="button" class="btn btn-info btn-lg slider-category category-name" @click="setRandomQuizQuestionsCategory">{{category.name}}</button>-->
                 </div>
                 <a class="prev" @click="plusSlides(-1)">&#10094;</a>
                 <a class="next" @click="plusSlides(1)">&#10095;</a>
             </div>
             <br>
             <div style="text-align:center">
-                <span v-for="(category,index) in jsonAllCategories" class="dot" v-bind:class="index === 0? 'active' : ''"></span>
+                <span v-for="(category,index) in jsonAllCategories" class="dot" v-bind:class="index === 0? 'current-slide-category' : ''"></span>
             </div>
         </template>
         <template v-else>
-            <div class="container-fluid bg-info">
+
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div id="enter-name-form" class="p-4" style="display: none">
@@ -153,6 +156,7 @@
                                     <div class="form-control-feedback" v-if="attemptSubmit && missingPlayerSurname">Vyplňte prosím toto políčko</div>
                                     <!--                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Vaše meno" required>-->
                                 </div>
+                                <input type="hidden" id="tableName" :value="table">
                                 <button type="submit" class="btn btn-primary">Odoslať</button>
                                 <small id="emailHelp" class="form-text text-muted">Vaše meno a priezvisko sa zapíše do tabuľky najlepších hráčov</small>
                             </form>
@@ -161,7 +165,7 @@
                             <input type="hidden" name="question_index" value="0">
                             <input type="hidden" name="questions_array" value="0">
                             <!-- modal-header class before -->
-                            <div class="modal-window">
+                            <div class="quiz-window">
                                 <h3 id="question-title"><span class="label label-warning" id="qid"></span>
                                     {{ jsonRandomQuestionsTitles[0].post_title }}
                                 </h3>
@@ -171,7 +175,7 @@
                                     <h4>Počet nesprávnych odpovedí:<span id="count_incorrect_answers" class="ml-2">0</span></h4>
                                 </div>
                             </div>
-                            <div class="modal-body">
+                            <div class="quiz-body">
                                 <div class="col-xs-3 col-xs-offset-5">
                                 </div>
                                 <div class="quiz" id="quiz"  @click.prevent="quiz.test">
@@ -204,7 +208,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </template>
     </div><!-- /container -->
 </template>

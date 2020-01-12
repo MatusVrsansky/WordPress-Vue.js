@@ -4,7 +4,7 @@
 // Headings
 //
 
-h1, h2, h3, h4, h5, h6,
+h1, h2, h3, h4, h5, h6, figcaption
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: $headings-margin-bottom;
   font-family: $headings-font-family;
@@ -23,8 +23,13 @@ h1, h2, h3, h4, h5, h6,
 h1, .h1 {
   @include font-size($h1-font-size);
   font-weight: $font-weight-semibold;
-  line-height: rem(83);
-  color: $white;
+  line-height: rem(82);
+  color: $black !important;
+
+  @include media-breakpoint-down(md) {
+    font-size: rem(34) !important;
+  }
+
 }
 
 h2, .h2 {
@@ -37,12 +42,20 @@ h3, .h3 {
   @include font-size($h3-font-size);
   font-weight: $font-weight-normal;
   line-height: rem(36);
+
+  @include media-breakpoint-down(sm) {
+    font-size: 1.2rem !important;
+  }
 }
 
 h4, .h4 {
   @include font-size($h4-font-size);
   font-weight: 400;
   line-height: rem(24);
+
+  @include media-breakpoint-down(sm) {
+    font-size: 1rem !important;
+  }
 }
 
 h5, .h5 { @include font-size($h5-font-size); }

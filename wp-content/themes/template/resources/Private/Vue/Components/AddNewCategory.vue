@@ -7,7 +7,7 @@
                     <form id="form" method="POST" @submit="addNewCategory">
                         <div class="form-group">
                             <label class="form-control-label" for="new_category_title">Názov</label>
-                            <input id="new_category_title" class="form-control form-control-warning" v-bind:class="{ 'has-warning': attemptSubmit && missingCategoryName || addExistedCategory }"  type="text" v-model="name_category">
+                            <input id="new_category_title" class="form-control form-control-warning" :class="{ 'has-warning': attemptSubmit && missingCategoryName || addExistedCategory }"  type="text" v-model="name_category">
                             <div class="form-control-feedback" v-if="attemptSubmit && missingCategoryName">Vyplňte prosím toto políčko</div>
                             <div class="form-control-feedback" v-if="attemptSubmit && addExistedCategory">Kategória s takýmto názvom už existuje</div>
                         </div><!-- /form-group -->
@@ -15,7 +15,7 @@
                         <button  id="submit_new_category_button" class="btn btn-small btn-primary" data-toggle="modal" data-target="">Odoslať</button>
                     </form>
                     <div class="modal fade" id="staticBackdrop" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
                                     <p class="m-0">Kategória <strong>{{name_category}}</strong> bola úspešne pridaná</p>

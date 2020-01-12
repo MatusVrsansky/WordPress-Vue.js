@@ -12,8 +12,8 @@
               {{ item }}
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/skore-piskorky/">Piškôrky</a>
-              <a class="dropdown-item" href="/skore-pexeso/">Pexeso</a>
+              <a class="nav-link dropdown-navlink menu-item menu-item-type-post_type menu-item-object-page" href="/skore-piskorky/">Piškôrky</a>
+              <a class="nav-link dropdown-navlink menu-item menu-item-type-post_type menu-item-object-page" href="/skore-pexeso/">Pexeso</a>
             </div>
           </li>
         {% else %}
@@ -40,9 +40,7 @@
           </li>
         </ul>
     {% else %}
-      <div class="text-success">
-        <a href="/login"> <i class="fas fa-user"></i>Prihlásenie</a>
-      </div>
+        <a href="/login" style="text-decoration: none"><i class="fas fa-user mr-2"></i>Prihlásenie</a>
     {% endif %}
   </div>
 </nav>

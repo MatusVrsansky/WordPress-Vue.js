@@ -34,8 +34,8 @@
   }
 
   @include media-breakpoint-down(xs) {
-    width: calc(44% - 10px);
-    height: rem(220);
+    width: calc(24% - 10px);
+    height: 8.75rem;
   }
 }
 

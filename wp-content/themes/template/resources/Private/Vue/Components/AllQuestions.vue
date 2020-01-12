@@ -307,7 +307,6 @@
                         }
                     }
                 }).complete(function(){
-                    console.log('ideeeeeeeeeeeeeeeeeeeeeeeeeee');
                     this.hh();
                 }.bind(this));
             },
@@ -359,8 +358,8 @@
                     let category = document.getElementById('question_selected_category');
                     let selected_category = category[category.selectedIndex].value;
 
-                    document.getElementById('submit_new_question_button').dataset.target = "#staticBackdropQuestion";
-                    document.getElementById('submit_new_question_button').click();
+                    // document.getElementById('submit_new_question_button').dataset.target = "#staticBackdropQuestion";
+                    // document.getElementById('submit_new_question_button').click();
 
                     // if input fields are not empty!
                     $.ajax({
@@ -368,7 +367,7 @@
                         type: "POST",
                         data:
                             {
-                                "action": "editAdvertisement",
+                                "action": "editQuestion",
                                 "id" : id,
                                 "name": title,
                                 "answer_a": answer_a,
