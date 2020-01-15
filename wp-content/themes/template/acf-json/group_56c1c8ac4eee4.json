@@ -195,6 +195,35 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_5e1c95975edc7": {
+                    "key": "layout_5e1c95975edc7",
+                    "name": "puzzle-game",
+                    "label": "Puzzle Game",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5e1c95a45edc8",
+                            "label": "",
+                            "name": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_5de90b317ae5e": {
                     "key": "layout_5de90b317ae5e",
                     "name": "add-category-form",
@@ -664,33 +693,6 @@
                                     "prepend": "",
                                     "append": "",
                                     "maxlength": ""
-                                },
-                                {
-                                    "key": "field_5714edf0e4314",
-                                    "label": "Open in new tab",
-                                    "name": "open_in_new_tab",
-                                    "type": "true_false",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": [
-                                        [
-                                            {
-                                                "field": "field_5714ee35e4316",
-                                                "operator": "==",
-                                                "value": "1"
-                                            }
-                                        ]
-                                    ],
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "message": "",
-                                    "default_value": 0,
-                                    "ui": 0,
-                                    "ui_on_text": "",
-                                    "ui_off_text": ""
                                 }
                             ]
                         }
@@ -1852,5 +1854,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1578760077
+    "modified": 1578931632
 }

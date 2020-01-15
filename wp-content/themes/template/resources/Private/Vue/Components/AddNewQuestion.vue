@@ -3,6 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="white-wrapper">
+                    <h3 class="mb-4">Pridať Otázku</h3>
                     <form id="form" method="POST" @submit="validateForm">
                         <div class="form-group">
                             <label class="form-control-label" for="new_question_title">Názov</label>
