@@ -1,24 +1,72 @@
 <template>
-    <div class="container">
-        <div id="puzzle" class="mt-4">
-            <div class="game mt-4">
-                <div class="grid">
+    <div class="container mt-4">
+        <div class="game-tic-tac-toe-info text-center p-2 mb-4" style="background-color: #eee;">
+            <h3>Pravidlá</h3>
+            <p>Usporiadať čísla podľa správneho poradia v čo najkratšom čase.<br>
+            Tabuľka pod číslami zobrazuje ich aktuálne správne poradie.</p>
+        </div>
+        <div id='playBoard'>
+            <div class="playBoard-content">
+                <div id ='grid' class="mb-4">
+                    <div class = 'box' id='s1'>
+                        <div class="box-number">1</div>
+                    </div>
+                    <div class = 'box' id='s2'>
+                        <div class="box-number">8</div>
+                    </div>
+                    <div class = 'box' id='s3'>
+                        <div class="box-number">2</div>
+                    </div>
+                    <div class = 'box' id='s4'>
+                        <div class="box-number">-</div>
+                    </div>
+                    <div class = 'box' id='s5'>
+                        <div class="box-number">4</div>
+                    </div>
+                    <div class = 'box' id='s6'>
+                        <div class="box-number">3</div>
+                    </div>
+                    <div class = 'box' id='s7'>
+                        <div class="box-number">7</div>
+                    </div>
+                    <div class = 'box' id='s8'>
+                        <div class="box-number">6</div>
+                    </div>
+                    <div class = 'box'id='s9'>
+                        <div class="box-number">5</div>
+                    </div>
                 </div>
-
-                <div class="footer">
-                    <button>Hrať</button>
-                    <span id="move">Move: 100</span>
-                    <span id="time">Time: 100</span>
+                <div id='controlPanel'>
+                    <div class="row">
+                        <div class="col-4 pr-0 pr-md-2-half">
+                            <div id='movesInc'>posuny: 0</div>
+                            <div id='msg' style="display: none"></div>
+                        </div>
+                        <div class="col pl-0 pl-sm-1">
+                            <div class="row">
+                                <div class="col pr-0 pr-sm-4">
+                                    <table id='solution'>
+                                        <tr><th id='ss1'>1</th><th id='ss2'>2</th><th id='ss3'>3</th></tr>
+                                        <tr><th id='ss4'>4</th><th id='ss5'>5</th><th id='ss6'>6</th></tr>
+                                        <tr><th id='ss7'>7</th><th id='ss8'>8</th><th id='ss9'>-</th></tr>
+                                    </table>
+                                </div>
+                                <div class="col d-flex flex-column justify-content-between pl-sm-0 pl-1">
+                                    <button id='shuffle'><b>Zamiešaj</b></button>
+                                    <div id='winStreak'>Výhry: 0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <h1 class="message">You win!</h1>
         </div>
     </div>
 </template>
 
 <script>
 
-
+    import {_} from 'vue-underscore';
     export default {
         data() {
             return {
@@ -26,251 +74,199 @@
             }
         },
         mounted() {
+            var moves = 1, winStreak = 1;// totalGames = 1;
+            function startListners(){
+                $('.box').on('click', checkRule);
+                $('#shuffle').on('click', function(){
+                    shuffleBoard();
+                });
+            }
 
-                class Box {
-                    constructor(x, y) {
-                        this.x = x;
-                        this.y = y;
-                    }
+            function refreshGrid(target, text){
+                let whoteElement = target + " .box-number";
+                $(whoteElement).text(text);
+            }
 
-                    getTopBox() {
-                        if (this.y === 0) return null;
-                        return new Box(this.x, this.y - 1);
-                    }
-
-                    getRightBox() {
-                        if (this.x === 3) return null;
-                        return new Box(this.x + 1, this.y);
-                    }
-
-                    getBottomBox() {
-                        if (this.y === 3) return null;
-                        return new Box(this.x, this.y + 1);
-                    }
-
-                    getLeftBox() {
-                        if (this.x === 0) return null;
-                        return new Box(this.x - 1, this.y);
-                    }
-
-                    getNextdoorBoxes() {
-                        // console.log('booooooooooooooooooooox');
-                        return [
-                            this.getTopBox(),
-                            this.getRightBox(),
-                            this.getBottomBox(),
-                            this.getLeftBox()
-                        ].filter(box => box !== null);
-                    }
-
-                    getRandomNextdoorBox() {
-                        const nextdoorBoxes = this.getNextdoorBoxes();
-                        return nextdoorBoxes[Math.floor(Math.random() * nextdoorBoxes.length)];
-                    }
-                }
-
-                const swapBoxes = (grid, box1, box2) => {
-                    const temp = grid[box1.y][box1.x];
-                    grid[box1.y][box1.x] = grid[box2.y][box2.x];
-                    grid[box2.y][box2.x] = temp;
-                };
-
-                const isSolved = grid => {
-                    return (
-                        grid[0][0] === 1 &&
-                        grid[0][1] === 2 &&
-                        grid[0][2] === 3 &&
-                        grid[0][3] === 4 &&
-                        grid[1][0] === 5 &&
-                        grid[1][1] === 6 &&
-                        grid[1][2] === 7 &&
-                        grid[1][3] === 8 &&
-                        grid[2][0] === 9 &&
-                        grid[2][1] === 10 &&
-                        grid[2][2] === 11 &&
-                        grid[2][3] === 12 &&
-                        grid[3][0] === 13 &&
-                        grid[3][1] === 14 &&
-                        grid[3][2] === 15 &&
-                        grid[3][3] === 0
-                    );
-                };
-
-                const getRandomGrid = () => {
-                    let grid = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]];
-
-                    // Shuffle
-                    let blankBox = new Box(3, 3);
-                    for (let i = 0; i < 1000; i++) {
-                        const randomNextdoorBox = blankBox.getRandomNextdoorBox();
-                        swapBoxes(grid, blankBox, randomNextdoorBox);
-                        blankBox = randomNextdoorBox;
-                    }
-
-                    if (isSolved(grid)) return getRandomGrid();
-                    return grid;
-                };
-
-                class State {
-                    constructor(grid, move, time, status) {
-                        this.grid = grid;
-                        this.move = move;
-                        this.time = time;
-                        this.status = status;
-                    }
-
-                    static ready() {
-                        console.log('ready state');
-                        return new State(
-                            [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
-                            0,
-                            0,
-                            "ready"
-                        );
-                    }
-
-                    static start() {
-                        return new State(getRandomGrid(), 0, 0, "playing");
-                    }
-                }
-
-                class Game {
-                    constructor(state) {
-                        this.state = state;
-                        this.tickId = null;
-                        this.tick = this.tick.bind(this);
-                        this.render();
-                        this.handleClickBox = this.handleClickBox.bind(this);
-                    }
-
-                    static ready() {
-                        if( !(this.pageLoad)) {
-                            console.log('ready is running');
-                            return new Game(State.ready());
+            function isValidPattern(pattern){
+                var inversion = 0;
+                for (let i=0; i<9;i++){
+                    for (let j=i+1;j<9;j++){
+                        if(pattern[i]!='-' && pattern[j]!= '-' && parseInt(pattern[i]) > parseInt(pattern[j])){
+                            inversion++;
                         }
                     }
-
-                    tick() {
-                        this.setState({ time: this.state.time + 1 });
-                    }
-
-                    setState(newState) {
-                        this.state = { ...this.state, ...newState };
-                        this.render();
-                    }
-
-                    handleClickBox(box) {
-                        return function() {
-                            // console.log('here i clicked');
-                            const nextdoorBoxes = box.getNextdoorBoxes();
-                            const blankBox = nextdoorBoxes.find(
-                                nextdoorBox => this.state.grid[nextdoorBox.y][nextdoorBox.x] === 0
-                            );
-                            if (blankBox) {
-                                const newGrid = [...this.state.grid];
-                                swapBoxes(newGrid, box, blankBox);
-                                if (isSolved(newGrid)) {
-                                    clearInterval(this.tickId);
-                                    this.setState({
-                                        status: "won",
-                                        grid: newGrid,
-                                        move: this.state.move + 1
-                                    });
-                                } else {
-                                    this.setState({
-                                        grid: newGrid,
-                                        move: this.state.move + 1
-                                    });
-                                }
-                            }
-                        }.bind(this);
-                    }
-
-                    render() {
-                        const { grid, move, time, status } = this.state;
-
-                        // console.log('render is here');
-
-                        this.findPositionMatch();
+                }
+                if(inversion%2 === 0){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
 
 
-
-                        // Render grid
-                        const newGrid = document.createElement("div");
-
-                        let id = 1;
-                        newGrid.className = "grid";
-                        for (let i = 0; i < 4; i++) {
-                            for (let j = 0; j < 4; j++) {
-                                const button = document.createElement("button");
-
-                                if (status === "playing") {
-                                    button.addEventListener("click", this.handleClickBox(new Box(j, i)));
-                                }
-
-                                button.textContent = grid[i][j] === 0 ? "" : grid[i][j].toString();
-                                if(grid[i][j] !== 0) {
-                                    button.classList.add('bg-primary');
-                                    button.dataset.order = id.toString();
-                                    id++;
-                                }
-                                // button.classList.add(grid[i][j] === 0 ? "" : "bg-primary");
-
-                                newGrid.appendChild(button);
-                            }
+            function shuffleBoard(){
+                //$('#winStreak').text('Wins: '+winStreak+'/'+totalGames);
+                $('#shuffle').css('background', 'white');
+                $('#shuffle').css('color', 'black');
+                $('#shuffle').html('<b>Reset</b>');
+                var newBoardPattern = _.shuffle(['1', '2' , '3', '4', '5', '6', '7', '8', '-']);
+                if(isValidPattern(newBoardPattern)){
+                    //totalGames++;
+                    $('.box').each(function(){
+                        var id = '#'+this.id;
+                        if ($(id).text() === '-'){
+                            $(id).css('background-color', 'steelBlue');
                         }
-                        document.querySelector(".grid").replaceWith(newGrid);
+                    });
+                    $('#s1 .box-number').text(newBoardPattern[0]);
+                    $('#s2 .box-number').text(newBoardPattern[1]);
+                    $('#s3 .box-number').text(newBoardPattern[2]);
+                    $('#s4 .box-number').text(newBoardPattern[3]);
+                    $('#s5 .box-number').text(newBoardPattern[4]);
+                    $('#s6 .box-number').text(newBoardPattern[5]);
+                    $('#s7 .box-number').text(newBoardPattern[6]);
+                    $('#s8 .box-number').text(newBoardPattern[7]);
+                    $('#s9 .box-number').text(newBoardPattern[8]);
+                    $('.box').each(function(){
+                        var id = '#'+this.id;
+                        if ($(id).text() === '-'){
+                            $(id).css('background-color', 'lightblue');
+                        }
+                    });
+                    startListners();
+                    checkGoal();
+                    $('#msg').text('');
+                    $('#movesInc').text('posuny: 0');
+                    moves = 1;
+                } else {
+                    shuffleBoard();
+                }
+            }
 
-                        // Render button
-                        const newButton = document.createElement("button");
-                        if (status === "ready") newButton.textContent = "Hrať";
-                        if (status === "playing") newButton.textContent = "Reset";
-                        if (status === "won") newButton.textContent = "Play";
-                        newButton.addEventListener("click", () => {
-                            clearInterval(this.tickId);
-                            // this.tickId = setInterval(this.tick, 1000);
-                            this.setState(State.start());
-                        });
-                        document.querySelector(".footer button").replaceWith(newButton);
+            function checkGoal() {
+                var count = 0, loop = 1;
+                $('.box').each(function(){
+                    var id = '#'+this.id, sid='#s'+this.id;
+                    if (parseInt($(id).text()) === loop++){
+                        $(id).css('color', '#7FFE01');
+                        $(sid).css('background', 'lightgreen');
+                        count++;
+                    } else {
+                        $(id).css('color', 'white');
+                        $(sid).css('background', 'white');
+                    }
+                });
+                if (count === 8){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
 
-                        // Render move
-                        document.getElementById("move").textContent = `Pohyby: ${move}`;
+            function checkRule(){
+                var sourceId = '#'+this.id;
+                var sourceText =  $(sourceId).text();
+                var targetText = '-';
+                $('.box').each(function(){
+                    var id = '#'+this.id;
+                    if ($(id).text() === '-'){
+                        if (ruleEngine(sourceId, id)){
+                            refreshGrid(id, sourceText);
+                            $(id).css('background-color', 'steelBlue');
+                            refreshGrid(sourceId, targetText);
+                            $(sourceId).css('background-color', 'lightblue');
+                            updateMessage('Dobrý ťah : '+sourceText, 'darkBlue');
+                            if (checkGoal()){
+                                updateMessage('Vyhrali ste!', 'green');
+                                $('#winStreak').text('Wins: '+winStreak++);
+                                $('.box').off('click');
+                                $('#shuffle').css('background', 'green');
+                                $('#shuffle').css('color', 'white');
+                                $('#shuffle').html('<b>Ešte raz!</b>');
+                            }
+                            $('#movesInc').text('posuny: '+moves++);
+                        } else if (sourceId != id) {
+                            updateMessage('Zlý ťah!', 'Red');
+                        }
+                        return false;
+                    }
+                });
+            }
 
-                        // Render time
-                        document.getElementById("time").textContent = `Čas: ${time}`;
-
-                        // Render message
-                        if (status === "won") {
-                            document.querySelector(".message").textContent = "You win!";
+            function ruleEngine(sourceId, targetId){
+                switch(targetId){
+                    case '#s9':
+                        if (sourceId === '#s8' || sourceId === '#s6'){
+                            return true;
                         } else {
-                            document.querySelector(".message").textContent = "";
+                            return false;
                         }
-                    }
-
-                    findPositionMatch() {
-                        console.log('function on setting green background will be there');
-
-                        let element = document.getElementsByClassName('grid')[0].childNodes;
-                        for (let i = 0; i < element.length; i++) {
-                            if(i !== 0 && element[i].dataset.order === element[i].innerText ) {
-                                document.getElementsByClassName('grid')[0].childNodes[i].classList.remove('bg-primary');
-                                document.getElementsByClassName('grid')[0].childNodes[i].classList.add('bg-success');
-                                element[i].classList.remove('bg-primary');
-
-                                element[i].classList.add('bg-success');
-                            }
-                            // console.log(element[i].dataset.order);
-                            // document.getElementsByClassName('grid')[0].childNodes[2].dataset.order
-                            // do something with each child as children[i]
-                            // NOTE: List is live, adding or removing children will change the list
+                    case '#s8':
+                        if (sourceId === '#s7' || sourceId === '#s9' || sourceId === '#s5'){
+                            return true;
+                        } else {
+                            return false;
                         }
-                        //
-                    }
+                    case '#s7':
+                        if (sourceId === '#s8' || sourceId === '#s4'){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case '#s6':
+                        if (sourceId === '#s3' || sourceId === '#s5' || sourceId === '#s9'){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case '#s5':
+                        if (sourceId === '#s2' || sourceId === '#s4' || sourceId === '#s8' || sourceId === '#s6'){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case '#s4':
+                        if (sourceId === '#s1' || sourceId === '#s7' || sourceId === '#s5'){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case '#s3':
+                        if (sourceId === '#s2' || sourceId === '#s6'){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case '#s2':
+                        if (sourceId === '#s1' || sourceId === '#s3' || sourceId === '#s5'){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case '#s1':
+                        if (sourceId === '#s2' || sourceId === '#s4'){
+                            return true;
+                        } else {
+                            return false;
+                        }
                 }
+            }
 
-                const GAME = Game.ready();
+            function startGame(){
+                startListners();
+                shuffleBoard();
+                checkGoal();
+                $('#msg').text('');
+                $('#movesInc').text('posuny: 0');
+                moves = 1;
+            }
 
-                this.pageLoad = true;
+            function updateMessage(msg, color){
+                $('#msg').html(msg);
+                $('#msg').css('color', color);
+            }
+
+            startGame();
         },
     }
 

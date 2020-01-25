@@ -3,6 +3,8 @@ import "../Sass/rte.scss";
 
 import Vue from 'vue';
 
+
+
 import {
     Collapse as ElCollapse,
     CollapseItem as ElCollapseItem,
