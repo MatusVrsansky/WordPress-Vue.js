@@ -3,7 +3,7 @@ import "../Sass/rte.scss";
 
 import Vue from 'vue';
 
-
+import {_} from 'vue-underscore';
 
 import {
     Collapse as ElCollapse,
@@ -49,6 +49,8 @@ Vue.component('GamePuzzle', GamePuzzle);
 
 
 import "../Js/Game.js";
+
+import "../Js/Puzzle.js";
 
 window.categories = JSON.parse(categories);
 window.allQuestions = JSON.parse(all_questions);

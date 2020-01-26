@@ -67,7 +67,7 @@
         },
         methods: {
             setQuizFormVisibility: function() {
-                if(activeGame.winnersPlayerOne === 3 || activeGame.winnersPlayerTwo === 3) {
+                if(activeGame.winnersPlayerOne === 1 || activeGame.winnersPlayerTwo === 1) {
                     if(activeGame.winnersPlayerOne === 3) {
                         activeGame.winnerPlayer = 'O';
                         activeGame.looserPlayer = 'X';
@@ -113,11 +113,8 @@
                             "category": clickedId.textContent
                         },
                     success: function (data) {
-
                         // this.jsonRandomQuestionsTitles = data;
                         self.setValues(data.data1, data.data2);
-
-
                       // /  this.activeGame.showQuizForm = true;
                     }
                 });
@@ -216,7 +213,7 @@
             </div>
         </template>
         <template v-else>
-            <h4>Hráč <strong>{{ activeGame.winnerPlayer }}</strong> vyhral nad súperom <strong>{{ activeGame.looserPlayer }}</strong> v pomere {{winnerWins}}:{{looserWins}}</h4>
+            <h4 class="text-center">Hráč <strong>{{ activeGame.winnerPlayer }}</strong> vyhral nad súperom <strong>{{ activeGame.looserPlayer }}</strong> v pomere {{winnerWins}}:{{looserWins}}</h4>
             <test-component table="top_players_tic_tac_toe"></test-component>
         </template>
     </div>

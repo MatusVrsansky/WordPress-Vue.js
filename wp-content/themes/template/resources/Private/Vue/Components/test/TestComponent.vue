@@ -124,7 +124,7 @@
 <template>
     <div class="container mt-3 mt-sm-4 p-0">
         <template v-if="quizFormVisibility===false">
-            <p class="mb-3 pl-2">Vyberte si, z ktorej kategórie chcete odpovedať na otázky</p>
+            <p class="mb-3 pl-2 text-center">Vyberte si, z ktorej kategórie chcete odpovedať na otázky</p>
             <div class="slideshow-container">
                 <div class="mySlides text-center" v-for="(category, index) in jsonAllCategories" v-bind:style="index === 0 ? 'display: flex' : ''">
 <!--                    <div class="numbertext">1 / 3</div>-->

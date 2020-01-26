@@ -2439,8 +2439,8 @@
      * @returns {Array} Returns the new shuffled array.
      */
     function arrayShuffle(array) {
-      return shuffleSelf(copyArray(array));
-    }
+          return shuffleSelf(copyArray(array));
+      }
 
     /**
      * This function is like `assignValue` except that it doesn't assign
