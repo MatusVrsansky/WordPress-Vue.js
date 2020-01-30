@@ -4,7 +4,7 @@
             <thead>
             <tr class="row m-0">
                 <th class="d-inline-block col-12">
-                    <input type="text" id="all-questions-search-form" class="search form-control" placeholder="Hľadajte názov otázky" v-model="filter_name">
+                    <input type="text" id="all-questions-search-form" class="search form-control" placeholder="Hľadajte názov kategórie" v-model="filter_name">
                 </th>
             </tr>
             <tr class="row m-0">
@@ -205,13 +205,12 @@
                 return this.nameCategory === '';
             },
             filteredRows: function () {
-                let filter_name = this.filter_name.toLowerCase();
-
-                return (this.filter_name.trim() !== '') ?
-                    this.rows.filter(function (d) {
-                        return d.name.toLowerCase().indexOf(filter_name) > -1;
-                    }) :
-                    this.rows;
+                return this.rows.filter((row) => {
+                    if( row.name.toLowerCase().includes(this.filter_name.toLowerCase())) {
+                        this.currPage = 1;
+                        return row;
+                    }
+                });
             },
             pageStart: function () {
                 return (this.currPage - 1) * this.countOfPage;

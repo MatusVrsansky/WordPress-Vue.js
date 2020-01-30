@@ -178,13 +178,12 @@
         },
         computed: {
             filteredRows: function () {
-                var filter_name = this.filter_name.toLowerCase();
-
-                return (this.filter_name.trim() !== '') ?
-                    this.rows.filter(function (d) {
-                        return d.post_title.toLowerCase().indexOf(filter_name) > -1;
-                    }) :
-                    this.rows;
+                return this.rows.filter((post) => {
+                    if( post.post_title.toLowerCase().includes(this.filter_name.toLowerCase())) {
+                        this.currPage = 1;
+                        return post;
+                    }
+                });
             },
             pageStart: function () {
                 return (this.currPage - 1) * this.countOfPage;

@@ -26,6 +26,7 @@ import GameMemoryCard from "./Components/GameMemoryCard.vue";
 import AllQuestions from './Components/AllQuestions.vue';
 import AllCategories from "./Components/AllCategories.vue";
 import GamePuzzle from "./Components/GamePuzzle.vue";
+import ScoreTicTacToeGame from "./Components/ScoreTicTacToeGame.vue";
 
 const MOUSE_MIDDLE_BUTTON = 2,
     PREVENT_LOAD_LINK_CLASSES = ["[href^=mailto]", "[href^=tel]", "[href^=javascript]", "[href^=\\#]", "[target^=_blank]", ".photoswipe", "#scroll-to-top", ".download", ".ajax", "[href*=tx_typoscriptrendering]", "[href*=ajax]"];
@@ -46,16 +47,20 @@ Vue.component('GameMemoryCard', GameMemoryCard);
 Vue.component('AllQuestions', AllQuestions);
 Vue.component('AllCategories', AllCategories);
 Vue.component('GamePuzzle', GamePuzzle);
+Vue.component('ScoreTicTacToeGame', ScoreTicTacToeGame);
 
 
 import "../Js/Game.js";
-
 import "../Js/Puzzle.js";
 
 window.categories = JSON.parse(categories);
 window.allQuestions = JSON.parse(all_questions);
 window.allCards = JSON.parse(all_cards);
 window.allCardsImages = JSON.parse(all_cards_images);
+
+// all winners of each Game
+window.winnersGameTicTacToe = JSON.parse(winnersGameTicTacToe);
+
 
 // window.randomQuizQuestionsTitles = JSON.parse(randomQuestionsTitles);
 // window.randomQuestionsAnswers = JSON.parse(randomQuestionsAnswers);

@@ -222,74 +222,78 @@ function wpbeginner_numeric_posts_nav() {
 
 }
 
-function paginationHighScore($tableName) {
+function paginationHighScore() {
+    $tableName = 'top_players_tic_tac_toe';
     global $wpdb;
     $users = $wpdb->get_results( "SELECT * FROM $tableName");
 
+    $json = json_encode($users);
+    wp_localize_script( 'script-app', 'winnersGameTicTacToe', $json );
 
-// Array here.
-    $data_print = $users;
-//**************************
-//
-// Pagination
-//
-//**************************
-    $page = ! empty( $_GET['cpage'] ) ? (int) $_GET['cpage'] : 1;
-    $total = count($data_print); //total items in array
-    $limit = 2; //per page
-    $totalPages = ceil( $total/ $limit ); //calculate total pages
-    $page = max($page, 1); //get 1 page when $_GET['cpage'] <= 0
-    $page = min($page, $totalPages); //get last page when $_GET&#91;'cpage'&#93; > $totalPages
-    $offset = ($page - 1) * $limit;
-    if( $offset < 0 ) $offset = 0;
-//**************************
-//
-// Pagination
-//
-//**************************
-// offset array
-    ?>
-    <table class="table table-hover table-responsive">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Meno</th>
-            <th scope="col">Priezvisko</th>
-            <th scope="col">Správne odpovede</th>
-            <th scope="col">Nesprávne odpovede</th>
-        </tr>
-        </thead>
-        <tbody>
-    <?php
-    $data_print = array_slice( $data_print, $offset, $limit );
-    for($i = 0; $i < count($data_print); $i++){
-        ?>
-        <tr>
-            <th scope="row"><?php echo $data_print[$i]->id?></th>
-            <td><?php echo $data_print[$i]->name?></td>
-            <td><?php echo $data_print[$i]->surname?></td>
-            <td><?php echo $data_print[$i]->count_good_answers?></td>
-            <td><?php echo $data_print[$i]->count_bad_answers?></td>
-        </tr>
-        <?php
-    }
-    ?>
-        </tbody>
-    </table>
+
+//// Array here.
+//    $data_print = $users;
+////**************************
+////
+//// Pagination
+////
+////**************************
+//    $page = ! empty( $_GET['cpage'] ) ? (int) $_GET['cpage'] : 1;
+//    $total = count($data_print); //total items in array
+//    $limit = 2; //per page
+//    $totalPages = ceil( $total/ $limit ); //calculate total pages
+//    $page = max($page, 1); //get 1 page when $_GET['cpage'] <= 0
+//    $page = min($page, $totalPages); //get last page when $_GET&#91;'cpage'&#93; > $totalPages
+//    $offset = ($page - 1) * $limit;
+//    if( $offset < 0 ) $offset = 0;
+////**************************
+////
+//// Pagination
+////
+////**************************
+//// offset array
+//    ?>
+<!--    <table class="table table-hover table-responsive">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col">#</th>-->
+<!--            <th scope="col">Meno</th>-->
+<!--            <th scope="col">Priezvisko</th>-->
+<!--            <th scope="col">Správne odpovede</th>-->
+<!--            <th scope="col">Nesprávne odpovede</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--    --><?php
+//    $data_print = array_slice( $data_print, $offset, $limit );
+//    for($i = 0; $i < count($data_print); $i++){
+//        ?>
+<!--        <tr>-->
+<!--            <th scope="row">--><?php //echo $data_print[$i]->id?><!--</th>-->
+<!--            <td>--><?php //echo $data_print[$i]->name?><!--</td>-->
+<!--            <td>--><?php //echo $data_print[$i]->surname?><!--</td>-->
+<!--            <td>--><?php //echo $data_print[$i]->count_good_answers?><!--</td>-->
+<!--            <td>--><?php //echo $data_print[$i]->count_bad_answers?><!--</td>-->
+<!--        </tr>-->
+<!--        --><?php
+//    }
+//    ?>
+<!--        </tbody>-->
+<!--    </table>-->
 <?php
-// Show pagination here
-    if($totalPages > 1){
-        $arr_params = array ('cpage' => '%#%');
-        $customPagHTML     =  '<div class="cs_pagination">'.paginate_links( array(
-                'base' => add_query_arg( $arr_params ),
-                'format' => '',
-                'prev_text' =>  '<span class="cs_page_number" aria-hidden="true">&laquo;</span>',
-                'next_text' => ' <span class="cs_page_number" aria-hidden="true">&raquo;</span>',
-                'total' => $totalPages,
-                'current' => $page
-            )).'</div>';
-        echo $customPagHTML;
-    }
+//// Show pagination here
+//    if($totalPages > 1){
+//        $arr_params = array ('cpage' => '%#%');
+//        $customPagHTML     =  '<div class="cs_pagination">'.paginate_links( array(
+//                'base' => add_query_arg( $arr_params ),
+//                'format' => '',
+//                'prev_text' =>  '<span class="cs_page_number" aria-hidden="true">&laquo;</span>',
+//                'next_text' => ' <span class="cs_page_number" aria-hidden="true">&raquo;</span>',
+//                'total' => $totalPages,
+//                'current' => $page
+//            )).'</div>';
+//        echo $customPagHTML;
+//    }
 }
 
 function getQuestionsCategories() {

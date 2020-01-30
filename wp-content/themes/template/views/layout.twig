@@ -29,7 +29,7 @@
       {% set questions = function('getAllQuestions') %}
       {% set categories = function('getQuestionsCategories') %}
       {% set cards = function('getRandomCards') %}
-
+      {% set cards = function('paginationHighScore') %}
 
       {% filter secureContentEmails %}
         {% include 'partials/header.twig' %}

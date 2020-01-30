@@ -8,19 +8,19 @@
             </div>
             <div id='playBoard'>
                 <div class="playBoard-content">
-                    <div id ='grid' class="mb-4">
+                    <div id ='grid' class="mb-2">
                         <div v-for="index in 9" :key="index" class="box" :id="'s' + index" @click="checkRule('s'+index)">
                             <div class="box-number">{{index}}</div>
                         </div>
                     </div>
                     <div id='controlPanel'>
                         <div class="row">
-                            <div class="col-4 pr-0 pr-md-2-half">
-                                <div id='movesInc' class="mb-4">posuny: 0</div>
-                                <div id="puzzleTime" class="mt-2-half">Čas: {{time}}</div>
+                            <div class="col p-0 pr-md-2-half">
+                                <div id='movesInc' class="mb-1 mt-3">posuny: 0</div>
+                                <div id="puzzleTime" class="">Čas: {{time}}</div>
                                 <div id='msg' style="display: none"></div>
                             </div>
-                            <div class="col pl-0 pl-sm-1">
+                            <div class="col">
                                 <div class="row">
                                     <div class="col pr-0 pr-sm-4">
                                         <table id='solution'>
@@ -29,9 +29,11 @@
                                             <tr><th id='ss7'>7</th><th id='ss8'>8</th><th id='ss9'>-</th></tr>
                                         </table>
                                     </div>
-                                    <div class="col d-flex flex-column justify-content-between pl-sm-0 pl-1">
-                                        <button id='shuffle' @click="shuffleBoard"><b>Zamiešaj</b></button>
-                                        <div id='winStreak'>Výhry: 0</div>
+                                    <div class="">
+                                        <button class="button-animated" id="button-shuffle" @click="shuffleBoard">
+                                            <div id="spin"></div>
+                                            <a href="#playBoard">Let's Go!</a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +64,6 @@
                 started : false,
                 startTime: 0,
                 moves: 1,
-                winStreak: 1,
                 showCategorySlider: false
             }
         },
@@ -93,9 +94,7 @@
                 }
             },
              shuffleBoard() {
-                document.getElementById('shuffle').style.background = '#fff';
-                document.getElementById('shuffle').style.color = '#000';
-                document.getElementById('shuffle').innerHTML = '<b>Reset</b>';
+                document.querySelector('#button-shuffle a').innerText = 'Reset';
                 let newBoardPattern = _.shuffle(['1', '2' , '3', '4', '5', '6', '7', '8', '-']);
                 if(this.isValidPattern(newBoardPattern)){
                     //totalGames++;
@@ -184,12 +183,6 @@
                             // hide game HTML and show Category Slider
                             this.showCategorySlider = true;
                             clearInterval(this.timer);
-
-                            this.updateMessage('Vyhrali ste!', 'green');
-                            document.getElementById('winStreak').innerText = 'Wins'+this.winStreak++;
-                            document.getElementById('shuffle').style.background = 'green';
-                            document.getElementById('shuffle').style.color = '#fff';
-                            document.getElementById('shuffle').innerHTML = '<b>Ešte raz!</b>';
                         }
                         document.getElementById('movesInc').innerText = 'posuny: '+this.moves++;
 
@@ -258,14 +251,7 @@
                     return false;
                 }
         }
-        },
-        updateMessage(msg, color) {
-            document.getElementById('msg').innerHTML = msg;
-            document.getElementById('msg').style.color = color;
-
-            document.getElementById('gameRules').style.display = 'none';
         }
-
     },
     watch: {
         started() {

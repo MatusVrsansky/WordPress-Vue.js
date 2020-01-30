@@ -1,10 +1,6 @@
 <div class="container">
   {% if fields.table == 'tic-tac-toe' %}
-    <div class="white-wrapper mt-4">
-      <h2 class="text-center mb-4">Skóre Piškôrky</h2>
-      {% set pagination = function('paginationHighScore', 'top_players_tic_tac_toe') %}
-      {{ pagination }}
-    </div>
+      <score-tic-tac-toe-game></score-tic-tac-toe-game>
   {% else %}
     <div class="white-wrapper mt-4">
       <h2 class="text-center mb-4">Skóre Pexeso</h2>
