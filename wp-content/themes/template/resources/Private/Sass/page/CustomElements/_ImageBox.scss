@@ -3,7 +3,7 @@
   margin: auto;
   overflow: hidden;
 }
-.image-box img {
+.image-box h3 {
   max-width: 100%;
   transition: all 0.3s;
   display: block;
@@ -12,6 +12,6 @@
   transform: scale(1);
 }
 
-.image-box:hover img {
+.image-box:hover h3 {
   transform: scale(1.1);
 }

@@ -1,21 +1,21 @@
 <template>
     <div class="container mt-4">
-        <table class="all-question-table table table-warning">
+        <table class="table-border-properties table table-warning">
             <thead>
                 <tr class="row m-0">
                     <th class="d-inline-block col-12">
-                        <input type="text" id="all-questions-search-form" class="search form-control" placeholder="Hľadajte názov otázky" v-model="filter_name">
+                        <input type="text" id="table-search-form" class="search form-control" placeholder="Hľadajte názov otázky" v-model="filter_name">
                     </th>
                 </tr>
-                <tr class="row m-0">
-                    <th class="d-inline-block col-sm-12 col-md-2">#</th>
-                    <th class="d-inline-block col-sm-12 col-lg-8 col-md-6">Otázka</th>
-                    <th class="d-inline-block col-lg-2 col-md-4">Akcie</th>
+                <tr class="row m-0 text-primary table-header-bottom-border">
+                    <td class="d-inline-block col-sm-12 col-md-2">#</td>
+                    <td class="d-inline-block col-sm-12 col-lg-8 col-md-6">Otázka</td>
+                    <td class="d-inline-block col-lg-2 col-md-4">Akcie</td>
                 </tr>
             </thead>
             <tbody>
             <tr v-for="(row, index) in filteredRows.slice(pageStart, pageStart + countOfPage)" class="row m-0">
-                <th class="d-inline-block col-2">{{ (currPage-1) * countOfPage + index + 1 }}</th>
+                <td class="d-inline-block col-2 text-info">{{ (currPage-1) * countOfPage + index + 1 }}</td>
                 <td id="postTitleCurrent" class="d-inline-block col-lg-8 col-md-6">{{row.post_title}}</td>
                 <input type="hidden" id="postId" :value="row.ID">
                 <td class="d-inline-block col-lg-2 col-md-4">

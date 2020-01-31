@@ -27,6 +27,7 @@ import AllQuestions from './Components/AllQuestions.vue';
 import AllCategories from "./Components/AllCategories.vue";
 import GamePuzzle from "./Components/GamePuzzle.vue";
 import ScoreTicTacToeGame from "./Components/ScoreTicTacToeGame.vue";
+import HomepageImageSlider from "./Components/HomepageImageSlider.vue";
 
 const MOUSE_MIDDLE_BUTTON = 2,
     PREVENT_LOAD_LINK_CLASSES = ["[href^=mailto]", "[href^=tel]", "[href^=javascript]", "[href^=\\#]", "[target^=_blank]", ".photoswipe", "#scroll-to-top", ".download", ".ajax", "[href*=tx_typoscriptrendering]", "[href*=ajax]"];
@@ -48,6 +49,7 @@ Vue.component('AllQuestions', AllQuestions);
 Vue.component('AllCategories', AllCategories);
 Vue.component('GamePuzzle', GamePuzzle);
 Vue.component('ScoreTicTacToeGame', ScoreTicTacToeGame);
+Vue.component('HomepageImageSlider', HomepageImageSlider);
 
 
 import "../Js/Game.js";

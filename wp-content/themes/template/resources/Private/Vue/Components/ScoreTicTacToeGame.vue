@@ -1,28 +1,28 @@
 <template>
     <div class="container mt-4">
-        <table class="table table-warning">
+        <table class="table-border-properties table table-warning">
             <thead>
             <tr class="row m-0">
                 <th class="d-inline-block col-12">
                     <div class="has-search">
                         <span class="fa fa-search form-control-feedback"></span>
-                        <input type="text" id="all-questions-search-form" class="search form-control" placeholder="Meno alebo priezvisko"  v-model="filter_name">
+                        <input type="text" id="table-search-form" class="search form-control" placeholder="Meno alebo priezvisko"  v-model="filter_name">
                     </div>
                 </th>
             </tr>
-            <tr class="row m-0 text-primary">
-                <th class="d-inline-block col-sm-12 col-md-2">#</th>
-                <th class="d-inline-block col-sm-12  col-md-4">Hráč</th>
-                <th class="d-inline-block col-md-3">Správne odpovede</th>
-                <th class="d-inline-block col-md-3">Nesprávne odpovede</th>
+            <tr class="row m-0 text-primary table-header-bottom-border">
+                <td class="d-inline-block col-sm-12 col-md-2">#</td>
+                <td class="d-inline-block col-sm-12  col-md-4">Hráč</td>
+                <td class="d-inline-block col-md-3">Správne odpovede</td>
+                <td class="d-inline-block col-md-3">Nesprávne odpovede</td>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(row, index) in filteredRows.slice(pageStart, pageStart + countOfPage)" class="row m-0">
-                <th class="d-inline-block col-sm-12 col-md-2 text-info">{{ (currPage-1) * countOfPage + index + 1 }}</th>
-                <th class="d-inline-block col-sm-12 col-md-4">{{row.name+" "+row.surname}}</th>
-                <th class="d-inline-block col-sm-12 col-md">{{row.count_good_answers}}</th>
-                <th class="d-inline-block col-sm-12 col-md">{{row.count_bad_answers}}</th>
+                <td class="d-inline-block col-sm-12 col-md-2 text-info">{{ (currPage-1) * countOfPage + index + 1 }}</td>
+                <td class="d-inline-block col-sm-12 col-md-4">{{row.name+" "+row.surname}}</td>
+                <td class="d-inline-block col-sm-12 col-md">{{row.count_good_answers}}</td>
+                <td class="d-inline-block col-sm-12 col-md">{{row.count_bad_answers}}</td>
             </tr>
             </tbody>
         </table>

@@ -1,23 +1,24 @@
-<div class="fce-accordion" data-template="fce/homepage_games_picture_text.twig">
-  <div class="container">
-    <h1 class="text-center p-3">Zahrajte si a otestuje sa</h1>
-    <div class="row">
-      <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
-        <a href="{{ fields.left_page }}">
-          <div class="image-box mb-2">
-            <img src="{{fields.left_picture}}" alt="Unsplashed Random" />
-          </div>
-        </a>
-        <figcaption><h5>{{fields.left_text}}</h5></figcaption>
-      </div>
-      <div class="col-sm-12 col-md-6">
-        <a href="{{ fields.right_page }}">
-          <div class="image-box mb-2">
-            <img src="{{fields.right_picture|resize(330, 248)}}" alt="Unsplashed Random" />
-          </div>
-        </a>
-        <figcaption><h5>{{fields.right_text}}</h5></figcaption>
-      </div>
-    </div>
-  </div>
-</div>
+{#<div class="fce-accordion" data-template="fce/homepage_games_picture_text.twig">#}
+{#  <div class="container">#}
+{#    <h1 class="text-center p-3">Zahrajte si a otestuje sa</h1>#}
+{#    <div class="row">#}
+{#      <div class="col-sm-12 col-md-6 mb-3 mb-md-0">#}
+{#        <a href="{{ fields.left_page }}">#}
+{#          <div class="image-box mb-2">#}
+{#            <img src="{{fields.left_picture}}" alt="Unsplashed Random" />#}
+{#          </div>#}
+{#        </a>#}
+{#        <figcaption><h5>{{fields.left_text}}</h5></figcaption>#}
+{#      </div>#}
+{#      <div class="col-sm-12 col-md-6">#}
+{#        <a href="{{ fields.right_page }}">#}
+{#          <div class="image-box mb-2">#}
+{#            <img src="{{fields.right_picture|resize(330, 248)}}" alt="Unsplashed Random" />#}
+{#          </div>#}
+{#        </a>#}
+{#        <figcaption><h5>{{fields.right_text}}</h5></figcaption>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+<homepage-image-slider></homepage-image-slider>

@@ -1,4 +1,4 @@
-.all-question-table {
+.table-border-properties {
   border-radius: rem(16);
 
   thead th {
@@ -11,11 +11,15 @@
     }
 
     tbody tr {
-      border-bottom: rem(2) solid $table-all-questions-border;
+      border-bottom: rem(2) solid $table-border;
     }
   }
 }
 
-#all-questions-search-form {
+#table-search-form {
   max-width: rem(400);
+}
+
+.table-header-bottom-border {
+  border-bottom: 2px solid $table-border;
 }
