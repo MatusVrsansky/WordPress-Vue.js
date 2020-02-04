@@ -2,9 +2,12 @@
 
 {% block content %}
 
-  <div class="container">
-    <h1>{{ getOption('theme_settings__404_page__title') }}</h1>
-    {{ getOption('theme_settings__404_page__text') }}
+  <div class="container mt-4">
+    <div class="white-wrapper text-center">
+      <h1>{{ getOption('theme_settings__404_page__title') }}</h1>
+      {{ getOption('theme_settings__404_page__text') }}
+      <a href="/">{{function('get_home_url')}}</a>
+    </div>
   </div>
 
 {% endblock %}

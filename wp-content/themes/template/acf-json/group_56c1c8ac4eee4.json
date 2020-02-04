@@ -66,7 +66,8 @@
                             },
                             "choices": {
                                 "tic-tac-toe": "Tic Tac Toe",
-                                "memory-game": "Memory Game"
+                                "memory-game": "Memory Game",
+                                "puzzle-game": "Puzzle Game"
                             },
                             "allow_null": 0,
                             "other_choice": 0,
@@ -1854,5 +1855,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1578931632
+    "modified": 1580553967
 }

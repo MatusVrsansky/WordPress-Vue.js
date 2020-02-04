@@ -29,7 +29,7 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                use: 'vue-loader'
+                use: 'vue-loader',
             },
             {
                 test: /\.js$/,

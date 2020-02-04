@@ -1,5 +1,6 @@
 <template>
     <div class="container mt-4">
+
         <table class="table-border-properties table table-warning">
             <thead>
             <tr class="row m-0">
@@ -11,18 +12,20 @@
                 </th>
             </tr>
             <tr class="row m-0 text-primary table-header-bottom-border">
-                <td class="d-inline-block col-sm-12 col-md-2">#</td>
-                <td class="d-inline-block col-sm-12  col-md-4">Hráč</td>
-                <td class="d-inline-block col-md-3">Správne odpovede</td>
-                <td class="d-inline-block col-md-3">Nesprávne odpovede</td>
+                <td class="d-inline-block col-sm-12 col-md-1">#</td>
+                <td class="d-inline-block col-sm-12  col-md-3">Hráč</td>
+                <td class="d-inline-block col-md">Správne odpovede</td>
+                <td class="d-inline-block col-md">Nesprávne odpovede</td>
+                <td class="d-inline-block col-md">Čas</td>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(row, index) in filteredRows.slice(pageStart, pageStart + countOfPage)" class="row m-0">
-                <td class="d-inline-block col-sm-12 col-md-2 text-info">{{ (currPage-1) * countOfPage + index + 1 }}</td>
-                <td class="d-inline-block col-sm-12 col-md-4">{{row.name+" "+row.surname}}</td>
+                <td class="d-inline-block col-sm-12 col-md-1 text-info">{{ (currPage-1) * countOfPage + index + 1 }}</td>
+                <td class="d-inline-block col-sm-12 col-md-3">{{row.name+" "+row.surname}}</td>
                 <td class="d-inline-block col-sm-12 col-md">{{row.count_good_answers}}</td>
                 <td class="d-inline-block col-sm-12 col-md">{{row.count_bad_answers}}</td>
+                <td class="d-inline-block col-sm-12 col-md">{{row.time}}</td>
             </tr>
             </tbody>
         </table>
@@ -40,9 +43,12 @@
     import Search from "../../../../views/images/search-solid.svg";
 
     export default {
+        props: [
+            'table'
+        ],
         data() {
             return {
-                rows: window.winnersGameTicTacToe,
+                rows: '',
                 countOfPage: 4,
                 currPage: 1,
                 filter_name: '',
@@ -53,6 +59,15 @@
         },
         components: {
             Search
+        },
+        created() {
+            if(this.table === 'top_players_memory_game') {
+                this.rows = window.winnersMemoryGame;
+            }
+
+            else {
+                this.rows = window.winnersPuzzleGame;
+            }
         },
         computed: {
             filteredRows: function () {
@@ -79,6 +94,6 @@
                 }
                 this.currPage = idx;
             },
-        }
+        },
     }
 </script>

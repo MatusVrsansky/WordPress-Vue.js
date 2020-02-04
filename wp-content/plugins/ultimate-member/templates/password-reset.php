@@ -7,7 +7,7 @@
 				<div class="um-field um-field-block um-field-type_block">
 					<div class="um-field-block">
 						<div style="text-align:center;">
-							<?php _e( 'We have sent you a password reset link to your e-mail. Please check your inbox.', 'ultimate-member' ); ?>
+							<?php _e( 'Na váš e-mail sme vám zaslali odkaz na obnovenie hesla. Skontrolujte svoju doručenú poštu.', 'ultimate-member' ); ?>
 						</div>
 					</div>
 				</div>
@@ -53,7 +53,7 @@
 					<div class="um-field um-field-block um-field-type_block">
 						<div class="um-field-block">
 							<div style="text-align:center;">
-								<?php _e( 'To reset your password, please enter your email address or username below', 'ultimate-member' ); ?>
+								<?php _e( 'Ak chcete obnoviť svoje heslo, zadajte nižšie svoju e-mailovú adresu alebo používateľské meno', 'ultimate-member' ); ?>
 							</div>
 						</div>
 					</div>
@@ -91,7 +91,7 @@
 				<div class="um-col-alt um-col-alt-b">
 
 					<div class="um-center">
-						<input type="submit" value="<?php esc_attr_e( 'Reset my password', 'ultimate-member' ); ?>" class="um-button" id="um-submit-btn" />
+						<input type="submit" value="<?php esc_attr_e( 'Obnoviť moje heslo', 'ultimate-member' ); ?>" class="um-button" id="um-submit-btn" />
 					</div>
 
 					<div class="um-clear"></div>

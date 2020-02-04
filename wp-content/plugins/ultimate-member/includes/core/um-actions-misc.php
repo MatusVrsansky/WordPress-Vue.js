@@ -112,7 +112,7 @@ function um_add_update_notice( $args ) {
 				break;
 
 			case 'password_changed':
-				$success = __('You have successfully changed your password.','ultimate-member');
+				$success = __('Úspešne ste si zmenili heslo.','ultimate-member');
 				break;
 
 			case 'account_active':

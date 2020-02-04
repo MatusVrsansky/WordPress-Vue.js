@@ -4,7 +4,8 @@
     export default {
         name: 'TestComponent',
         props: [
-            'table'
+            'table',
+            'time'
         ],
         data() {
             return {
@@ -64,7 +65,9 @@
                     //     case '/pexeso/': table = 'top_players_memory_game'; break;
                     //     default: break;
                     // }
-                    let table = document.getElementById('tableName').value;
+                    // let table = document.getElementById('tableName').value;
+                    let table = this.table;
+                    let finalTime = this.time;
 
                     let good_answers = document.getElementById('count_right_answers').innerText;
                     let bad_answers = document.getElementById('count_incorrect_answers').innerText;
@@ -74,7 +77,7 @@
                         // id: 3,
                         type: "POST",
                         data: {"action": "addToUserTable", "name":name, "surname":surname,"good_answers":good_answers,
-                            "bad_answers":bad_answers, "table":table},
+                            "bad_answers":bad_answers, "table":table, "finalTime": finalTime},
                         success:function(data) {
                             var str= '';
                             document.getElementById('enter-name-form').innerHTML = "Vaše meno bolo pridané do tabuľky najlepších hráčov. Veľa šťastia pri ďaľšej hre";
@@ -156,7 +159,6 @@
                                     <div class="form-control-feedback" v-if="attemptSubmit && missingPlayerSurname">Vyplňte prosím toto políčko</div>
                                     <!--                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Vaše meno" required>-->
                                 </div>
-                                <input type="hidden" id="tableName" :value="table">
                                 <button type="submit" class="btn btn-primary">Odoslať</button>
                                 <small id="emailHelp" class="form-text text-muted">Vaše meno a priezvisko sa zapíše do tabuľky najlepších hráčov</small>
                             </form>

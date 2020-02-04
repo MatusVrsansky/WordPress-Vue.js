@@ -302,7 +302,7 @@ if ( ! class_exists( 'um\core\Password' ) ) {
 						$this->setcookie( $rp_cookie, $value );
 						wp_safe_redirect( remove_query_arg( array( 'hash', 'user_id' ) ) );
 					}
-					
+
 					exit;
 				}
 
@@ -455,11 +455,11 @@ if ( ! class_exists( 'um\core\Password' ) ) {
 			}
 
 			if ( empty( $user ) ) {
-				UM()->form()->add_error('username_b', __( 'Please provide your username or email', 'ultimate-member' ) );
+				UM()->form()->add_error('username_b', __( 'Prosím zadajte svoje používateľské meno alebo e-mail', 'ultimate-member' ) );
 			}
 
 			if ( ( ! is_email( $user ) && ! username_exists( $user ) ) || ( is_email( $user ) && ! email_exists( $user ) ) ) {
-				UM()->form()->add_error('username_b', __( 'We can\'t find an account registered with that address or username','ultimate-member') );
+				UM()->form()->add_error('username_b', __( 'Nemôžeme nájsť účet zaregistrovaný na tejto adrese alebo používateľskom mene','ultimate-member') );
 			} else {
 
 				if ( is_email( $user ) ) {
@@ -478,7 +478,7 @@ if ( ! class_exists( 'um\core\Password' ) ) {
 					} else {
 						$limit = UM()->options()->get( 'reset_password_limit_number' );
 						if ( $attempts >= $limit ) {
-							UM()->form()->add_error( 'username_b', __( 'You have reached the limit for requesting password change for this user already. Contact support if you cannot open the email','ultimate-member') );
+							UM()->form()->add_error( 'username_b', __( 'Už ste dosiahli limit na vyžiadanie zmeny hesla pre tohto používateľa. Ak nemôžete otvoriť e-mail, kontaktujte podporu','ultimate-member') );
 						} else {
 							update_user_meta( $user_id, 'password_rst_attempts', $attempts + 1 );
 						}

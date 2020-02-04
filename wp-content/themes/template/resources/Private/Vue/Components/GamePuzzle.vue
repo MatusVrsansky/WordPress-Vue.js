@@ -45,7 +45,7 @@
         <template v-else>
             <div class="container mt-4 p-0">
                 <h4 class="pl-2 text-center">Gratulujeme, podarilo sa Vám vyriešiť skladačku v čase: <strong>{{time}}</strong></h4>
-                <quiz-component table="top_players_puzzle_game"></quiz-component>
+                <quiz-component :table="'top_players_puzzle_game'" :time="time"></quiz-component>
             </div>
         </template>
     </div>

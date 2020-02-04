@@ -155,14 +155,16 @@ function addToUserTable() {
     $table = $_POST['table'];
     $count_good_answers = $_POST['good_answers'];
     $count_bad_answers = $_POST['bad_answers'];
-    updateTopPlayersTable($name, $surname, $count_good_answers, $count_bad_answers, $table);
+    $time = $_POST['finalTime'];
+
+    updateTopPlayersTable($name, $surname, $count_good_answers, $count_bad_answers, $table, $time);
 }
 
 // update Database Table for voting
-function updateTopPlayersTable($name, $surname, $count_good_answers, $count_bad_answers, $table) {
+function updateTopPlayersTable($name, $surname, $count_good_answers, $count_bad_answers, $table, $time) {
     global $wpdb;
     $wpdb->insert($table, array('name' => $name, 'surname' => $surname,
-        'count_good_answers' => $count_good_answers, 'count_bad_answers' => $count_bad_answers));
+        'count_good_answers' => $count_good_answers, 'count_bad_answers' => $count_bad_answers, 'time'=> $time));
 }
 
 add_action('wp_ajax_addNewQuestion', 'addNewQuestion'); // add action for logged users
@@ -223,12 +225,29 @@ function wpbeginner_numeric_posts_nav() {
 }
 
 function paginationHighScore() {
-    $tableName = 'top_players_tic_tac_toe';
     global $wpdb;
+
+    $tableName = 'top_players_tic_tac_toe';
     $users = $wpdb->get_results( "SELECT * FROM $tableName");
+
+    $tableName = 'top_players_memory_game';
+    $usersMemoryGame = $wpdb->get_results( "SELECT * FROM $tableName");
+
+    $tableName = 'top_players_puzzle_game';
+    $usersPuzzleGame = $wpdb->get_results( "SELECT * FROM $tableName");
 
     $json = json_encode($users);
     wp_localize_script( 'script-app', 'winnersGameTicTacToe', $json );
+
+    $json = json_encode($usersMemoryGame);
+    wp_localize_script( 'script-app', 'winnersMemoryGame', $json );
+
+    $json = json_encode($usersPuzzleGame);
+    wp_localize_script( 'script-app', 'winnersPuzzleGame', $json );
+
+
+
+
 
 
 //// Array here.

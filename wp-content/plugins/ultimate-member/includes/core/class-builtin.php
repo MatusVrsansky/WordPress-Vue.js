@@ -1097,7 +1097,7 @@ if ( ! class_exists( 'um\core\Builtin' ) ) {
 					'title' => __('Username or E-mail','ultimate-member'),
 					'metakey' => 'username_b',
 					'type' => 'text',
-					'placeholder' => __('Enter your username or email','ultimate-member'),
+					'placeholder' => __('Zadajte svoje používateľské meno alebo e-mail','ultimate-member'),
 					'required' => 1,
 					'public' => 1,
 					'editable' => 0,

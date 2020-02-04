@@ -2,10 +2,10 @@
   {% if fields.table == 'tic-tac-toe' %}
       <score-tic-tac-toe-game></score-tic-tac-toe-game>
   {% else %}
-    <div class="white-wrapper mt-4">
-      <h2 class="text-center mb-4">Skóre Pexeso</h2>
-      {% set pagination = function('paginationHighScore', 'top_players_memory_game') %}
-      {{ pagination }}
-    </div>
+    {% if fields.table == 'memory-game' %}
+      <score-with-time-games table="top_players_memory_game"></score-with-time-games>
+    {% else %}
+      <score-with-time-games table="top_players_tic_tac_toe"></score-with-time-games>
+    {% endif %}
   {% endif %}
 </div>

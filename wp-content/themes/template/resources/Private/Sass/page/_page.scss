@@ -39,6 +39,45 @@ body {
 //  margin-bottom: 6.1rem;
 //}
 
+.icon {
+  display: inline-block;
+  height: 2rem;
+  fill: currentColor;
+  vertical-align: middle;
+  width: 2rem;
+}
+
+.icon-arrow {
+  position: relative;
+  left: 14%;
+  top: -6%;
+}
+
+.icon-user {
+  position: relative;
+  bottom: rem(4);
+}
+
+.icon-search {
+  position: absolute;
+  top: 38%;
+  left: 2%;
+  color: #aaa;
+
+  @include media-breakpoint-down(md) {
+    left: 3%;
+  }
+  @include media-breakpoint-down(sm) {
+      left: 4%;
+    }
+
+  @include media-breakpoint-down(xs) {
+    left: 6%;
+  }
+
+}
+
+
 .teaser:hover {
 
   .news-plugin-teaser-content, span {

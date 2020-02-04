@@ -1,8 +1,8 @@
 <template>
     <div class="container mt-4">
         <h1 class="text-center p-3">Zahrajte si a otestuje sa</h1>
-        <div class="arrow bounce">
-            <div class="fa fa-arrow-down fa-2x text-warning"></div>
+        <div class="arrow bounce text-warning">
+            <ArrowDown></ArrowDown>
         </div>
         <div class="animated-text-wrapper">
             <div class="slides">
@@ -15,11 +15,11 @@
                 </transition-group>
             </div>
             <span class="preview-arrow" @click="move(-1)">
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        </span>
+                <ArrowLeft></ArrowLeft>
+            </span>
             <span class="next-arrow" @click="move(1)">
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        </span>
+                <ArrowRight></ArrowRight>
+            </span>
             <ul class="dots p-0">
                 <li v-for="(dot, index) in slides" :class="{ active: ++index === active }" @click="jump(index)"></li>
             </ul>
@@ -28,6 +28,9 @@
 </template>
 
 <script>
+    import ArrowDown from "../../../../views/images/arrow-down.svg";
+    import ArrowLeft from "../../../../views/images/arrow-left-solid.svg";
+    import ArrowRight from "../../../../views/images/arrow-right-solid.svg";
 
     export default {
         data() {
@@ -40,6 +43,9 @@
                     { name: 'Skladačka', url: "/skladacka/"},
                 ]
             }
+        },
+        components: {
+            ArrowDown, ArrowLeft, ArrowRight
         },
         methods: {
             move(amount) {

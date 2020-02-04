@@ -149,7 +149,8 @@
                     <h3>Pravidlá</h3>
                     <p>Nájsť dvojice kariet toho istého typu v čo najkratšom čase.<br>Čas sa spustí po otočení prvej karty</p>
                 </div>
-                <h4>Dľžka hry:{{time}}</h4>
+                <h4 id="game-memory-card-time" :value="time">Dľžka hry:{{time}}</h4>
+
                 <section class="memory-game">
                     <div v-for="(card, index) in cards" v-bind:data-framework="card.post_title" class="memory-card" style="" @click.prevent="flipCard">
                         <img v-bind:src="cardsImages[index].card" class="front-face" v-bind:alt="card.post_title">
@@ -162,7 +163,7 @@
         <template v-else>
             <div class="container mt-4 p-0">
                 <h4 class="pl-2 text-center">Gratulujeme, podarilo sa Vám nájsť všetky dvojice kartiet v čase: <strong>{{time}}</strong></h4>
-                <test-component table="top_players_memory_game"></test-component>
+                <test-component :table="'top_players_memory_game'" :time="time"></test-component>
             </div>
         </template>
     </div>

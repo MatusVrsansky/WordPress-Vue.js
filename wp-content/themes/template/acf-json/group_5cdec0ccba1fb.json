@@ -89,24 +89,23 @@
             "maxlength": ""
         },
         {
-            "key": "field_5ce6833b280af",
+            "key": "field_5e35cadd054ff",
             "label": "Text",
             "name": "theme_settings__404_page__text",
-            "type": "text",
+            "type": "wysiwyg",
             "instructions": "",
-            "required": false,
-            "conditional_logic": false,
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "0": false,
             "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         },
         {
             "key": "field_5d9b5129e0086",
@@ -241,5 +240,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1570460337
+    "modified": 1580583833
 }
