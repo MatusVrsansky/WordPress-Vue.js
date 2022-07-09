@@ -1,4 +1,4 @@
-# Diploma Thesis at UKF Nitra 
+# WordPress / Vue.js
 
 ## Author => Matus Vrsansky
 ## Used Technologies
